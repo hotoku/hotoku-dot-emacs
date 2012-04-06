@@ -315,6 +315,10 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 ;;; moccur
 (require 'color-moccur)
 (require 'moccur-edit)
+(defadvice moccur-edit-change-file
+ (after save-after-moccur-edit-buffer activate)
+ (save-buffer))
+
 
 
 
