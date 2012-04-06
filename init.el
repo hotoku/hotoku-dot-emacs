@@ -252,9 +252,6 @@ remove time stamp which was inserted by the function"
 (global-set-key "\C-c,," 'howm-menu)
 (autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
 
-;;; anything
-(defvar org-directory "")
-(require 'anything-startup)
 
 ;;; yasnippet
 (require 'yasnippet)
@@ -318,7 +315,13 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 (defadvice moccur-edit-change-file
  (after save-after-moccur-edit-buffer activate)
  (save-buffer))
-
+(defun moccur-grep-current-word (dir)
+  (interactive
+   (list (moccur-grep-read-directory)))
+  (let ((word (current-word)))
+     (message "abc")
+     (message word)
+     (moccur-grep dir (list word))))
 
 
 
@@ -335,3 +338,8 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   ;; If there is more than one, they won't work right.
  '(sql-sqlite-program "sqlite3")
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify)))
+
+
+;;; anything
+(defvar org-directory "")
+(require 'anything-startup)
