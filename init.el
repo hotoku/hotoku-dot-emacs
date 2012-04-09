@@ -174,6 +174,13 @@ remove time stamp which was inserted by the function"
                                 cmd nil nil
                                 '(compile-history . 1))))
   (compile compile-command))
+(defun yacompile-insert-command ()
+  (interactive)
+  (let* ((file-name (file-name-nondirectory buffer-file-name))
+	 (file-body (replace-regexp-in-string "\\.[^\\.]+$" "" file-name)))
+    (insert "/*! if g++ -g " file-body ".cpp -o " file-body ".out; "
+	    "then ./" file-body ".out < " file-body ".test; fi\n */")))
+
 
 ;;; uniquify
 (require 'uniquify)
@@ -325,9 +332,28 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
 
 
-;;;
+;;; not truncate lines
 (setq truncate-lines t)
 (setq truncate-partial-width-windows t)
+
+
+
+
+;;; emacs-lisp-mode
+(add-hook 'emacs-lisp-mode-hook
+	  '(lambda ()
+	     (local-set-key "\C-c\C-c" 'anything-lisp-complete-symbol-partial-match)))
+
+
+
+(defun codeforces-insert-template ()
+  (interactive)
+  (let ((codeforces-template-path
+	 "~/dropbox/misc/codeforces/template/template.cpp"))
+    (insert-file codeforces-template-path)))
+
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
