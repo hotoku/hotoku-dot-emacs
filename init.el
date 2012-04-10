@@ -352,6 +352,9 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 ;; (bash-completion-setup)
 
 
+(require 'browse-kill-ring)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
