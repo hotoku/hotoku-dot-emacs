@@ -347,12 +347,16 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
 (defun codeforces-insert-template ()
   (interactive)
+  (yacompile-insert-command)
+  (insert "\n\n")
   (let ((codeforces-template-path
 	 "~/dropbox/misc/codeforces/template/template.cpp"))
     (insert-file codeforces-template-path)))
 
 
 
+;; (require 'bash-completion)
+;; (bash-completion-setup)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
