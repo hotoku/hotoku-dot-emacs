@@ -329,8 +329,6 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
      (message word)
      (moccur-grep dir (list word))))
 
-
-
 ;;; not truncate lines
 (setq truncate-lines t)
 (setq truncate-partial-width-windows t)
@@ -347,8 +345,6 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (let ((codeforces-template-path
 	 "~/dropbox/misc/codeforces/template/template.cpp"))
     (insert-file codeforces-template-path)))
-
-
 
 ;; (require 'bash-completion)
 ;; (bash-completion-setup)
