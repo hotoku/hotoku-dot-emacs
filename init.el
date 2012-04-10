@@ -329,6 +329,8 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
      (message word)
      (moccur-grep dir (list word))))
 
+
+
 ;;; not truncate lines
 (setq truncate-lines t)
 (setq truncate-partial-width-windows t)
