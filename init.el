@@ -335,15 +335,10 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 (setq truncate-lines t)
 (setq truncate-partial-width-windows t)
 
-
-
-
 ;;; emacs-lisp-mode
 (add-hook 'emacs-lisp-mode-hook
 	  '(lambda ()
 	     (local-set-key "\C-c\C-c" 'anything-lisp-complete-symbol-partial-match)))
-
-
 
 (defun codeforces-insert-template ()
   (interactive)
