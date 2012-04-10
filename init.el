@@ -14,7 +14,7 @@
 (auto-install-update-emacswiki-package-name t)
 (auto-install-compatibility-setup)
 
-;;; exec path
+;;; environment variables
 (setq exec-path (append (list "~/Dropbox/script"
 			      "~/bin"
 			      "/opt/local/bin"
@@ -24,18 +24,17 @@
 (setenv "PATH" (concat "~/Dropbox/script:~/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:"
 		       (getenv "PATH")))
 (setenv "PYTHONPATH" "")
-
-;;; meta, super key
-(setq ns-command-modifier (quote meta))
-(setq ns-alternate-modifier (quote super))
-
-;;; c++
 (setenv "CPLUS_INCLUDE_PATH"
 	(concat '"/opt/local/include:" (getenv "CPLUS_INCLUDE_PATH")))
 (setenv "CPLUS_LIBRARY_PATH"
 	(concat '"/opt/local/lib:" (getenv "CPLUS_LIBRARY_PATH")))
 (setenv "LIBRARY_PATH"
 	(concat '"/opt/local/lib:" (getenv "LIBRARY_PATH")))
+(setenv "LANG" "ja_JP.UTF-8")
+
+;;; meta, super key
+(setq ns-command-modifier (quote meta))
+(setq ns-alternate-modifier (quote super))
 
 ;;; initial frame size
 (cond
