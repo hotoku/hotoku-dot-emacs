@@ -252,6 +252,7 @@ remove time stamp which was inserted by the function"
 (autoload 'svn-status "dsvn" "Run `svn status'." t)
 (autoload 'svn-update "dsvn" "Run `svn update'." t)
 (require 'vc-svn)
+(require 'vc-svn17)
 
 ;;; howm
 (setq howm-menu-lang 'ja)
