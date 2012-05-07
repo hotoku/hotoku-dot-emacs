@@ -46,9 +46,6 @@
   (setq initial-frame-alist
 	(append (list '(width . 175) '(height . 44)) initial-frame-alist))))
 	
-
-
-
 ;;; initial frame settings
 (setq initial-frame-alist
       (append
@@ -71,20 +68,13 @@
 (add-to-list 'initial-frame-alist '(font . "fontset-menlokakugo"))
 (setq face-font-rescale-alist '((".*Hiragino.*" . 1.2) (".*Menlo.*" . 1.0)))
 
-
-
-
 ;;; default frame
 (setq default-frame-alist initial-frame-alist)
-
-
-
 
 ;;; color of string 
 (set-face-foreground 'font-lock-string-face        "DarkRed")
 (set-face-foreground 'font-lock-variable-name-face "IndianRed")
 (set-face-foreground 'font-lock-constant-face      "RoyalBlue")
-
 
 ;;; dired-x
 (load "dired-x")
@@ -105,7 +95,6 @@
                (regexp . "\\(\\s-*\\)<?<-[^#\t\n]")
                (repeat . nil)
                (modes  . '(ess-mode))))
-
 
 ;;; hatena 
 (require 'simple-hatena-mode)
@@ -138,7 +127,6 @@ remove time stamp which was inserted by the function"
   "When quote braces are inserted move point where language is input."
   (progn (previous-line)
 	 (forward-char 2)))
-
 
 ;;; YaCompile
 ;;;
@@ -180,7 +168,6 @@ remove time stamp which was inserted by the function"
     (insert "/*! if g++ -g " file-body ".cpp -o " file-body ".out; "
 	    "then ./" file-body ".out < " file-body ".test; fi\n */")))
 
-
 ;;; uniquify
 (require 'uniquify)
 
@@ -206,6 +193,7 @@ remove time stamp which was inserted by the function"
 ;;; tex コマンド
 (defvar tex-command "mylatex.sh" ; "platex"
   "*Default command for typesetting LaTeX text.")
+
 ;;; 数式の色
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
@@ -341,6 +329,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 	  '(lambda ()
 	     (local-set-key "\C-c\C-c" 'anything-lisp-complete-symbol-partial-match)))
 
+;;;
 (defun codeforces-insert-template ()
   (interactive)
   (yacompile-insert-command)
@@ -349,12 +338,24 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 	 "~/dropbox/misc/codeforces/template/template.cpp"))
     (insert-file codeforces-template-path)))
 
+;;;
 ;; (require 'bash-completion)
 ;; (bash-completion-setup)
 
-
+;;;
 (require 'browse-kill-ring)
 
+;;; git 
+(add-to-list 'load-path "/opt/local/share/doc/git-core/contrib/emacs")
+(require 'git)
+(require 'git-blame)
+
+;;;
+(require 'session)
+(add-hook 'after-init-hook 'session-initialize)
+
+;;;
+(require 'minibuf-isearch)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
