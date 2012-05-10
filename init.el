@@ -273,7 +273,6 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
 
 ;;; for Imaxima
-(setq exec-path (cons "/opt/local/bin" exec-path))
 (autoload 'imaxima "imaxima" "Image support for Maxima." t)
 
 ;;; input backslush
@@ -356,6 +355,8 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
 ;;;
 (require 'minibuf-isearch)
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
