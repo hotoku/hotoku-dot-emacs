@@ -113,6 +113,12 @@ remove time stamp which was inserted by the function"
 	     (string-match "\\*[0-9]+\\*\\*"
 			   (buffer-substring pos (+ pos 13))))
 	(delete-region pos (+ pos 11)))))
+(add-hook 'simple-hatena-mode-hook
+	  '(lambda () (local-set-key "\C-c\C-j" 'simple-hatena-insert-tex)))
+(defun simple-hatena-insert-tex ()
+  (interactive)
+  (insert "[tex:]")
+  (backward-char))
 
 ;;; hatena helper mode
 (require 'html-helper-mode)
@@ -234,7 +240,13 @@ remove time stamp which was inserted by the function"
 
 ;;; advice for shell script mode
 (defadvice sh-mode (after my-shell-script-mode-hook activate)
-  (set-face-foreground 'sh-heredoc "navy"))
+  (progn
+    (set-face-foreground 'sh-heredoc "navy")
+    (local-set-key "\C-c\C-j" 'sh-insert-var)))
+(defun sh-insert-var (var-name)
+  (interactive "svariable name:")
+  (insert "${" var-name "}"))
+
 
 ;;; dsvn -- subversion client
 (autoload 'svn-status "dsvn" "Run `svn status'." t)
