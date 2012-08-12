@@ -40,7 +40,7 @@
 (cond
  ((string= (system-name) "horikoshi-yasunori-no-iMac.local")
   (setq initial-frame-alist
-	(append (list '(width . 210) '(height . 49)) initial-frame-alist))
+	(append (list '(width . 237) '(height . 60)) initial-frame-alist))
   (split-window-horizontally)) ; use 2 pane
  ((string= (system-name) "horikoshi-yasunori-no-MacBook-Pro.local")
   (setq initial-frame-alist
@@ -341,13 +341,32 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 	     (local-set-key "\C-c\C-c" 'anything-lisp-complete-symbol-partial-match)))
 
 ;;;
-(defun codeforces-insert-template ()
+(defun pgcontest-insert-template ()
   (interactive)
   (yacompile-insert-command)
   (insert "\n\n")
   (let ((codeforces-template-path
 	 "~/dropbox/misc/codeforces/template/template.cpp"))
     (insert-file codeforces-template-path)))
+(defun pgcontest-create-testfile ()
+  (interactive)
+  (let* ((test-file-path
+	  (replace-regexp-in-string "\\.[^\\.]+$" ".test" buffer-file-name)))
+    (shell-command (format "touch %s" test-file-path))
+    test-file-path))
+(defun pgcontest-prepare ()
+  (interactive)
+  (let* ((test-file
+	  (pgcontest-create-testfile)))
+    (pgcontest-insert-template)  
+    (delete-other-windows)
+    (split-window-horizontally)
+    (other-window 1)
+    (split-window-vertically)
+    (other-window 1)
+    (find-file test-file)
+    (other-window 1)))
+
 
 ;;;
 ;; (require 'bash-completion)
