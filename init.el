@@ -136,21 +136,24 @@ remove time stamp which was inserted by the function"
 
 ;;; YaCompile
 ;;;
-;;; YaTeX like compile
-;;;
-;;; フックを使って current-comment-prefix をセットしておく。
+;;; via. http://www.bookshelf.jp/soft/meadow_42.html#SEC647
+(defvar current-comment-prefix "#" "*Default prefix string")
+(defvar current-comment-suffix "" "*Default suffix string")
+(defvar current-compiler "" "*Default suffix string")
+(make-variable-buffer-local 'current-comment-prefix)
+(make-variable-buffer-local 'current-comment-suffix)
+(make-variable-buffer-local 'current-compiler)
 (add-hook 'c-mode-common-hook
 	  '(lambda ()
 	     (define-key c-mode-map "\C-c\C-c" 'YaCompile)
 	     (define-key c++-mode-map "\C-c\C-c" 'YaCompile)
-	     (setq current-comment-prefix "/*")))
-;;;
-;;; とかね。そうすると、"/*!g++ -o test test.c" みたいな行をバッファ先
-;;; 頭からサーチして、"/*!" 以降行末までをコンパイルのコマンドとして使
-;;; うわけだ。あ、"/*!g++ -o test test.c" は行頭にないとダメよ。
-;;;
-(defvar current-comment-prefix "#" "*Default prefix string")
-(make-variable-buffer-local 'current-comment-prefix)
+	     (setq current-comment-prefix "/*")
+	     (setq current-comment-suffix " */")
+	     (setq current-compiler "g++ -g")))
+(add-hook 'haskell-mode-hook
+	  '(lambda ()
+	     (define-key haskell-mode-map "\C-c\C-c" 'YaCompile)
+	     (setq current-compiler "ghc")))
 (defun YaCompile ()
   (interactive)
   (require 'compile)
@@ -167,12 +170,16 @@ remove time stamp which was inserted by the function"
                                 cmd nil nil
                                 '(compile-history . 1))))
   (compile compile-command))
-(defun yacompile-insert-command ()
+(defun yacompile-insert-command (&optional with-test-file)
   (interactive)
   (let* ((file-name (file-name-nondirectory buffer-file-name))
-	 (file-body (replace-regexp-in-string "\\.[^\\.]+$" "" file-name)))
-    (insert "/*! if g++ -g " file-body ".cpp -o " file-body ".out; "
-	    "then ./" file-body ".out < " file-body ".test; fi\n */")))
+	 (file-body (replace-regexp-in-string "\\.[^\\.]+$" "" file-name))
+	 (file-ext  (replace-regexp-in-string ".+\\.\\([^.]+\\)" "\\1" file-name)))
+    (insert current-comment-prefix "! "
+	    "if " current-compiler " " file-name " -o " file-body ".out; "
+	    "then ./" file-body ".out"
+	    (if with-test-file (concat " < " file-body ".test") "") "; "
+	    "fi\n" current-comment-suffix)))
 
 ;;; uniquify
 (require 'uniquify)
@@ -343,7 +350,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 ;;;
 (defun pgcontest-insert-template ()
   (interactive)
-  (yacompile-insert-command)
+  (yacompile-insert-command t)
   (insert "\n\n")
   (let ((codeforces-template-path
 	 "~/dropbox/misc/codeforces/template/template.cpp"))
@@ -399,6 +406,14 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 ;; (global-set-key "\C-ceb" 'evernote-browser)
 ;; (setq evernote-ruby-command "ruby1.9")
 
+
+;;; haskell-mode
+(load "haskell-site-file")
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
