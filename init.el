@@ -194,7 +194,7 @@ remove time stamp which was inserted by the function"
 (setq auto-mode-alist
       (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
-(add-hook 'yatex-mode-hook '(lambda () (auto-fill-mode nil)))
+(add-hook 'yatex-mode-hook '(lambda () (auto-fill-mode -1)))
 
 ;;; tex コマンド
 (defvar tex-command "mylatex.sh" ; "platex"
