@@ -412,4 +412,5 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
 ;;; anything
 (defvar org-directory "")
+(defvar w3m-command "/opt/local/bin/w3m")
 (require 'anything-startup)
