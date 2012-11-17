@@ -148,11 +148,12 @@ remove time stamp which was inserted by the function"
 	     (define-key c-mode-map "\C-c\C-c" 'YaCompile)
 	     (define-key c++-mode-map "\C-c\C-c" 'YaCompile)
 	     (setq current-comment-prefix "/*")
-	     (setq current-comment-suffix " */")
+	     (setq current-comment-suffix "\n */")
 	     (setq current-compiler "g++ -g")))
 (add-hook 'haskell-mode-hook
 	  '(lambda ()
 	     (define-key haskell-mode-map "\C-c\C-c" 'YaCompile)
+	     (setq current-comment-prefix "-- ")
 	     (setq current-compiler "ghc")))
 (defun YaCompile ()
   (interactive)
@@ -174,12 +175,13 @@ remove time stamp which was inserted by the function"
   (interactive)
   (let* ((file-name (file-name-nondirectory buffer-file-name))
 	 (file-body (replace-regexp-in-string "\\.[^\\.]+$" "" file-name))
-	 (file-ext  (replace-regexp-in-string ".+\\.\\([^.]+\\)" "\\1" file-name)))
+	 (file-ext  (replace-regexp-in-string ".+\\.\\([^.]+\\)" "\\1" file-name))
+	 (exe-file  (concat file-body ".out")))
     (insert current-comment-prefix "! "
-	    "if " current-compiler " " file-name " -o " file-body ".out; "
-	    "then ./" file-body ".out"
-	    (if with-test-file (concat " < " file-body ".test") "") "; "
-	    "fi\n" current-comment-suffix)))
+	    "if " current-compiler " " file-name " -o " exe-file ";"
+	    " then ./" exe-file
+	    (if with-test-file (concat " < " file-body ".test") "") ";"
+	    " fi" current-comment-suffix)))
 
 ;;; uniquify
 (require 'uniquify)
