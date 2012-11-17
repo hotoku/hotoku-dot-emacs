@@ -38,10 +38,10 @@
 
 ;;; initial frame size
 (cond
- ;; ((string= (system-name) "horikoshi-yasunori-no-iMac.local")
- ;;  (setq initial-frame-alist
- ;; 	(append (list '(width . 237) '(height . 60)) initial-frame-alist))
- ;;  (split-window-horizontally)) ; use 2 pane
+ ((string= (system-name) "horikoshi-yasunori-no-iMac.local")
+  (setq initial-frame-alist
+ 	(append (list '(width . 235) '(height . 58)) initial-frame-alist))
+  (split-window-horizontally)) ; use 2 pane
  ((string= (system-name) "horikoshi-yasunori-no-MacBook-Pro.local")
   (setq initial-frame-alist
 	(append (list '(width . 157) '(height . 42)) initial-frame-alist))))
