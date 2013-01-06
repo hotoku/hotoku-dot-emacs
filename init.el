@@ -447,6 +447,9 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
                  ))))
 
 
+;;;
+(require 'magit)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
