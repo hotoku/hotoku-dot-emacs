@@ -318,11 +318,14 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 (require 'lispxmp)
 
 ;;; diff
-(add-hook 'diff-mode-hook
-	  '(lambda ()
-	     (set-face-foreground 'diff-removed "Blue")
-	     (set-face-foreground 'diff-added "Red")))
+(defun set-my-diff-mode-color ()
+  (set-face-foreground 'diff-removed "Blue")
+  (set-face-foreground 'diff-added "Red"))
 
+(add-hook 'diff-mode-hook
+	  'set-my-diff-mode-color)
+(add-hook 'magit-status-mode-hook
+	  'set-my-diff-mode-color)
 
 ;;; moccur
 (require 'color-moccur)
@@ -449,6 +452,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
 ;;;
 (require 'magit)
+(global-set-key "\C-c\C-g" 'magit-status)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
