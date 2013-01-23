@@ -180,7 +180,10 @@ remove time stamp which was inserted by the function"
     (insert current-comment-prefix "! "
 	    "if " current-compiler " " file-name " -o " exe-file ";"
 	    " then ./" exe-file
-	    (if with-test-file (concat " < " file-body ".test") "") ";"
+	    (if (or with-test-file current-prefix-arg)
+		(concat " < " file-body ".test")
+	      "")
+	    ";"
 	    " fi" current-comment-suffix)))
 
 ;;; uniquify
