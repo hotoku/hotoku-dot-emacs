@@ -458,6 +458,14 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 (global-set-key "\C-c\C-g" 'magit-status)
 
 
+;;; via. http://d.hatena.ne.jp/rubikitch/20100210/emacs#tb
+(defun other-window-or-split ()
+  (interactive)
+  (when (one-window-p)
+    (split-window-horizontally))
+  (other-window 1))
+(global-set-key (kbd "C-,") 'other-window-or-split)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
