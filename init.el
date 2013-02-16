@@ -364,7 +364,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (yacompile-insert-command t)
   (insert "\n\n")
   (let ((codeforces-template-path
-	 "~/dropbox/misc/codeforces/template/template.cpp"))
+	 "~/.emacs.d/resource/contest-template.cpp"))
     (insert-file codeforces-template-path)))
 (defun pgcontest-create-testfile ()
   (interactive)
@@ -477,7 +477,10 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 ;;; flymake
 (require 'flymake)
 (add-hook 'c++-mode-hook
-  '(lambda ()
+	  '(lambda ()
+	     (flymake-mode t)))
+(add-hook 'haskell-mode-hook
+	  '(lambda ()
 	     (flymake-mode t)))
 
 
