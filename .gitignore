@@ -1,0 +1,8 @@
+auto-install
+auto-save-list
+backup
+games
+site-lisp
+junk
+*.bak
+*.gpg
