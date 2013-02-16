@@ -8,6 +8,18 @@
       (normal-top-level-add-subdirs-to-load-path))))
 (setq load-path (cons "~/.emacs.d/auto-install" load-path))
 
+
+
+
+;;;
+(require 'package)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
+
+
+
+
 ;;; auto-install
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/auto-install/")

@@ -4,5 +4,6 @@ backup
 games
 site-lisp
 junk
+elpa
 *.bak
 *.gpg
