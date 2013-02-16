@@ -126,7 +126,6 @@ remove time stamp which was inserted by the function"
 ;;; hatena helper mode
 (require 'html-helper-mode)
 (require 'hatenahelper-mode)
-(global-set-key "\C-xH" 'hatenahelper-mode)
 (add-hook 'simple-hatena-mode-hook
 	  '(lambda ()
 	     ;; other hooks must be wrote here!
@@ -217,10 +216,10 @@ remove time stamp which was inserted by the function"
 
 ;;; 数式の色
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(YaTeX-font-lock-formula-face ((((class color) (background light)) (:foreground "DarkRed"))))
  '(YaTeX-font-lock-math-sub-face ((((class color) (background light)) (:foreground "DarkRed"))))
  '(YaTeX-font-lock-math-sup-face ((((class color) (background light)) (:foreground "DarkRed")))))
@@ -271,7 +270,6 @@ remove time stamp which was inserted by the function"
 
 ;;; howm
 (setq howm-menu-lang 'ja)
-(global-set-key "\C-c,," 'howm-menu)
 (autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
 
 
@@ -408,13 +406,6 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 ;;;
 ;; (require 'evernote-mode)
 ;; (setq evernote-enml-formatter-command '("w3m" "-dump" "-I" "UTF8" "-O" "UTF8"))
-;; (global-set-key "\C-cec" 'evernote-create-note)
-;; (global-set-key "\C-ceo" 'evernote-open-note)
-;; (global-set-key "\C-ces" 'evernote-search-notes)
-;; (global-set-key "\C-ceS" 'evernote-do-saved-search)
-;; (global-set-key "\C-cew" 'evernote-write-note)
-;; (global-set-key "\C-cep" 'evernote-post-region)
-;; (global-set-key "\C-ceb" 'evernote-browser)
 ;; (setq evernote-ruby-command "ruby1.9")
 
 
@@ -458,7 +449,6 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
 ;;;
 (require 'magit)
-(global-set-key "\C-c\C-g" 'magit-status)
 
 
 ;;; via. http://d.hatena.ne.jp/rubikitch/20100210/emacs#tb
@@ -467,7 +457,6 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (when (one-window-p)
     (split-window-horizontally))
   (other-window 1))
-(global-set-key (kbd "C-,") 'other-window-or-split)
 
 
 
@@ -475,8 +464,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 (require 'elscreen)
 (setq elscreen-display-tab nil)
 
-;;;
-(global-set-key [?\C-1] 'delete-other-windows)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
@@ -486,6 +474,22 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
  ;; If there is more than one, they won't work right.
  '(sql-sqlite-program "sqlite3")
  '(uniquify-buffer-name-style (quote post-forward-angle-brackets) nil (uniquify)))
+
+
+;;; key map
+(global-set-key "\C-xH" 'hatenahelper-mode)
+(global-set-key "\C-c,," 'howm-menu)
+;; (global-set-key "\C-cec" 'evernote-create-note)
+;; (global-set-key "\C-ceo" 'evernote-open-note)
+;; (global-set-key "\C-ces" 'evernote-search-notes)
+;; (global-set-key "\C-ceS" 'evernote-do-saved-search)
+;; (global-set-key "\C-cew" 'evernote-write-note)
+;; (global-set-key "\C-cep" 'evernote-post-region)
+;; (global-set-key "\C-ceb" 'evernote-browser)
+(global-set-key "\C-c\C-g" 'magit-status)
+(global-set-key (kbd "C-,") 'other-window-or-split)
+(global-set-key [?\C-1] 'delete-other-windows)
+
 
 
 ;;; anything
