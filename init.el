@@ -95,6 +95,9 @@
                (regexp . "\\(\\s-*\\)<?<-[^#\t\n]")
                (repeat . nil)
                (modes  . '(ess-mode))))
+(add-to-list 'auto-mode-alist
+             '("\\.runit" . R-mode))
+
 
 ;;; hatena 
 (require 'simple-hatena-mode)
@@ -465,6 +468,15 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     (split-window-horizontally))
   (other-window 1))
 (global-set-key (kbd "C-,") 'other-window-or-split)
+
+
+
+;;;
+(require 'elscreen)
+(setq elscreen-display-tab nil)
+
+;;;
+(global-set-key [?\C-1] 'delete-other-windows)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-variables
