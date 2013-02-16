@@ -468,7 +468,18 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
 
 
+;;;
 (setq sql-sqlite-program "sqlite3")
+
+
+
+
+;;; flymake
+(require 'flymake)
+(add-hook 'c++-mode-hook
+  '(lambda ()
+	     (flymake-mode t)))
+
 
 
 
@@ -486,7 +497,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 (global-set-key "\C-c\C-g" 'magit-status)
 (global-set-key (kbd "C-,") 'other-window-or-split)
 (global-set-key [?\C-1] 'delete-other-windows)
-
+(global-set-key "\C-cd" 'flymake-display-err-menu-for-current-line)
 
 
 ;;; anything
