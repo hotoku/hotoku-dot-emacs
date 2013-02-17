@@ -34,94 +34,8 @@
 
 
 
-;;; hatena 
-(require 'simple-hatena-mode)
-(setq simple-hatena-root "~/Dropbox/hatena")
-(setq simple-hatena-default-id "hotoku")
-(setq simple-hatena-time-offset 6)
-(setq simple-hatena-bin "hw.pl")
-(set-face-foreground 'simple-hatena-markup-face "DarkSlateBlue")
-(defadvice simple-hatena-electric-asterisk
-  (after simple-hatena-electric-asterisk-advice activate)
-  "When the second * is inputted on the head of a line, 
-remove time stamp which was inserted by the function"
-  (let ((pos (line-beginning-position)))
-    (if (and simple-hatena-use-timestamp-permalink-flag
-	     (= (current-column) 13)
-	     (string-match "\\*[0-9]+\\*\\*"
-			   (buffer-substring pos (+ pos 13))))
-	(delete-region pos (+ pos 11)))))
-(add-hook 'simple-hatena-mode-hook
-	  '(lambda () (local-set-key "\C-c\C-j" 'simple-hatena-insert-tex)))
-(defun simple-hatena-insert-tex ()
-  (interactive)
-  (insert "[tex:]")
-  (backward-char))
 
-;;; hatena helper mode
-(require 'html-helper-mode)
-(require 'hatenahelper-mode)
-(add-hook 'simple-hatena-mode-hook
-	  '(lambda ()
-	     ;; other hooks must be wrote here!
-	     (hatenahelper-mode 1)))
-(defadvice hatenahelper-insert-sonomama-textblock
-  (after hatenahelper-insert-sonomama-textblock-advice activate)
-  "When quote braces are inserted move point where language is input."
-  (progn (previous-line)
-	 (forward-char 2)))
 
-;;; YaCompile
-;;;
-;;; via. http://www.bookshelf.jp/soft/meadow_42.html#SEC647
-(defvar current-comment-prefix "#" "*Default prefix string")
-(defvar current-comment-suffix "" "*Default suffix string")
-(defvar current-compiler "" "*Default suffix string")
-(make-variable-buffer-local 'current-comment-prefix)
-(make-variable-buffer-local 'current-comment-suffix)
-(make-variable-buffer-local 'current-compiler)
-(add-hook 'c-mode-common-hook
-	  '(lambda ()
-	     (define-key c-mode-map "\C-c\C-c" 'YaCompile)
-	     (define-key c++-mode-map "\C-c\C-c" 'YaCompile)
-	     (setq current-comment-prefix "/*")
-	     (setq current-comment-suffix "\n */")
-	     (setq current-compiler "g++ -g")))
-(add-hook 'haskell-mode-hook
-	  '(lambda ()
-	     (define-key haskell-mode-map "\C-c\C-c" 'YaCompile)
-	     (setq current-comment-prefix "-- ")
-	     (setq current-compiler "ghc")))
-(defun YaCompile ()
-  (interactive)
-  (require 'compile)
-  (let ((cmd compile-command))
-    (save-excursion
-      (goto-char (point-min))
-      (if (re-search-forward
-           (concat "^" (regexp-quote current-comment-prefix) "!\\(.*\\)$")
-           nil t)
-          (setq cmd (buffer-substring
-		     (match-beginning 1) (match-end 1)))))
-    (setq compile-command
-          (read-from-minibuffer "Compile command: "
-                                cmd nil nil
-                                '(compile-history . 1))))
-  (compile compile-command))
-(defun yacompile-insert-command (&optional with-test-file)
-  (interactive)
-  (let* ((file-name (file-name-nondirectory buffer-file-name))
-	 (file-body (replace-regexp-in-string "\\.[^\\.]+$" "" file-name))
-	 (file-ext  (replace-regexp-in-string ".+\\.\\([^.]+\\)" "\\1" file-name))
-	 (exe-file  (concat file-body ".out")))
-    (insert current-comment-prefix "! "
-	    "if " current-compiler " " file-name " -o " exe-file ";"
-	    " then ./" exe-file
-	    (if (or with-test-file current-prefix-arg)
-		(concat " < " file-body ".test")
-	      "")
-	    ";"
-	    " fi" current-comment-suffix)))
 
 ;;; uniquify
 (require 'uniquify)
@@ -141,39 +55,6 @@ remove time stamp which was inserted by the function"
 ;;; server
 (server-start)
 
-;;; yatex
-(setq auto-mode-alist
-      (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
-(autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
-(add-hook 'yatex-mode-hook '(lambda () (auto-fill-mode -1)))
-
-;;; tex コマンド
-(defvar tex-command "mylatex.sh" ; "platex"
-  "*Default command for typesetting LaTeX text.")
-
-;;; 数式の色
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(YaTeX-font-lock-formula-face ((((class color) (background light)) (:foreground "DarkRed"))))
- '(YaTeX-font-lock-math-sub-face ((((class color) (background light)) (:foreground "DarkRed"))))
- '(YaTeX-font-lock-math-sup-face ((((class color) (background light)) (:foreground "DarkRed")))))
-
-;;; スクリプト挿入
-(defun yatex-insert-script (prefix script)
-  (insert (concat prefix "{" script "}")))
-(defun yatex-insert-subscript (script)
-  (interactive "sscript: ")
-  (yatex-insert-script "_" script))
-(defun yatex-insert-superscript (script)
-  (interactive "sscript: ")
-  (yatex-insert-script "^" script))
-(add-hook 'yatex-mode-hook
-	  '(lambda ()
-	     (local-set-key "\C-c\C-f" 'yatex-insert-subscript)
-	     (local-set-key "\C-c\C-g" 'yatex-insert-superscript)))
 	  
 
 
