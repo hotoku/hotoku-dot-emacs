@@ -1,11 +1,14 @@
-(setq exec-path (append (list "~/Dropbox/script"
-			      "~/bin"
-			      "/opt/local/bin"
-			      "/opt/local/sbin"
-			      "/usr/local/bin")
-			exec-path))
-(setenv "PATH" (concat "~/Dropbox/script:~/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:"
-		       (getenv "PATH")))
+(require 'cl)
+(let* ((added-dirs (list "~/Dropbox/script"
+			 "~/bin"
+			 "/opt/local/bin"
+			 "/opt/local/sbin"
+			 "/usr/local/bin")))
+  (setq exec-path (append added-dirs exec-path))
+  (setenv "PATH"
+	  (reduce (lambda (a b) (concat a ":" b))
+		  (append added-dirs
+			  (list (getenv "PATH"))))))
 (setenv "PYTHONPATH" "")
 (setenv "CPLUS_INCLUDE_PATH"
 	(concat '"/opt/local/include:" (getenv "CPLUS_INCLUDE_PATH")))

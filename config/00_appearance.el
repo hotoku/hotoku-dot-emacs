@@ -37,3 +37,24 @@
 (set-face-foreground 'font-lock-string-face        "DarkRed")
 (set-face-foreground 'font-lock-variable-name-face "IndianRed")
 (set-face-foreground 'font-lock-constant-face      "RoyalBlue")
+(set-face-foreground 'modeline "black")
+(set-face-background 'modeline "white")
+
+
+
+
+;;; for diff
+(defun set-my-diff-mode-color ()
+  (set-face-foreground 'diff-removed "Blue")
+  (set-face-foreground 'diff-added "Red"))
+
+(add-hook 'diff-mode-hook
+	  'set-my-diff-mode-color)
+(add-hook 'magit-status-mode-hook
+	  'set-my-diff-mode-color)
+
+
+
+;;; not truncate lines
+(setq truncate-lines t)
+(setq truncate-partial-width-windows t)
