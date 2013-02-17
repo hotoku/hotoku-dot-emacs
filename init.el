@@ -1,92 +1,26 @@
-;;; load path 
-(defconst my-elisp-directory "~/.emacs.d/site-lisp" "The directory for my elisp file.")
-(dolist (dir (let ((dir (expand-file-name my-elisp-directory)))
-	       (list dir (format "%s%d" dir emacs-major-version))))
-  (when (and (stringp dir) (file-directory-p dir))
-    (let ((default-directory dir))
-      (setq load-path (cons default-directory load-path))
-      (normal-top-level-add-subdirs-to-load-path))))
+(let* ((elisp-dir "~/.emacs.d/site-lisp")
+       (default-directory elisp-dir))
+  (add-to-list 'load-path elisp-dir)
+  (normal-top-level-add-subdirs-to-load-path))
 (setq load-path (cons "~/.emacs.d/auto-install" load-path))
 
 
 
 
-;;;
-(require 'package)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(package-initialize)
+
+(require 'init-loader)
+(setq init-loader-directory "~/.emacs.d/config")
+(init-loader-load)
 
 
 
 
 
-;;; auto-install
-(require 'auto-install)
-(setq auto-install-directory "~/.emacs.d/auto-install/")
-(auto-install-compatibility-setup)
-;; (auto-install-update-emacswiki-package-name t)
 
-;;; environment variables
-(setq exec-path (append (list "~/Dropbox/script"
-			      "~/bin"
-			      "/opt/local/bin"
-			      "/opt/local/sbin"
-			      "/usr/local/bin")
-			exec-path))
-(setenv "PATH" (concat "~/Dropbox/script:~/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:"
-		       (getenv "PATH")))
-(setenv "PYTHONPATH" "")
-(setenv "CPLUS_INCLUDE_PATH"
-	(concat '"/opt/local/include:" (getenv "CPLUS_INCLUDE_PATH")))
-(setenv "CPLUS_LIBRARY_PATH"
-	(concat '"/opt/local/lib:" (getenv "CPLUS_LIBRARY_PATH")))
-(setenv "LIBRARY_PATH"
-	(concat '"/opt/local/lib:" (getenv "LIBRARY_PATH")))
-(setenv "LANG" "ja_JP.UTF-8")
 
-;;; meta, super key
-(setq ns-command-modifier (quote meta))
-(setq ns-alternate-modifier (quote super))
 
-;;; initial frame size
-(cond
- ((string= (system-name) "horikoshi-yasunori-no-iMac.local")
-  (setq initial-frame-alist
- 	(append (list '(width . 235) '(height . 58)) initial-frame-alist))
-  (split-window-horizontally)) ; use 2 pane
- ((string= (system-name) "horikoshi-yasunori-no-MacBook-Pro.local")
-  (setq initial-frame-alist
-	(append (list '(width . 157) '(height . 42)) initial-frame-alist))))
-	
-;;; initial frame settings
-(setq initial-frame-alist
-      (append
-       (list
-	'(top                  . 0) ;; 表示位置
-	'(left                 . 0) ;; 表示位置
-	'(foreground-color     . "grey20")
-	'(background-color     . "grey")
-	'(border-color         . "black")
-	'(mouse-color          . "white")
-	'(cursor-color         . "black")
-	'(vertical-scroll-bars . nil)) ;; remove scroll bar
-       initial-frame-alist))
 
-;;; font
-(add-to-list 'initial-frame-alist
-	     '(font . "-apple-Monaco-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1"))
-(create-fontset-from-ascii-font "Menlo-14:weight=normal:slant=normal" nil "menlokakugo")
-(set-fontset-font "fontset-menlokakugo" 'unicode (font-spec :family "Hiragino Kaku Gothic ProN" ) nil 'append)
-(add-to-list 'initial-frame-alist '(font . "fontset-menlokakugo"))
-(setq face-font-rescale-alist '((".*Hiragino.*" . 1.2) (".*Menlo.*" . 1.0)))
 
-;;; default frame
-(setq default-frame-alist initial-frame-alist)
-
-;;; color of string 
-(set-face-foreground 'font-lock-string-face        "DarkRed")
-(set-face-foreground 'font-lock-variable-name-face "IndianRed")
-(set-face-foreground 'font-lock-constant-face      "RoyalBlue")
 
 ;;; dired-x
 (load "dired-x")
@@ -97,18 +31,7 @@
       (cons (cons "\\.*$" (expand-file-name "~/.emacs.d/backup"))
 	    backup-directory-alist))
 
-;;; ess
-(require 'ess-site)
 
-;;; align for R
-(require 'align)
-(add-to-list 'align-rules-list
-             '(ess-assignment-operator
-               (regexp . "\\(\\s-*\\)<?<-[^#\t\n]")
-               (repeat . nil)
-               (modes  . '(ess-mode))))
-(add-to-list 'auto-mode-alist
-             '("\\.runit" . R-mode))
 
 
 ;;; hatena 
@@ -499,20 +422,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
 
 
-;;; key map
-(global-set-key "\C-xH" 'hatenahelper-mode)
-(global-set-key "\C-c,," 'howm-menu)
-;; (global-set-key "\C-cec" 'evernote-create-note)
-;; (global-set-key "\C-ceo" 'evernote-open-note)
-;; (global-set-key "\C-ces" 'evernote-search-notes)
-;; (global-set-key "\C-ceS" 'evernote-do-saved-search)
-;; (global-set-key "\C-cew" 'evernote-write-note)
-;; (global-set-key "\C-cep" 'evernote-post-region)
-;; (global-set-key "\C-ceb" 'evernote-browser)
-(global-set-key "\C-c\C-g" 'magit-status)
-(global-set-key (kbd "C-,") 'other-window-or-split)
-(global-set-key [?\C-1] 'delete-other-windows)
-(global-set-key "\C-cd" 'flymake-display-err-menu-for-current-line)
+
 
 
 ;;; anything
