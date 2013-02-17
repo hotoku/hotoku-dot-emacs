@@ -1,3 +1,4 @@
+;;; load-path
 (let* ((elisp-dir "~/.emacs.d/site-lisp")
        (default-directory elisp-dir))
   (add-to-list 'load-path elisp-dir)
@@ -7,7 +8,60 @@
 
 
 
+;;; package
+(require 'package)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
 
+
+
+
+;;; auto-install
+(require 'auto-install)
+(setq auto-install-directory "~/.emacs.d/auto-install/")
+(auto-install-compatibility-setup)
+
+
+
+
+;;; dsvn
+(autoload 'svn-status "dsvn" "Run `svn status'." t)
+(autoload 'svn-update "dsvn" "Run `svn update'." t)
+(require 'vc-svn)
+(require 'vc-svn17)
+
+
+
+
+
+;;; howm
+(setq howm-menu-lang 'ja)
+(autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
+
+
+
+
+
+;;; ini
+(require 'ini-mode)
+(setq auto-mode-alist 
+      (append 
+       '(("\\.[iI][nN][iI]$" . ini-mode))
+       auto-mode-alist))
+
+
+
+
+;;; uniquify
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+
+
+
+
+
+
+;;; init-loader
 (require 'init-loader)
 (setq init-loader-directory "~/.emacs.d/config")
 (init-loader-load)
@@ -31,32 +85,11 @@
       (cons (cons "\\.*$" (expand-file-name "~/.emacs.d/backup"))
 	    backup-directory-alist))
 
-
-
-
-
-
-
-;;; uniquify
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-
-
-;;; ini mode
-(require 'ini-mode)
-(setq auto-mode-alist 
-      (append 
-       '(("\\.[iI][nN][iI]$" . ini-mode))
-       auto-mode-alist))
-
 ;;; move currrent buffer with shift + (arrow key)
 (windmove-default-keybindings)
 
 ;;; server
 (server-start)
-
-	  
-
 
 ;;; show-paren-mode
 (show-paren-mode)
@@ -70,25 +103,11 @@
   (interactive)
   (message "%s" (get-char-property (point) 'face)))
 
-;;; advice for shell script mode
-(defadvice sh-mode (after my-shell-script-mode-hook activate)
-  (progn
-    (set-face-foreground 'sh-heredoc "navy")
-    (local-set-key "\C-c\C-j" 'sh-insert-var)))
-(defun sh-insert-var (var-name)
-  (interactive "svariable name:")
-  (insert "${" var-name "}"))
 
 
-;;; dsvn -- subversion client
-(autoload 'svn-status "dsvn" "Run `svn status'." t)
-(autoload 'svn-update "dsvn" "Run `svn update'." t)
-(require 'vc-svn)
-(require 'vc-svn17)
 
-;;; howm
-(setq howm-menu-lang 'ja)
-(autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
+
+
 
 
 ;;; yasnippet
