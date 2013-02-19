@@ -98,15 +98,6 @@
 
 
 
-;;; カーソル位置のフェースを調べる関数
-(defun describe-face-at-point ()
-  "Return face used at point."
-  (interactive)
-  (message "%s" (get-char-property (point) 'face)))
-
-
-
-
 ;;; yasnippet
 (require 'yasnippet)
 (yas/initialize)
@@ -133,22 +124,16 @@
 
 
 
-;;;
+;;; junk
 (require 'open-junk-file)
 (setq open-junk-file-format "~/.emacs.d/junk/%Y-%m-%d_%H%M%S.")
 
 
 
 
-;;;
+;;; w3m
 (setq load-path (cons "~/dropbox/emacs/w3m/share/emacs/site-lisp/w3m" load-path))
 (require 'w3m-load)
-
-
-
-
-;;;
-(require 'lispxmp)
 
 
 
@@ -161,8 +146,9 @@
 
 
 
-;;;
+;;; 
 (require 'browse-kill-ring)
+(global-set-key (kbd "C-c k") 'browse-kill-ring)
 
 
 
@@ -171,18 +157,19 @@
 (add-to-list 'load-path "/opt/local/share/doc/git-core/contrib/emacs")
 (require 'git)
 (require 'git-blame)
+(require 'magit)
 
 
 
 
-;;;
+;;; session
 (require 'session)
 (add-hook 'after-init-hook 'session-initialize)
 
 
 
 
-;;;
+;;; minibuf
 (require 'minibuf-isearch)
 
 
@@ -196,30 +183,14 @@
 
 
 
-;;;
-(require 'magit)
-
-
-
-
-;;; via. http://d.hatena.ne.jp/rubikitch/20100210/emacs#tb
-(defun other-window-or-split ()
-  (interactive)
-  (when (one-window-p)
-    (split-window-horizontally))
-  (other-window 1))
-
-
-
-
-;;;
+;;; elscreen
 (require 'elscreen)
 (setq elscreen-display-tab nil)
 
 
 
 
-;;;
+;;; sqlite
 (setq sql-sqlite-program "sqlite3")
 
 
@@ -237,16 +208,12 @@
 
 
 
-;;;
-(defvar org-directory "")
+;;; w3m
 (defvar w3m-command "/opt/local/bin/w3m")
 
 
 
 
 ;;; anything
+(defvar org-directory "")
 (require 'anything-startup)
-
-
-
-
