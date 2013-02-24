@@ -8,3 +8,4 @@ elpa
 howm
 *.bak
 *.gpg
+*.elc
