@@ -201,9 +201,6 @@
 (add-hook 'c++-mode-hook
 	  '(lambda ()
 	     (flymake-mode t)))
-(add-hook 'haskell-mode-hook
-	  '(lambda ()
-	     (flymake-mode t)))
 
 
 
