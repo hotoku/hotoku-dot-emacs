@@ -124,13 +124,6 @@
 
 
 
-;;; junk
-(require 'open-junk-file)
-(setq open-junk-file-format "~/.emacs.d/junk/%Y-%m-%d_%H%M%S.")
-
-
-
-
 ;;; w3m
 (setq load-path (cons "~/dropbox/emacs/w3m/share/emacs/site-lisp/w3m" load-path))
 (require 'w3m-load)
