@@ -1,6 +1,8 @@
 (require 'ess-site)
 
 
+
+
 (require 'align)
 (add-to-list 'align-rules-list
              '(ess-assignment-operator
@@ -9,3 +11,14 @@
                (modes  . '(ess-mode))))
 (add-to-list 'auto-mode-alist
              '("\\.runit" . R-mode))
+
+
+
+
+(add-hook 'ess-mode-hook
+	  (lambda ()
+	    (let ((ext (replace-regexp-in-string
+			".*\\.\\([^\\.]+\\)$" "\\1"
+			buffer-file-name)))
+	      (when (string= ext "runit")
+		(setq truncate-lines t)))))
