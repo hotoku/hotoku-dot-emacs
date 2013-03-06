@@ -9,3 +9,4 @@ howm
 *.bak
 *.gpg
 *.elc
+.howm-keys
