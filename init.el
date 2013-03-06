@@ -35,6 +35,7 @@
 
 ;;; howm
 (setq howm-menu-lang 'ja)
+(setq howm-keyword-file "~/.emacs.d/.howm-keys")
 (autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
 
 
