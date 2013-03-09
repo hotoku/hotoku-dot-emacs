@@ -7,7 +7,10 @@
  ((string= (system-name) "horikoshi-yasunori-no-MacBook-Pro.local")
   (setq initial-frame-alist
        (append (list '(width . 157) '(height . 42)) initial-frame-alist))))
-	
+
+
+
+
 ;;; initial frame settings
 (setq initial-frame-alist
       (append
@@ -22,6 +25,9 @@
 	'(vertical-scroll-bars . nil)) ;; remove scroll bar
        initial-frame-alist))
 
+
+
+
 ;;; font
 (add-to-list 'initial-frame-alist
 	     '(font . "-apple-Monaco-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1"))
@@ -30,8 +36,14 @@
 (add-to-list 'initial-frame-alist '(font . "fontset-menlokakugo"))
 (setq face-font-rescale-alist '((".*Hiragino.*" . 1.2) (".*Menlo.*" . 1.0)))
 
+
+
+
 ;;; default frame
 (setq default-frame-alist initial-frame-alist)
+
+
+
 
 ;;; color of string 
 (set-face-foreground 'font-lock-string-face        "DarkRed")
@@ -47,11 +59,11 @@
 (defun set-my-diff-mode-color ()
   (set-face-foreground 'diff-removed "Blue")
   (set-face-foreground 'diff-added "Red"))
-
 (add-hook 'diff-mode-hook
 	  'set-my-diff-mode-color)
 (add-hook 'magit-status-mode-hook
 	  'set-my-diff-mode-color)
+
 
 
 
