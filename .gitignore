@@ -10,3 +10,4 @@ howm
 *.gpg
 *.elc
 .howm-keys
+eshell
