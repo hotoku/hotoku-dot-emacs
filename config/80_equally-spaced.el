@@ -26,7 +26,8 @@
   (interactive)
   (save-excursion
     (equally-spaced-goto-top)
-    (while (< (point) (point-max))
+    (while (not (= (line-number-at-pos)
+		   (count-lines (point-min) (point-max))))
       (let* ((begin-pos
 	      (progn
 		(equally-spaced-goto-next-blank)
