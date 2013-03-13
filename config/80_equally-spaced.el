@@ -25,9 +25,10 @@
 (defun equally-spaced-make-gap-buffer ()
   (interactive)
   (save-excursion
+    (goto-char (point-max))
+    (insert "\n")
     (equally-spaced-goto-top)
-    (while (not (= (line-number-at-pos)
-		   (count-lines (point-min) (point-max))))
+    (while (not (= (point) (point-max)))
       (let* ((begin-pos
 	      (progn
 		(equally-spaced-goto-next-blank)
