@@ -69,18 +69,3 @@ to be searched by howm."
     (anything-other-buffer sources
 			   (format "*Anything git project in %s*" pwd))))
 (define-key global-map (kbd "C-;") 'anything-git-project)
-
-
-
-;;; foiltex
-(defun foiltex-insert-new-page ()
-  (interactive)
-  (insert "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\\myhead{}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-")
-  (forward-line -2)
-  (beginning-of-line)
-  (forward-char 8))
-
-
