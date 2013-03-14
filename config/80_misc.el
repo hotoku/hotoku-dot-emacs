@@ -38,8 +38,7 @@ to be searched by howm."
          (prefix (cadr asc))
          (tag (caddr asc)))
     (insert prefix)
-    (insert " [" tag "] ")))
-
+    (insert " %" tag)))
 
 
 
