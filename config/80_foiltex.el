@@ -7,7 +7,7 @@
    foiltex-page-beginning "
 \\myhead{}
 " foiltex-page-end)
-  (forward-line -2)
+  (forward-line -1)
   (beginning-of-line)
   (forward-char 8))
 (defun foiltex-line-comp (target)
