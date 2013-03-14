@@ -68,3 +68,12 @@ to be searched by howm."
     (anything-other-buffer sources
 			   (format "*Anything git project in %s*" pwd))))
 (define-key global-map (kbd "C-;") 'anything-git-project)
+
+
+
+
+;;; gomi file
+(defun gomi-file ()
+  (interactive)
+  (let* ((file (format-time-string "/tmp/%y%m%d%H%M%S.")))
+    (find-file (read-string "extension? " file))))
