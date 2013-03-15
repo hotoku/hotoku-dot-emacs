@@ -49,6 +49,27 @@
   (interactive)
   (forward-line -1)
   (foiltex-page-move foiltex-page-end  'up))
+(defun foiltex-current-page-range ()
+  "Returns (list a b), where
+a: beginning position of current foiltex page,
+b: end position of current page.
+returns nil"
+  (let ((pos (point)) b e)
+    (save-excursion
+      (foiltex-page-move foiltex-page-beginning 'up)
+      (setq b (point))
+      (goto-char pos)
+      (foiltex-page-move foiltex-page-end 'down)
+      (end-of-line)
+      (setq e (point)))
+    (when (and (/= b (point-min))
+	       (/= e (point-max)))
+      (list b e))))
+(defun foiltex-kill-page ()
+  (interactive)
+  (let ((range (foiltex-current-page-range)))
+    (when range
+      (kill-region (car range) (cadr range)))))
 
 
 
