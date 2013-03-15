@@ -16,29 +16,31 @@
     (string=
      target
      (buffer-substring p (min (point-max) (+ p len))))))
-(defun foiltex-page-move (target move last-p)
+(defun foiltex-page-move (target direction)
   (beginning-of-line)
-  (if (foiltex-line-comp target)
-      (funcall move))
-  (while (and (not (funcall last-p))
-	      (not (foiltex-line-comp target)))
-    (funcall move)))
+  (let* (move last-pos)
+    (cond
+     ((equal direction 'down)
+      (setq move (lambda () (forward-line)))
+      (setq last-pos (point-max)))
+     ((equal direction 'up)
+      (setq move (lambda () (forward-line -1)))
+      (setq last-pos (point-min))))
+    (while (and (/= (point) last-pos)
+		(not (foiltex-line-comp target)))
+      (funcall move))))
 (defun foiltex-next-page ()
   (interactive)
   (when (not (string= (string (char-before (point-max))) "\n"))
     (save-excursion
       (goto-char (point-max))
       (insert "\n")))
-  (foiltex-page-move
-   foiltex-page-beginning
-   (lambda () (forward-line))
-   (lambda () (= (point) (point-max)))))
+  (forward-line)
+  (foiltex-page-move foiltex-page-beginning 'down))
 (defun foiltex-previous-page ()
   (interactive)
-  (foiltex-page-move
-   foiltex-page-end
-   (lambda () (forward-line -1))
-   (lambda () (= (point) (point-min)))))
+  (forward-line -1)
+  (foiltex-page-move foiltex-page-end  'up))
 
 
 
