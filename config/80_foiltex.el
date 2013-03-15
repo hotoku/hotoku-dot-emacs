@@ -12,7 +12,7 @@
   (forward-char 8))
 (defun foiltex-line-comp (target)
   (let ((len (length target))
-	(p (point)))
+	(p (line-beginning-position)))
     (string=
      target
      (buffer-substring p (min (point-max) (+ p len))))))
