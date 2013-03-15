@@ -16,6 +16,14 @@
     (string=
      target
      (buffer-substring p (min (point-max) (+ p len))))))
+(defun foiltex-at (begin-or-end)
+  "Returns whether current line is beginning(end) of foiltex page."
+  (let ((target
+	 (cond
+	  ((equal begin-or-end 'begin) foiltex-page-beginning)
+	  ((equal begin-or-end 'end) foiltex-page-end)
+	  (t (error "Argument is invalid, foiltex-at: %s" begin-or-end)))))
+    (foiltex-line-comp target)))
 (defun foiltex-page-move (target direction)
   (beginning-of-line)
   (let* (move last-pos)
