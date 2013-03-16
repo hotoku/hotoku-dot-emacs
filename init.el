@@ -211,6 +211,19 @@
 
 
 
+;;; equally-spaced
+(require 'equally-spaced)
+
+
+
+
+;;; popwin
+(require 'popwin)
+(setq display-buffer-function 'popwin:display-buffer)
+
+
+
+
 ;;; anything
 (defvar org-directory "")
 (require 'anything-startup)
