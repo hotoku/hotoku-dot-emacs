@@ -232,6 +232,12 @@
 
 
 
+;;; foiltex-mode
+(require 'foiltex-mode)
+
+
+
+
 ;;; anything
 (defvar org-directory "")
 (require 'anything-startup)
