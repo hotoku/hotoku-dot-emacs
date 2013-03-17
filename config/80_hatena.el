@@ -1,5 +1,5 @@
 (require 'simple-hatena-mode)
-(setq simple-hatena-root "~/Dropbox/hatena")
+(setq simple-hatena-root "~/sugarsync/hatena")
 (setq simple-hatena-default-id "hotoku")
 (setq simple-hatena-time-offset 6)
 (setq simple-hatena-bin "hw.pl")
