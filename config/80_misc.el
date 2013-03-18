@@ -78,3 +78,13 @@ to be searched by howm."
   (interactive)
   (let* ((file (format-time-string "/tmp/%y%m%d%H%M%S.")))
     (find-file (read-string "extension? " file))))
+
+
+
+
+;;; run as script
+(defun run-file-as-script ()
+  (interactive)
+  (let* ((file (buffer-file-name)))
+    (shell-command (format "chmod u+x %s" file))
+    (shell-command file)))
