@@ -1,8 +1,9 @@
 ;;; load-path
-(let* ((elisp-dir "~/.emacs.d/site-lisp")
-       (default-directory elisp-dir))
-  (add-to-list 'load-path elisp-dir)
-  (normal-top-level-add-subdirs-to-load-path))
+(dolist (elisp-dir '("~/.emacs.d/site-lisp"
+                     "~/dropbox/misc/elisp"))
+  (let ((default-directory elisp-dir))
+    (add-to-list 'load-path elisp-dir)
+    (normal-top-level-add-subdirs-to-load-path)))
 (setq load-path (cons "~/.emacs.d/auto-install" load-path))
 
 
