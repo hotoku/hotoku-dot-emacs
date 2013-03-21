@@ -16,9 +16,9 @@
 
 
 (add-hook 'ess-mode-hook
-	  (lambda ()
-	    (let ((ext (replace-regexp-in-string
-			".*\\.\\([^\\.]+\\)$" "\\1"
-			buffer-file-name)))
-	      (when (string= ext "runit")
-		(setq truncate-lines t)))))
+          (lambda ()
+            (let ((ext (replace-regexp-in-string
+                        ".*\\.\\([^\\.]+\\)$" "\\1"
+                        buffer-file-name)))
+              (when (string= ext "runit")
+                (setq truncate-lines t)))))

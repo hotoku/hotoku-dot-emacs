@@ -6,17 +6,17 @@
 (make-variable-buffer-local 'current-comment-suffix)
 (make-variable-buffer-local 'current-compiler)
 (add-hook 'c-mode-common-hook
-	  '(lambda ()
-	     (define-key c-mode-map "\C-c\C-c" 'YaCompile)
-	     (define-key c++-mode-map "\C-c\C-c" 'YaCompile)
-	     (setq current-comment-prefix "/*")
-	     (setq current-comment-suffix "\n */")
-	     (setq current-compiler "g++ -g")))
+          '(lambda ()
+             (define-key c-mode-map "\C-c\C-c" 'YaCompile)
+             (define-key c++-mode-map "\C-c\C-c" 'YaCompile)
+             (setq current-comment-prefix "/*")
+             (setq current-comment-suffix "\n */")
+             (setq current-compiler "g++ -g")))
 (add-hook 'haskell-mode-hook
-	  '(lambda ()
-	     (define-key haskell-mode-map "\C-c\C-c" 'YaCompile)
-	     (setq current-comment-prefix "-- ")
-	     (setq current-compiler "ghc")))
+          '(lambda ()
+             (define-key haskell-mode-map "\C-c\C-c" 'YaCompile)
+             (setq current-comment-prefix "-- ")
+             (setq current-compiler "ghc")))
 
 
 
@@ -31,7 +31,7 @@
            (concat "^" (regexp-quote current-comment-prefix) "!\\(.*\\)$")
            nil t)
           (setq cmd (buffer-substring
-		     (match-beginning 1) (match-end 1)))))
+                     (match-beginning 1) (match-end 1)))))
     (setq compile-command
           (read-from-minibuffer "Compile command: "
                                 cmd nil nil
@@ -44,14 +44,14 @@
 (defun yacompile-insert-command (&optional with-test-file)
   (interactive)
   (let* ((file-name (file-name-nondirectory buffer-file-name))
-	 (file-body (replace-regexp-in-string "\\.[^\\.]+$" "" file-name))
-	 (file-ext  (replace-regexp-in-string ".+\\.\\([^.]+\\)" "\\1" file-name))
-	 (exe-file  (concat file-body ".out")))
+         (file-body (replace-regexp-in-string "\\.[^\\.]+$" "" file-name))
+         (file-ext  (replace-regexp-in-string ".+\\.\\([^.]+\\)" "\\1" file-name))
+         (exe-file  (concat file-body ".out")))
     (insert current-comment-prefix "! "
-	    "if " current-compiler " " file-name " -o " exe-file ";"
-	    " then ./" exe-file
-	    (if (or with-test-file current-prefix-arg)
-		(concat " < " file-body ".test")
-	      "")
-	    ";"
-	    " fi" current-comment-suffix)))
+            "if " current-compiler " " file-name " -o " exe-file ";"
+            " then ./" exe-file
+            (if (or with-test-file current-prefix-arg)
+                (concat " < " file-body ".test")
+              "")
+            ";"
+            " fi" current-comment-suffix)))

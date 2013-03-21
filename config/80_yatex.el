@@ -29,6 +29,6 @@
   (interactive "sscript: ")
   (yatex-insert-script "^" script))
 (add-hook 'yatex-mode-hook
-	  '(lambda ()
-	     (local-set-key "\C-c\C-f" 'yatex-insert-subscript)
-	     (local-set-key "\C-c\C-g" 'yatex-insert-superscript)))
+          '(lambda ()
+             (local-set-key "\C-c\C-f" 'yatex-insert-subscript)
+             (local-set-key "\C-c\C-g" 'yatex-insert-superscript)))

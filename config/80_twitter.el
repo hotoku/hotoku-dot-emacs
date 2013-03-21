@@ -19,8 +19,8 @@
 (add-hook 'twittering-mode-hook
           (lambda ()
             (local-set-key (kbd "o")
-               (lambda ()
-                 (interactive)
-                 (twittering-goto-next-uri)
-                 (execute-kbd-macro (kbd "C-m"))
-                 ))))
+                           (lambda ()
+                             (interactive)
+                             (twittering-goto-next-uri)
+                             (execute-kbd-macro (kbd "C-m"))
+                             ))))

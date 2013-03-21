@@ -71,7 +71,7 @@
 (setq make-backup-files t)
 (setq backup-directory-alist
       (cons (cons "\\.*$" (expand-file-name "~/.emacs.d/backup"))
-	    backup-directory-alist))
+            backup-directory-alist))
 
 
 
@@ -135,8 +135,8 @@
 
 ;;; emacs-lisp-mode
 (add-hook 'emacs-lisp-mode-hook
-	  '(lambda ()
-	     (local-set-key "\C-c\C-c" 'anything-lisp-complete-symbol-partial-match)))
+          '(lambda ()
+             (local-set-key "\C-c\C-c" 'anything-lisp-complete-symbol-partial-match)))
 
 
 
@@ -194,8 +194,8 @@
 ;;; flymake
 (require 'flymake)
 (add-hook 'c++-mode-hook
-	  '(lambda ()
-	     (flymake-mode t)))
+          '(lambda ()
+             (flymake-mode t)))
 
 
 

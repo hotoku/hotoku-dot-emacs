@@ -67,7 +67,7 @@ to be searched by howm."
   (let* ((pwd default-directory)
          (sources (anything-c-sources-git-project-for pwd)))
     (anything-other-buffer sources
-			   (format "*Anything git project in %s*" pwd))))
+                           (format "*Anything git project in %s*" pwd))))
 (define-key global-map (kbd "C-;") 'anything-git-project)
 
 

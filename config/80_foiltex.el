@@ -12,17 +12,17 @@
   (forward-char 8))
 (defun foiltex-line-comp (target)
   (let ((len (length target))
-	(p (line-beginning-position)))
+        (p (line-beginning-position)))
     (string=
      target
      (buffer-substring p (min (point-max) (+ p len))))))
 (defun foiltex-at (begin-or-end)
   "Returns whether current line is beginning(end) of foiltex page."
   (let ((target
-	 (cond
-	  ((equal begin-or-end 'begin) foiltex-page-beginning)
-	  ((equal begin-or-end 'end) foiltex-page-end)
-	  (t (error "Argument is invalid, foiltex-at: %s" begin-or-end)))))
+         (cond
+          ((equal begin-or-end 'begin) foiltex-page-beginning)
+          ((equal begin-or-end 'end) foiltex-page-end)
+          (t (error "Argument is invalid, foiltex-at: %s" begin-or-end)))))
     (foiltex-line-comp target)))
 (defun foiltex-page-move (target direction)
   (beginning-of-line)
@@ -35,7 +35,7 @@
       (setq move (lambda () (forward-line -1)))
       (setq last-pos (point-min))))
     (while (and (= buf 0)
-		(not (foiltex-line-comp target)))
+                (not (foiltex-line-comp target)))
       (setq buf (funcall move)))))
 (defun foiltex-next-page ()
   (interactive)
@@ -63,7 +63,7 @@ returns nil"
       (end-of-line)
       (setq e (point)))
     (when (and (/= b (point-min))
-	       (/= e (point-max)))
+               (/= e (point-max)))
       (list b e))))
 (defun foiltex-kill-page ()
   (interactive)
