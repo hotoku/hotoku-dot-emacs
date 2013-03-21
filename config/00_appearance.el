@@ -70,3 +70,10 @@
 ;;; not truncate lines
 (setq truncate-lines t)
 (setq truncate-partial-width-windows t)
+
+
+
+
+;;; do not use tab
+(add-hook 'emacs-lisp-mode-hook
+          (lambda () (setq indent-tabs-mode nil)))
