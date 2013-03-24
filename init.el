@@ -44,8 +44,8 @@
 
 ;;; ini
 (require 'ini-mode)
-(setq auto-mode-alist 
-      (append 
+(setq auto-mode-alist
+      (append
        '(("\\.[iI][nN][iI]$" . ini-mode))
        auto-mode-alist))
 
@@ -141,14 +141,14 @@
 
 
 
-;;; 
+;;;
 (require 'browse-kill-ring)
 (global-set-key (kbd "C-c k") 'browse-kill-ring)
 
 
 
 
-;;; git 
+;;; git
 (add-to-list 'load-path "/opt/local/share/doc/git-core/contrib/emacs")
 (require 'git)
 (require 'git-blame)

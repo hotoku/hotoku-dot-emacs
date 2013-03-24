@@ -45,7 +45,7 @@
 
 
 
-;;; color of string 
+;;; color of string
 (set-face-foreground 'font-lock-string-face        "DarkRed")
 (set-face-foreground 'font-lock-variable-name-face "IndianRed")
 (set-face-foreground 'font-lock-constant-face      "RoyalBlue")
@@ -77,3 +77,9 @@
 ;;; do not use tab
 (add-hook 'emacs-lisp-mode-hook
           (lambda () (setq indent-tabs-mode nil)))
+
+
+
+
+;;; remove trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)

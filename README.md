@@ -24,6 +24,6 @@ program.
 [blog]: http://d.hatena.ne.jp/hotoku
 [twitter]: https://twitter.com/hotoku
 [topcoder]: http://community.topcoder.com/tc?module=MemberProfile&cr=22920699
-[codeforces]: http://www.codeforces.com/profile/hotoku 
+[codeforces]: http://www.codeforces.com/profile/hotoku
 [git]: https://github.com/hotoku/
 [gist]: https://gist.github.com/hotoku/
