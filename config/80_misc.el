@@ -45,6 +45,8 @@ to be searched by howm."
 
 
 ;;; anything git
+(require 'cl)
+(require 'anything)
 (defun anything-c-sources-git-project-for (pwd)
   (loop for elt in
         '(("Modified files (%s)" . "--modified")
