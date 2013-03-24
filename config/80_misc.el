@@ -28,7 +28,8 @@
     ("r" "#" "R")
     ("py" "#" "PYTHON")
     ("hs" "--" "HASKELL")
-    ("scm" ";;" "SCHEME")))
+    ("scm" ";;" "SCHEME")
+    ("c" "//" "C")))
 (defadvice open-junk-file
   (after open-junk-file-insert-howm-comment-advice activate)
   "After open-junk-file, insert a tag into the opened buffer
