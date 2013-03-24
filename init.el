@@ -191,15 +191,6 @@
 
 
 
-;;; flymake
-(require 'flymake)
-(add-hook 'c++-mode-hook
-          '(lambda ()
-             (flymake-mode t)))
-
-
-
-
 ;;; w3m
 (defvar w3m-command "/opt/local/bin/w3m")
 
