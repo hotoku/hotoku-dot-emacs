@@ -6,17 +6,20 @@
 (make-variable-buffer-local 'current-comment-suffix)
 (make-variable-buffer-local 'current-compiler)
 (add-hook 'c-mode-common-hook
-          '(lambda ()
-             (define-key c-mode-map "\C-c\C-c" 'YaCompile)
-             (define-key c++-mode-map "\C-c\C-c" 'YaCompile)
-             (setq current-comment-prefix "/*")
-             (setq current-comment-suffix "\n */")
-             (setq current-compiler "g++ -g")))
+          (lambda ()
+            (define-key c-mode-map "\C-c\C-c" 'YaCompile)
+            (setq current-comment-prefix "/*")
+            (setq current-comment-suffix "\n */")
+            (setq current-compiler "gcc -g")))
+(add-hook 'c++-mode-hook
+          (lambda ()
+            (define-key c++-mode-map "\C-c\C-c" 'YaCompile)
+            (setq current-compiler "g++ -g")))
 (add-hook 'haskell-mode-hook
-          '(lambda ()
-             (define-key haskell-mode-map "\C-c\C-c" 'YaCompile)
-             (setq current-comment-prefix "-- ")
-             (setq current-compiler "ghc")))
+          (lambda ()
+            (define-key haskell-mode-map "\C-c\C-c" 'YaCompile)
+            (setq current-comment-prefix "-- ")
+            (setq current-compiler "ghc")))
 
 
 
