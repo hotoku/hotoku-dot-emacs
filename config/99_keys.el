@@ -6,8 +6,8 @@
 
 
 
-(global-set-key "\C-xH" 'hatenahelper-mode)
-(global-set-key "\C-c,," 'howm-menu)
+(global-set-key (kbd "C-x H") 'hatenahelper-mode)
+(global-set-key (kbd "C-c , ,") 'howm-menu)
 ;; (global-set-key "\C-cec" 'evernote-create-note)
 ;; (global-set-key "\C-ceo" 'evernote-open-note)
 ;; (global-set-key "\C-ces" 'evernote-search-notes)
@@ -15,7 +15,8 @@
 ;; (global-set-key "\C-cew" 'evernote-write-note)
 ;; (global-set-key "\C-cep" 'evernote-post-region)
 ;; (global-set-key "\C-ceb" 'evernote-browser)
-(global-set-key "\C-c\C-g" 'magit-status)
+(global-set-key (kbd "C-c C-g") 'magit-status)
 (global-set-key (kbd "C-,") 'other-window-or-split)
-(global-set-key [?\C-1] 'delete-other-windows)
-(global-set-key "\C-cd" 'flymake-display-err-menu-for-current-line)
+(global-set-key (kbd "C-1") 'delete-other-windows)
+(global-set-key (kbd "C-c d") 'flymake-display-err-menu-for-current-line)
+(global-set-key (kbd "C-;") 'anything)
