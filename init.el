@@ -35,6 +35,7 @@
 
 
 ;;; howm
+(require 'howm)
 (setq howm-menu-lang 'ja)
 (setq howm-keyword-file "~/.emacs.d/.howm-keys")
 (autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
@@ -95,6 +96,7 @@
 
 
 ;;; 動的略語補完
+(require 'dabbrev)
 (setq dabbrev-case-fold-search nil)
 
 
@@ -121,6 +123,7 @@
 
 
 ;;; scheme
+(require 'cmuscheme)
 (setq scheme-program-name "gosh -i")
 
 
@@ -186,6 +189,7 @@
 
 
 ;;; sqlite
+(require 'sql)
 (setq sql-sqlite-program "sqlite3")
 
 
