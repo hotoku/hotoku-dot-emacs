@@ -210,8 +210,8 @@
 
 
 ;;; popwin
-;; (require 'popwin)
-;; (setq display-buffer-function 'popwin:display-buffer)
+(require 'popwin)
+(setq display-buffer-function 'popwin:display-buffer)
 
 
 
