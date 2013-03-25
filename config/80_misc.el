@@ -86,8 +86,8 @@ to be searched by howm."
 
 
 ;;; run as script
-(defun run-file-as-script ()
-  (interactive)
+(defun run-file-as-script (args)
+  (interactive "sargs: ")
   (let* ((file (buffer-file-name)))
     (shell-command (format "chmod u+x %s" file))
-    (shell-command file)))
+    (shell-command (format "%s %s" file args))))
