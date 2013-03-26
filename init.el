@@ -236,6 +236,6 @@
 
 
 
-;;; anything
-(defvar org-directory "")
-(require 'anything-startup)
+;;; helm
+(require 'helm-config)
+(helm-mode 1)
