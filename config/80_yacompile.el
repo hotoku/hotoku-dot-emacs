@@ -5,6 +5,7 @@
 (make-variable-buffer-local 'current-comment-prefix)
 (make-variable-buffer-local 'current-comment-suffix)
 (make-variable-buffer-local 'current-compiler)
+(require 'cc-mode)
 (add-hook 'c-mode-common-hook
           (lambda ()
             (define-key c-mode-map "\C-c\C-c" 'YaCompile)
@@ -15,6 +16,7 @@
           (lambda ()
             (define-key c++-mode-map "\C-c\C-c" 'YaCompile)
             (setq current-compiler "g++ -g")))
+(require 'haskell-mode)
 (add-hook 'haskell-mode-hook
           (lambda ()
             (define-key haskell-mode-map "\C-c\C-c" 'YaCompile)
