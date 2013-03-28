@@ -2,10 +2,8 @@ auto-install
 auto-save-list
 backup
 games
-site-lisp
 junk
 elpa
-howm
 *.bak
 *.gpg
 *.elc
@@ -14,3 +12,5 @@ eshell
 url
 secret/*
 el-get
+.session
+tramp

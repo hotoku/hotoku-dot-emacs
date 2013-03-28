@@ -1,10 +1,54 @@
+;;; el-get install check
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+    (let (el-get-master-branch)
+      (goto-char (point-max))
+      (eval-print-last-sexp))))
+
+
+
+
+;;; install necessary library by el-get
+(setq el-get-sources
+      '((:name init-loader
+               :type http
+               :url "https://raw.github.com/gist/1021706/init-loader.el")
+        (:name equally-spaced
+               :type http
+               :url "https://raw.github.com/gist/4975695/equally-spaced.el")
+        (:name session
+               :url "http://downloads.sourceforge.net/project/emacs-session/session/session-2.3.tar.gz")
+        (:name foiltex-mode
+               :type http
+               :url "https://raw.github.com/gist/5180394/foiltex-mode.el")
+        (:name qiita-el
+               :description "Qiita API Library for emacs"
+               :type github
+               :pkgname "gongo/qiita-el")))
+(defvar my-packages
+      (append '(el-get
+                magit
+                howm
+                helm
+                auto-install
+                yasnippet
+                browse-kill-ring
+                elscreen
+                haskell-mode)
+              (mapcar 'el-get-source-name el-get-sources)))
+(el-get-cleanup my-packages)
+(el-get 'sync my-packages)
+
+
+
+
 ;;; load-path
-(dolist (elisp-dir '("~/.emacs.d/site-lisp"
-                     "~/dropbox/misc/elisp"))
-  (let ((default-directory elisp-dir))
-    (add-to-list 'load-path elisp-dir)
-    (normal-top-level-add-subdirs-to-load-path)))
-(setq load-path (cons "~/.emacs.d/auto-install" load-path))
+(let ((default-directory "~/dropbox/misc/elisp"))
+  (add-to-list 'load-path default-directory)
+  (normal-top-level-add-subdirs-to-load-path))
 
 
 
@@ -21,6 +65,7 @@
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/auto-install/")
 (auto-install-compatibility-setup)
+(add-to-list 'load-path auto-install-directory)
 
 
 
@@ -29,7 +74,6 @@
 (autoload 'svn-status "dsvn" "Run `svn status'." t)
 (autoload 'svn-update "dsvn" "Run `svn update'." t)
 (require 'vc-svn)
-(require 'vc-svn17)
 
 
 
@@ -43,12 +87,12 @@
 
 
 
-;;; ini
-(require 'ini-mode)
-(setq auto-mode-alist
-      (append
-       '(("\\.[iI][nN][iI]$" . ini-mode))
-       auto-mode-alist))
+;; ;;; ini
+;; (require 'ini-mode)
+;; (setq auto-mode-alist
+;;       (append
+;;        '(("\\.[iI][nN][iI]$" . ini-mode))
+;;        auto-mode-alist))
 
 
 
@@ -104,8 +148,7 @@
 
 ;;; yasnippet
 (require 'yasnippet)
-(yas/initialize)
-(yas/load-directory "~/.emacs.d/site-lisp/yasnippet-0.6.1c/snippets")
+(yas-global-mode 1)
 
 
 
@@ -152,7 +195,7 @@
 
 
 ;;; git
-(add-to-list 'load-path "/opt/local/share/doc/git-core/contrib/emacs")
+(add-to-list 'load-path "/opt/local/share/git-core/contrib/emacs")
 (require 'git)
 (require 'git-blame)
 (require 'magit)
@@ -174,7 +217,7 @@
 
 
 ;;; haskell-mode
-(load "haskell-site-file")
+;; (load "haskell-site-file")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 
