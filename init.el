@@ -36,7 +36,6 @@
                 auto-install
                 yasnippet
                 browse-kill-ring
-                elscreen
                 haskell-mode)
               (mapcar 'el-get-source-name el-get-sources)))
 (el-get-cleanup my-packages)
@@ -227,6 +226,7 @@
 ;;; elscreen
 (require 'elscreen)
 (setq elscreen-display-tab nil)
+(elscreen-start)
 
 
 
