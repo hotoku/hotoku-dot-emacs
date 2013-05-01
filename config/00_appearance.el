@@ -49,8 +49,8 @@
 (set-face-foreground 'font-lock-string-face        "DarkRed")
 (set-face-foreground 'font-lock-variable-name-face "IndianRed")
 (set-face-foreground 'font-lock-constant-face      "RoyalBlue")
-(set-face-foreground 'modeline "black")
-(set-face-background 'modeline "white")
+(set-face-foreground 'mode-line "white")
+(set-face-background 'mode-line "black")
 
 
 
