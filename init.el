@@ -36,7 +36,9 @@
                 auto-install
                 yasnippet
                 browse-kill-ring
-                haskell-mode)
+                haskell-mode
+                mdfind-dired
+                ess)
               (mapcar 'el-get-source-name el-get-sources)))
 (el-get-cleanup my-packages)
 (el-get 'sync my-packages)
