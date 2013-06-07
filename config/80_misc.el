@@ -54,8 +54,10 @@ to be searched by howm."
 
 
 ;;; run as script
-(defun run-file-as-script (args)
-  (interactive "sargs: ")
-  (let* ((file (buffer-file-name)))
+(defun run-file-as-script (&optional args)
+  (interactive "P")
+  (let* ((file (buffer-file-name))
+         (command (if (boundp 'run-test-target) (symbol-name run-test-target) file)))
     (shell-command (format "chmod u+x %s" file))
-    (shell-command (format "%s %s" file args))))
+    (if args (setq command (format "%s %s" command (read-string "input arguments: "))))
+    (shell-command command)))
