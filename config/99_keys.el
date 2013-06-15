@@ -5,7 +5,6 @@
 
 
 
-
 (global-set-key (kbd "C-x H") 'hatenahelper-mode)
 (global-set-key (kbd "C-c , ,") 'howm-menu)
 ;; (global-set-key "\C-cec" 'evernote-create-note)
