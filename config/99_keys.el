@@ -20,3 +20,11 @@
 (global-set-key (kbd "C-c d") 'flymake-display-err-menu-for-current-line)
 (global-set-key (kbd "C-;") 'helm-mini)
 (global-set-key (kbd "C-c ;") 'helm-mini)
+(global-set-key (kbd "C-c C-r") 'run-file-as-script)
+
+
+
+
+(add-hook 'python-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c C-r") 'run-file-as-script)))
