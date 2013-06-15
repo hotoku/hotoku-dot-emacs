@@ -10,14 +10,9 @@
   "*Default command for typesetting LaTeX text.")
 
 ;;; 数式の色
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(YaTeX-font-lock-formula-face ((((class color) (background light)) (:foreground "DarkRed"))))
- '(YaTeX-font-lock-math-sub-face ((((class color) (background light)) (:foreground "DarkRed"))))
- '(YaTeX-font-lock-math-sup-face ((((class color) (background light)) (:foreground "DarkRed")))))
+(set-face-foreground 'YaTeX-font-lock-formula-face "DarkRed")
+(set-face-foreground 'YaTeX-font-lock-math-sub-face "DarkRed")
+(set-face-foreground 'YaTeX-font-lock-math-sup-face "DarkRed")
 
 ;;; スクリプト挿入
 (defun yatex-insert-script (prefix script)

@@ -77,9 +77,3 @@
 ;;; do not use tab
 (add-hook 'emacs-lisp-mode-hook
           (lambda () (setq indent-tabs-mode nil)))
-
-
-
-
-;;; remove trailing whitespace
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
