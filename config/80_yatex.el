@@ -10,9 +10,11 @@
   "*Default command for typesetting LaTeX text.")
 
 ;;; 数式の色
-(set-face-foreground 'YaTeX-font-lock-formula-face "DarkRed")
-(set-face-foreground 'YaTeX-font-lock-math-sub-face "DarkRed")
-(set-face-foreground 'YaTeX-font-lock-math-sup-face "DarkRed")
+(add-hook 'yatex-mode-hook
+          (lambda ()
+            (set-face-foreground 'YaTeX-font-lock-formula-face "DarkRed")
+            (set-face-foreground 'YaTeX-font-lock-math-sub-face "DarkRed")
+            (set-face-foreground 'YaTeX-font-lock-math-sup-face "DarkRed")))
 
 ;;; スクリプト挿入
 (defun yatex-insert-script (prefix script)
