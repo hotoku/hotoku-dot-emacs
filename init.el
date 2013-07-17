@@ -290,6 +290,15 @@
 ;;; helm
 (require 'helm-config)
 (helm-mode 1)
+(setq helm-idle-delay 0.1)
+(setq helm-input-idle-delay 0.1)
+(setq helm-delete-minibuffer-contents-from-point t)
+(setq helm-ff-auto-update-initial-value nil)
+(define-key helm-c-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
+
+
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
