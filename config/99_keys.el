@@ -15,7 +15,7 @@
 ;; (global-set-key "\C-cep" 'evernote-post-region)
 ;; (global-set-key "\C-ceb" 'evernote-browser)
 (global-set-key (kbd "C-c g") 'magit-status)
-(global-set-key (kbd "C-,") 'other-window-or-split)
+(global-set-key (kbd "C-.") 'other-window-or-split)
 (global-set-key (kbd "C-1") 'delete-other-windows)
 (global-set-key (kbd "C-c d") 'flymake-display-err-menu-for-current-line)
 (global-set-key (kbd "C-;") 'helm-mini)
