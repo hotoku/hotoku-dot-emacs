@@ -61,3 +61,15 @@ to be searched by howm."
     (shell-command (format "chmod u+x %s" file))
     (if args (setq command (format "%s %s" command (read-string "input arguments: "))))
     (shell-command command)))
+
+
+
+
+;;; pythontidy
+(defun pytidy-whole-buffer ()
+  (interactive)
+  (let ((a (point)))
+    (shell-command-on-region (point-min) (point-max) "ptidy" t)
+    (goto-char a)))
+(add-hook 'python-mode-hook '(lambda ()
+                               (define-key python-mode-map "\C-ct" 'pytidy-whole-buffer)))
