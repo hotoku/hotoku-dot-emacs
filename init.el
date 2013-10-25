@@ -84,6 +84,7 @@
 (setq howm-menu-lang 'ja)
 (setq howm-keyword-file "~/.emacs.d/.howm-keys")
 (autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
+(setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.org")
 
 
 
