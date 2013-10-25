@@ -28,3 +28,6 @@
 (add-hook 'python-mode-hook
           (lambda ()
             (local-set-key (kbd "C-c C-r") 'run-file-as-script)))
+(add-hook 'org-mode-hook
+          (lambda ()
+            (local-unset-key (kbd "C-c ,"))))
