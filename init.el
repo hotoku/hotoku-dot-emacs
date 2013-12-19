@@ -1,4 +1,6 @@
 ;;; el-get install check
+(setq el-get-git-install-url "https://github.com/dimitri/el-get")
+(setq el-get-github-default-url-type "https")
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
