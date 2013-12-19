@@ -14,8 +14,8 @@
 ;;; install necessary library by el-get
 (setq el-get-sources
       '((:name init-loader
-               :type http
-               :url "https://raw.github.com/gist/1021706/init-loader.el")
+               :type github
+               :pkgname "emacs-jp/init-loader")
         (:name equally-spaced
                :type http
                :url "https://raw.github.com/gist/4975695/equally-spaced.el")
