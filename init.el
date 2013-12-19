@@ -19,8 +19,8 @@
                :type github
                :pkgname "emacs-jp/init-loader")
         (:name equally-spaced
-               :type http
-               :url "https://raw.github.com/gist/4975695/equally-spaced.el")
+               :type github
+               :pkgname "hotoku/equally-spaced")
         (:name session
                :url "http://downloads.sourceforge.net/project/emacs-session/session/session-2.3.tar.gz")
         (:name qiita-el
@@ -231,14 +231,8 @@
 
 
 
-
-
-
-
-
-
-
-
+;;; equally-spaced
+(require 'equally-spaced)
 
 
 
