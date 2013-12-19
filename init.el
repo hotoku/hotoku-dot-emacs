@@ -23,9 +23,6 @@
                :url "https://raw.github.com/gist/4975695/equally-spaced.el")
         (:name session
                :url "http://downloads.sourceforge.net/project/emacs-session/session/session-2.3.tar.gz")
-        (:name foiltex-mode
-               :type http
-               :url "https://raw.github.com/gist/5180394/foiltex-mode.el")
         (:name qiita-el
                :description "Qiita API Library for emacs"
                :type github
