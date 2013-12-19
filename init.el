@@ -35,7 +35,6 @@
                 yasnippet
                 browse-kill-ring
                 haskell-mode
-                mdfind-dired
                 ess)
               (mapcar 'el-get-source-name el-get-sources)))
 (el-get-cleanup my-packages)
