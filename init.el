@@ -1,4 +1,6 @@
 ;;; el-get install check
+(setq el-get-git-install-url "https://github.com/dimitri/el-get")
+(setq el-get-github-default-url-type "https")
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
@@ -14,30 +16,25 @@
 ;;; install necessary library by el-get
 (setq el-get-sources
       '((:name init-loader
-               :type http
-               :url "https://raw.github.com/gist/1021706/init-loader.el")
+               :type github
+               :pkgname "emacs-jp/init-loader")
         (:name equally-spaced
                :type http
                :url "https://raw.github.com/gist/4975695/equally-spaced.el")
         (:name session
                :url "http://downloads.sourceforge.net/project/emacs-session/session/session-2.3.tar.gz")
-        (:name foiltex-mode
-               :type http
-               :url "https://raw.github.com/gist/5180394/foiltex-mode.el")
         (:name qiita-el
                :description "Qiita API Library for emacs"
                :type github
                :pkgname "gongo/qiita-el")))
 (defvar my-packages
       (append '(el-get
-                magit
                 howm
                 helm
                 auto-install
                 yasnippet
                 browse-kill-ring
                 haskell-mode
-                mdfind-dired
                 ess)
               (mapcar 'el-get-source-name el-get-sources)))
 (el-get-cleanup my-packages)
@@ -46,10 +43,6 @@
 
 
 
-;;; load-path
-(let ((default-directory "~/dropbox/misc/elisp"))
-  (add-to-list 'load-path default-directory)
-  (normal-top-level-add-subdirs-to-load-path))
 
 
 
@@ -175,9 +168,6 @@
 
 
 
-;;; w3m
-(setq load-path (cons "~/dropbox/emacs/w3m/share/emacs/site-lisp/w3m" load-path))
-(require 'w3m-load)
 
 
 
@@ -198,7 +188,7 @@
 
 
 ;;; git
-(add-to-list 'load-path "/opt/local/share/git-core/contrib/emacs")
+(add-to-list 'load-path "/usr/share/doc/git-1.7.1/contrib/emacs")
 (require 'git)
 (require 'git-blame)
 (require 'magit)
@@ -213,8 +203,6 @@
 
 
 
-;;; minibuf
-(require 'minibuf-isearch)
 
 
 
@@ -227,10 +215,6 @@
 
 
 
-;;; elscreen
-(require 'elscreen)
-(setq elscreen-display-tab nil)
-(elscreen-start)
 
 
 
@@ -248,43 +232,14 @@
 
 
 
-;;; markdown
-(require 'markdown-mode)
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-(setq markdown-command "multimarkdown")
 
 
 
 
-;;; equally-spaced
-(require 'equally-spaced)
 
 
 
 
-;;; popwin
-(require 'popwin)
-(setq display-buffer-function 'popwin:display-buffer)
-
-
-
-
-;;; auto-async-byte-compile
-(require 'auto-async-byte-compile)
-(setq auto-async-byte-compile-exclude-files-regexp "/junk/")
-(add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
-
-
-
-
-;;; foiltex-mode
-(require 'foiltex-mode)
-
-
-
-
-;;; qiita
-(require 'qiita)
 
 
 
