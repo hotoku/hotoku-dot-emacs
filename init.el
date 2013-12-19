@@ -29,7 +29,6 @@
                :pkgname "gongo/qiita-el")))
 (defvar my-packages
       (append '(el-get
-                magit
                 howm
                 helm
                 auto-install
