@@ -186,7 +186,7 @@
 
 
 ;;; git
-(add-to-list 'load-path "/opt/local/share/git-core/contrib/emacs")
+(add-to-list 'load-path "/usr/share/doc/git-1.7.1/contrib/emacs")
 (require 'git)
 (require 'git-blame)
 (require 'magit)
