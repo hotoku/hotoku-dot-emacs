@@ -43,10 +43,6 @@
 
 
 
-;;; load-path
-(let ((default-directory "~/dropbox/misc/elisp"))
-  (add-to-list 'load-path default-directory)
-  (normal-top-level-add-subdirs-to-load-path))
 
 
 
