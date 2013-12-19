@@ -51,10 +51,6 @@
 
 
 
-
-
-
-
 ;;; package
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -176,10 +172,6 @@
 
 
 
-
-
-
-
 ;;; emacs-lisp-mode
 (add-hook 'emacs-lisp-mode-hook
           '(lambda ()
@@ -212,18 +204,10 @@
 
 
 
-
-
-
-
 ;;; haskell-mode
 ;; (load "haskell-site-file")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-
-
-
-
 
 
 
@@ -240,9 +224,9 @@
 
 
 
+
 ;;; equally-spaced
 (require 'equally-spaced)
-
 
 
 
