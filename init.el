@@ -166,9 +166,6 @@
 
 
 
-;;; w3m
-(setq load-path (cons "~/dropbox/emacs/w3m/share/emacs/site-lisp/w3m" load-path))
-(require 'w3m-load)
 
 
 
@@ -204,8 +201,6 @@
 
 
 
-;;; minibuf
-(require 'minibuf-isearch)
 
 
 
@@ -218,10 +213,6 @@
 
 
 
-;;; elscreen
-(require 'elscreen)
-(setq elscreen-display-tab nil)
-(elscreen-start)
 
 
 
@@ -247,35 +238,10 @@
 
 
 
-;;; equally-spaced
-(require 'equally-spaced)
 
 
 
 
-;;; popwin
-(require 'popwin)
-(setq display-buffer-function 'popwin:display-buffer)
-
-
-
-
-;;; auto-async-byte-compile
-(require 'auto-async-byte-compile)
-(setq auto-async-byte-compile-exclude-files-regexp "/junk/")
-(add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
-
-
-
-
-;;; foiltex-mode
-(require 'foiltex-mode)
-
-
-
-
-;;; qiita
-(require 'qiita)
 
 
 
