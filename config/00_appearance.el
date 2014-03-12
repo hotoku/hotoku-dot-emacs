@@ -28,17 +28,6 @@
 
 
 
-;;; font
-(add-to-list 'initial-frame-alist
-             '(font . "-apple-Monaco-medium-normal-normal-*-14-*-*-*-m-0-iso10646-1"))
-(create-fontset-from-ascii-font "Menlo-14:weight=normal:slant=normal" nil "menlokakugo")
-(set-fontset-font "fontset-menlokakugo" 'unicode (font-spec :family "Hiragino Kaku Gothic ProN" ) nil 'append)
-(add-to-list 'initial-frame-alist '(font . "fontset-menlokakugo"))
-(setq face-font-rescale-alist '((".*Hiragino.*" . 1.2) (".*Menlo.*" . 1.0)))
-
-
-
-
 ;;; default frame
 (setq default-frame-alist initial-frame-alist)
 
