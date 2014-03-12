@@ -1,12 +1,8 @@
 ;;; initial frame size
-(cond
- ((string= (system-name) "horikoshiyasunori-no-iMac.local")
-  (setq initial-frame-alist
-        (append (list '(width . 235) '(height . 58)) initial-frame-alist))
-  (split-window-horizontally)) ; use 2 pane
- ((string= (system-name) "horikoshiyasunori-no-MacBook-Pro.local")
-  (setq initial-frame-alist
-        (append (list '(width . 157) '(height . 42)) initial-frame-alist))))
+(set-frame-size
+   (selected-frame)
+   (- (/ (x-display-pixel-width) (frame-char-width)) 10)
+   (- (/ (x-display-pixel-height) (frame-char-height)) 10))
 
 
 
