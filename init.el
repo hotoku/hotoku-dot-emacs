@@ -36,15 +36,16 @@
                :type github
                :pkgname "gongo/qiita-el")))
 (defvar my-packages
-      (append '(el-get
-                howm
-                helm
-                auto-install
-                yasnippet
-                browse-kill-ring
-                haskell-mode
-                ess)
-              (mapcar 'el-get-source-name el-get-sources)))
+  (append '(el-get
+            howm
+            helm
+            auto-install
+            yasnippet
+            browse-kill-ring
+            haskell-mode
+            ess
+            color-moccur)
+          (mapcar 'el-get-source-name el-get-sources)))
 (el-get-cleanup my-packages)
 (el-get 'sync my-packages)
 
