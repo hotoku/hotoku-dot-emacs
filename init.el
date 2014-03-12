@@ -44,7 +44,8 @@
             browse-kill-ring
             haskell-mode
             ess
-            color-moccur)
+            color-moccur
+            moccur-edit)
           (mapcar 'el-get-source-name el-get-sources)))
 (el-get-cleanup my-packages)
 (el-get 'sync my-packages)
