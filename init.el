@@ -22,6 +22,16 @@
 
 
 ;;; install necessary library by el-get
+(defvar my-packages
+  '(exec-path-from-shell))
+(el-get 'sync my-packages)
+(require 'exec-path-from-shell)
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
+
+
+
 (setq el-get-sources
       '((:name init-loader
                :type github
@@ -35,20 +45,22 @@
                :description "Qiita API Library for emacs"
                :type github
                :pkgname "gongo/qiita-el")))
-(defvar my-packages
-  (append '(el-get
-            howm
-            helm
-            auto-install
-            yasnippet
-            browse-kill-ring
-            haskell-mode
-            ess
-            color-moccur
-            moccur-edit)
-          (mapcar 'el-get-source-name el-get-sources)))
-(el-get-cleanup my-packages)
+(setq my-packages
+      (append my-packages
+              '(el-get
+                howm
+                helm
+                auto-install
+                yasnippet
+                browse-kill-ring
+                haskell-mode
+                ess
+                color-moccur
+                moccur-edit
+                magit)
+              (mapcar 'el-get-source-name el-get-sources)))
 (el-get 'sync my-packages)
+(el-get-cleanup my-packages)
 
 
 
