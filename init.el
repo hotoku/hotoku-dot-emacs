@@ -1,11 +1,3 @@
-;;; load local settings
-(defvar hotoku-git-location "" "location of git.el")
-(defvar hotoku-magit-location "" "location of magit.el") 
-(load "~/.emacs.d/site-config/config.el")
-
-
-
-
 ;;; el-get install check
 (setq el-get-git-install-url "https://github.com/dimitri/el-get")
 (setq el-get-github-default-url-type "https")
@@ -201,11 +193,7 @@
 
 
 
-;;; git
-(add-to-list 'load-path hotoku-git-location)
-(add-to-list 'load-path hotoku-magit-location)
-(require 'git)
-(require 'git-blame)
+;;; magit
 (require 'magit)
 
 
