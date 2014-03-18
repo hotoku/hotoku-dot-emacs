@@ -1,3 +1,11 @@
+;;; load local settings
+(let ((site-file "~/.emacs.d/site-config/config.el"))
+  (when (file-readable-p site-file)
+    (load-file site-file)))
+
+
+
+
 ;;; el-get install check
 (setq el-get-git-install-url "https://github.com/dimitri/el-get")
 (setq el-get-github-default-url-type "https")
