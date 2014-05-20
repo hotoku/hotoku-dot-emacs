@@ -57,7 +57,8 @@
                 ess
                 color-moccur
                 moccur-edit
-                magit)
+                magit
+                dsvn)
               (mapcar 'el-get-source-name el-get-sources)))
 (el-get 'sync my-packages)
 (el-get-cleanup my-packages)
