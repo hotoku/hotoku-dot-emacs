@@ -66,7 +66,8 @@
                 magit
                 dsvn
                 scala-mode2
-                ensime)
+                ensime
+                open-junk-file)
               (mapcar 'el-get-source-name el-get-sources)))
 (el-get 'sync my-packages)
 (el-get-cleanup my-packages)
