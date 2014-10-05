@@ -4,11 +4,14 @@
     (load-file site-file)))
 
 
+
+
 ;;; load path
 (let ((default-directory (expand-file-name "~/.emacs.d/site-lisp")))
   (add-to-list 'load-path default-directory)
   (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
       (normal-top-level-add-subdirs-to-load-path)))
+
 
 
 
@@ -111,7 +114,6 @@
 (autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
 (setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.md")
 (setq howm-todo-menu-types "[-+~!]")
-
 
 
 
@@ -260,6 +262,13 @@
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+
+
+
+;;; auto-complete
+(require 'auto-complete-config)
+(ac-config-default)
 
 
 
