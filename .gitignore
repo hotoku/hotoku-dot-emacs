@@ -15,3 +15,6 @@ el-get
 .session
 tramp
 site-config/config.el
+howm/
+site-lisp/*
+ac-comphist.dat
