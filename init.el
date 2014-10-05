@@ -273,6 +273,12 @@
 
 
 
+;;; minibuf-isearch
+(require 'minibuf-isearch)
+
+
+
+
 ;;; helm
 (require 'helm-config)
 (helm-mode 1)
