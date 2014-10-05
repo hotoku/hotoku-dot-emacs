@@ -103,6 +103,8 @@
 
 
 ;;; howm
+(setq howm-view-title-header "#")
+(setq howm-menu-file "~/.emacs.d/howm-menu.txt")
 (require 'howm)
 (setq howm-menu-lang 'ja)
 (setq howm-keyword-file "~/.emacs.d/.howm-keys")
