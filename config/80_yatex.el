@@ -1,3 +1,4 @@
+
 (setq auto-mode-alist
       (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
@@ -6,7 +7,7 @@
 
 
 ;;; tex コマンド
-(defvar tex-command "mylatex.sh" ; "platex"
+(defvar tex-command "platex"
   "*Default command for typesetting LaTeX text.")
 
 ;;; 数式の色
