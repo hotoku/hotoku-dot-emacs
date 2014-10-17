@@ -29,4 +29,6 @@
 (add-hook 'yatex-mode-hook
           '(lambda ()
              (local-set-key "\C-c\C-f" 'yatex-insert-subscript)
-             (local-set-key "\C-c\C-g" 'yatex-insert-superscript)))
+             (local-set-key "\C-c\C-g" 'yatex-insert-superscript)
+             (local-set-key "\C-\M-a" 'foiltex-previous-page)
+             (local-set-key "\C-\M-e" 'foiltex-next-page)))
