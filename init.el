@@ -72,7 +72,10 @@
                 ensime
                 open-junk-file
                 auto-complete
-                markdown-mode)
+                auto-complete-c-headers
+                markdown-mode
+                iedit
+                flymake-cursor)
               (mapcar 'el-get-source-name el-get-sources)))
 (el-get 'sync my-packages)
 (el-get-cleanup my-packages)
@@ -179,6 +182,9 @@
 
 ;;; yasnippet
 (require 'yasnippet)
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"
+        "/Users/01004106/.emacs.d/el-get/yasnippet/snippets"))
 (yas-global-mode 1)
 
 
@@ -273,8 +279,30 @@
 
 
 
+;;; auto-complete-c-headers
+(defun my:ac-c-header-init ()
+  (require 'auto-complete-c-headers)
+  (add-to-list 'ac-sources 'ac-sources-c-headers)
+  (add-to-list 'achead:include-directories
+               '"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1")
+  (add-to-list 'achead:include-directories
+               '"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/6.0/include")
+  (add-to-list 'achead:include-directories
+               '"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"))
+(add-hook 'c++-mode-hook 'my:ac-c-header-init)
+(add-hook 'c-mode-hook 'my:ac-c-header-init)
+
+
+
+
 ;;; minibuf-isearch
 (require 'minibuf-isearch)
+
+
+
+
+;;; iedit
+(define-key global-map (kbd "C-c ;") 'iedit-mode)
 
 
 
