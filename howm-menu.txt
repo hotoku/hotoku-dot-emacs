@@ -1,8 +1,5 @@
 = <<< %menu%
->>> /Users/01004106/howm/todo.md
->>> /Users/01004106/howm/log.md
-crossuse
-zexy_kpi
+log		>>> /Users/01004106/howm/log.md
 
 -------------------------------------
 最近のメモ

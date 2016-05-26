@@ -18,3 +18,4 @@ site-config/config.el
 howm/
 site-lisp/*
 ac-comphist.dat
+recentf
