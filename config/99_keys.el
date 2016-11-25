@@ -22,7 +22,7 @@
 (global-set-key (kbd "C-c ;") 'helm-mini)
 (global-set-key (kbd "C-c C-r") 'run-file-as-script)
 (global-set-key (kbd "C-M-_") 'indent-region)
-
+(global-set-key (kbd "C-c C-l") 'make-symbolic-link-of-current-buffer)
 
 
 
