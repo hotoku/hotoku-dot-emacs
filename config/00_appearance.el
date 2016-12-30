@@ -1,12 +1,3 @@
-;;; initial frame size
-;; (set-frame-size
-;;    (selected-frame)
-;;    (- (/ (x-display-pixel-width) (frame-char-width)) 10)
-;;    (- (/ (x-display-pixel-height) (frame-char-height)) 10))
-
-
-
-
 ;;; initial frame settings
 (setq initial-frame-alist
       (append
