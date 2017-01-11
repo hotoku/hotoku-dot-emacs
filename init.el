@@ -314,7 +314,6 @@
 (setq helm-input-idle-delay 0.1)
 (setq helm-delete-minibuffer-contents-from-point t)
 (setq helm-ff-auto-update-initial-value nil)
-(define-key helm-c-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 
 
 
