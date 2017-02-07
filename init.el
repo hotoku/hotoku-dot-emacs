@@ -108,19 +108,6 @@
 
 
 
-;;; howm
-(setq howm-view-title-header "#")
-(setq howm-menu-file "~/.emacs.d/howm-menu.txt")
-(require 'howm)
-(setq howm-menu-lang 'ja)
-(setq howm-keyword-file "~/.emacs.d/.howm-keys")
-(autoload 'howm-menu "howm" "Hitori Otegaru Wiki Modoki" t)
-(setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.md")
-(setq howm-todo-menu-types "[-+~!]")
-
-
-
-
 ;; ;;; ini
 ;; (require 'ini-mode)
 ;; (setq auto-mode-alist
