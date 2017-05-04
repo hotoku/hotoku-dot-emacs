@@ -26,6 +26,12 @@
 
 
 
+
+(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+
+
+
+
 (add-hook 'python-mode-hook
           (lambda ()
             (local-set-key (kbd "C-c C-r") 'run-file-as-script)))
