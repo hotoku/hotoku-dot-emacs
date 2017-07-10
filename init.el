@@ -311,11 +311,16 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(indent-tabs-mode nil)
- '(safe-local-variable-values (quote ((run-test-target . test\.sh) (run-test-target . test/test-ofx\.py))))
+ '(safe-local-variable-values
+   (quote
+    ((run-test-target . test\.sh)
+     (run-test-target . test/test-ofx\.py))))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(markdown-header-face-2 ((t (:inherit markdown-header-face :background "White" :foreground "purple4"))))
+ '(markdown-header-face-3 ((t (:inherit markdown-header-face :foreground "DarkOrchid4" :underline t))))
+ '(markdown-header-face-4 ((t (:inherit markdown-header-face :foreground "Black")))))
