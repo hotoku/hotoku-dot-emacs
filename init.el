@@ -324,4 +324,4 @@
  ;; If there is more than one, they won't work right.
  '(markdown-header-face-2 ((t (:inherit markdown-header-face :background "White" :foreground "purple4"))))
  '(markdown-header-face-3 ((t (:inherit markdown-header-face :foreground "DarkOrchid4" :underline t))))
- '(markdown-header-face-4 ((t (:inherit markdown-header-face :foreground "Black")))))
+ '(markdown-header-face-4 ((t (:inherit markdown-header-face :foreground "gray20")))))
