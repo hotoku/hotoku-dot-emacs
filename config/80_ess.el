@@ -22,3 +22,10 @@
                         buffer-file-name)))
               (when (string= ext "runit")
                 (setq truncate-lines t)))))
+
+
+
+;; change assign mark(" <- ") short cut to ":"
+(setq ess-smart-S-assign-key ":")
+(ess-toggle-S-assign nil)
+(ess-toggle-S-assign nil)
