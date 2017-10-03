@@ -312,6 +312,7 @@
  ;; If there is more than one, they won't work right.
  '(indent-tabs-mode nil)
  '(markdown-unordered-list-item-prefix "* ")
+ '(python-shell-interpreter "python3")
  '(safe-local-variable-values
    (quote
     ((run-test-target . test\.sh)
