@@ -57,18 +57,16 @@
 (setq my-packages
       (append my-packages
               '(el-get
-                howm
                 helm
                 auto-install
                 yasnippet
                 browse-kill-ring
-                haskell-mode
-                ess
+                ;;; haskell-mode
+                ;;; ess
                 color-moccur
                 moccur-edit
                 magit
                 dsvn
-                scala-mode2
                 ensime
                 open-junk-file
                 auto-complete
