@@ -62,7 +62,6 @@
                 yasnippet
                 browse-kill-ring
                 ;;; haskell-mode
-                ;;; ess
                 color-moccur
                 moccur-edit
                 magit
@@ -289,6 +288,11 @@
 ;;; iedit
 (define-key global-map (kbd "C-c ;") 'iedit-mode)
 
+
+
+
+;;; ess
+(require 'ess-site)
 
 
 
