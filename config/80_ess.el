@@ -26,6 +26,4 @@
 
 
 ;; change assign mark(" <- ") short cut to ":"
-(setq ess-smart-S-assign-key ":")
-(ess-toggle-S-assign nil)
-(ess-toggle-S-assign nil)
+(define-key ess-mode-map (kbd ":") 'ess-insert-assign)
