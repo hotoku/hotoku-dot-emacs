@@ -1,3 +1,9 @@
 #!/bin/bash
 
-docker run -it -e PASSWORD=hotoku --rm rocker/tidyverse R
+docker run \
+       -it \
+       -e PASSWORD=hotoku \
+       -v $(pwd):/home/rstudio \
+       --rm \
+       rocker/tidyverse \
+       /bin/bash -c "cd /home/rstudio && R"
