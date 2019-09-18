@@ -5,5 +5,5 @@ docker run \
        -e PASSWORD=hotoku \
        -v $(pwd):/home/rstudio \
        --rm \
-       rocker/tidyverse \
+       hotoku/r \
        /bin/bash -c "cd /home/rstudio && R"
