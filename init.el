@@ -296,6 +296,7 @@
 
 
 
+
 ;;; helm
 (require 'helm-config)
 (helm-mode 1)
@@ -303,6 +304,9 @@
 (setq helm-input-idle-delay 0.1)
 (setq helm-delete-minibuffer-contents-from-point t)
 (setq helm-ff-auto-update-initial-value nil)
+
+
+
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
@@ -314,6 +318,11 @@
 (global-unset-key (kbd "C-x c"))
 (global-set-key (kbd "C-c h o") 'helm-occur)
 
+
+
+
+;;; recentf
+(setq recentf-auto-save-timer (run-with-idle-timer 30 t 'recentf-save-list))
 
 
 
