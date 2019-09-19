@@ -24,17 +24,27 @@
                 (setq truncate-lines t)))))
 
 
+
+
 ;; unbind "_" from
 (add-hook 'ess-mode-hook
           (lambda ()
             (local-unset-key (kbd "_"))))
 
+
+
+
 ;; change assign mark(" <- ") short cut to ":"
 (define-key ess-mode-map (kbd ":") 'ess-insert-assign)
 
 
+
+
 ;; set coding style
 (setq ess-default-style 'RStudio)
+
+
+
 
 ;; ess command
 (defun R-docker ()
@@ -44,3 +54,12 @@
                  '((inferior-ess-program . "~/project/dot-emacs/bin/R-docker"))))
         (ess-R-readline t))
     (R)))
+
+
+
+
+;; face
+(font-lock-add-keywords
+ 'ess-mode
+ '(("=" . ess-assignment-face)
+   ("\\$" . ess-operator-face)))
