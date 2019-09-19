@@ -327,6 +327,7 @@
  '(js-indent-level 2)
  '(markdown-unordered-list-item-prefix "* ")
  '(python-shell-interpreter "python3")
+ '(recentf-max-saved-items 2000)
  '(safe-local-variable-values
    (quote
     ((run-test-target . test\.sh)
