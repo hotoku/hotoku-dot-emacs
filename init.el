@@ -72,7 +72,8 @@
                 auto-complete-c-headers
                 markdown-mode
                 iedit
-                flymake-cursor)
+                flymake-cursor
+                dockerfile-mode)
               (mapcar 'el-get-source-name el-get-sources)))
 (el-get 'sync my-packages)
 (el-get-cleanup my-packages)
