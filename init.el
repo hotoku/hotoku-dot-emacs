@@ -61,7 +61,6 @@
                 auto-install
                 yasnippet
                 browse-kill-ring
-                ;;; haskell-mode
                 color-moccur
                 moccur-edit
                 magit
