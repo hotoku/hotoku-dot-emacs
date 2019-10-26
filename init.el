@@ -142,7 +142,7 @@
 ;;; back up file
 (setq make-backup-files t)
 (setq backup-directory-alist
-      (cons (cons "\\.*$" (expand-file-name "~/.emacs.d/backup"))
+      (cons (cons "\\.*$" (expand-file-name "~/misc/backup"))
             backup-directory-alist))
 
 
