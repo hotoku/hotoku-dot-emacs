@@ -74,7 +74,9 @@
                 flymake-cursor
                 dockerfile-mode
                 projectile
-                yatex)
+                yatex
+                session)
+
               (mapcar 'el-get-source-name el-get-sources)))
 (el-get 'sync my-packages)
 (el-get-cleanup my-packages)
@@ -288,20 +290,8 @@
 
 
 
-;;; minibuf-isearch
-(require 'minibuf-isearch)
-
-
-
-
 ;;; iedit
 (define-key global-map (kbd "C-c ;") 'iedit-mode)
-
-
-
-
-;;; ess
-(require 'ess-site)
 
 
 
