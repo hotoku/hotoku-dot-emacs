@@ -70,6 +70,10 @@
                 auto-complete
                 auto-complete-c-headers
                 markdown-mode
+                markdown-preview-mode
+                websocket
+                web-server
+                uuidgen
                 iedit
                 flymake-cursor
                 dockerfile-mode
