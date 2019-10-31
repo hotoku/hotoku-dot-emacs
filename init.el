@@ -75,7 +75,8 @@
                 dockerfile-mode
                 projectile
                 yatex
-                session)
+                session
+                markdown-preview-mode)
 
               (mapcar 'el-get-source-name el-get-sources)))
 (el-get 'sync my-packages)
@@ -324,6 +325,10 @@
 (setq recentf-auto-save-timer (run-with-idle-timer 30 t 'recentf-save-list))
 
 
+
+
+;;; markdown-preview-mode
+(autoload 'markdown-preview-mode "markdown-preview-mode.el" t)
 
 
 (custom-set-variables
