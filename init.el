@@ -80,6 +80,7 @@
                 projectile
                 yatex
                 session
+                ace-window
                 markdown-preview-mode)
 
               (mapcar 'el-get-source-name el-get-sources)))
@@ -265,8 +266,8 @@
 
 
 ;;; markdown
-(autoload 'markdown-mode "markdown-mode"
-  "Major mode for editing Markdown files" t)
+(autoload 'markdown-preview-mode "markdown-preview-mode"
+  "markdown preview" t)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 

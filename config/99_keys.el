@@ -31,7 +31,7 @@
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 
 
-
+(global-set-key (kbd "M-p") 'ace-window)
 
 (add-hook 'python-mode-hook
           (lambda ()
