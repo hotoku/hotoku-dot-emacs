@@ -8,7 +8,6 @@
 (global-set-key (kbd "C-x H") 'hatenahelper-mode)
 (global-set-key (kbd "C-c , ,") 'howm-menu)
 (global-set-key (kbd "C-c g") 'magit-status)
-(global-set-key (kbd "C-.") 'ace-window)
 (global-set-key (kbd "C-1") 'delete-other-windows)
 (global-set-key (kbd "C-c d") 'flymake-display-err-menu-for-current-line)
 (global-set-key (kbd "C-;") 'helm-mini)
@@ -18,6 +17,15 @@
 (global-set-key (kbd "C-c C-l") 'make-symbolic-link-of-current-buffer)
 (global-set-key (kbd "C-,") 'other-frame)
 
+
+
+(global-set-key
+ (kbd "C-.")
+ (lambda ()
+   (interactive)
+   (if (= (length (window-list)) 1)
+       (split-window-right)
+     (ace-window 1))))
 
 
 
