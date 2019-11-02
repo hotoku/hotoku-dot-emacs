@@ -23,7 +23,9 @@
  (kbd "C-.")
  (lambda ()
    (interactive)
-   (if (= (length (window-list)) 1)
+   (if (and
+        (= (length (window-list)) 1)
+        (= (length (frame-list)) 1))
        (split-window-right)
      (ace-window 1))))
 
