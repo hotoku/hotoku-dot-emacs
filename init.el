@@ -58,6 +58,7 @@
       (append my-packages
               '(el-get
                 helm
+                graphviz-dot-mode
                 auto-install
                 yasnippet
                 browse-kill-ring
