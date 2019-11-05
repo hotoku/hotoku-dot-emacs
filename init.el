@@ -56,34 +56,33 @@
                :pkgname "gongo/qiita-el")))
 (setq my-packages
       (append my-packages
-              '(el-get
-                helm
-                graphviz-dot-mode
-                auto-install
-                yasnippet
-                browse-kill-ring
-                color-moccur
-                moccur-edit
-                magit
-                dsvn
-                ensime
-                open-junk-file
+              '(ace-window
                 auto-complete
                 auto-complete-c-headers
+                auto-install
+                browse-kill-ring
+                color-moccur
+                dockerfile-mode
+                dsvn
+                el-get
+                ensime
+                flymake-cursor
+                graphviz-dot-mode
+                helm
+                iedit
+                magit
                 markdown-mode
                 markdown-preview-mode
-                websocket
-                web-server
-                uuidgen
-                iedit
-                flymake-cursor
-                dockerfile-mode
+                markdown-preview-mode
+                moccur-edit
+                open-junk-file
                 projectile
-                yatex
                 session
-                ace-window
-                markdown-preview-mode)
-
+                uuidgen
+                web-server
+                websocket
+                yasnippet
+                yatex)
               (mapcar 'el-get-source-name el-get-sources)))
 (el-get 'sync my-packages)
 (el-get-cleanup my-packages)
