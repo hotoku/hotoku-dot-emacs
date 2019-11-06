@@ -1,5 +1,6 @@
-(add-hook 'markdown-mode-hook
-          '(lambda ()
-             (set-face-foreground 'markdown-header-face-2 "purple4")
-             (set-face-foreground 'markdown-header-face-3 "DarkOrchid4")
-             (set-face-foreground 'markdown-header-face-4 "MediumOrchid4")))
+(setq markdown-command "github-markup")
+(setq markdown-command-needs-filename t)
+
+;; htmlに仕込むCSS
+(setq markdown-css-paths '("https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"
+                           "http://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css"))
