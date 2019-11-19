@@ -70,6 +70,7 @@
                 graphviz-dot-mode
                 helm
                 iedit
+                jinja2-mode
                 magit
                 markdown-mode
                 markdown-preview-mode
