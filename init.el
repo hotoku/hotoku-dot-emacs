@@ -270,6 +270,10 @@
   "markdown preview" t)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(markdown-code-face ((t (:inherit fixed-pitch :background "ivory" :foreground "SlateGray4"))))
  '(markdown-header-face ((t (:inherit font-lock-function-name-face :family "MeiryoKe_UIGothic"))))
  '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 2.0 :underline t))))
@@ -350,6 +354,7 @@
  ;; If there is more than one, they won't work right.
  '(indent-tabs-mode nil)
  '(js-indent-level 2)
+ '(markdown-preview-http-port 9001)
  '(markdown-unordered-list-item-prefix "* ")
  '(python-shell-interpreter "python3")
  '(recentf-max-saved-items 2000)
