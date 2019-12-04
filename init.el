@@ -270,6 +270,7 @@
 (autoload 'markdown-preview-mode "markdown-preview-mode"
   "markdown preview" t)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-preview-mode))
 (custom-set-faces
  '(markdown-code-face ((t (:inherit fixed-pitch :background "ivory" :foreground "SlateGray4"))))
  '(markdown-header-face ((t (:inherit font-lock-function-name-face :family "MeiryoKe_UIGothic"))))
