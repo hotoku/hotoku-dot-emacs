@@ -269,6 +269,7 @@
 (autoload 'markdown-preview-mode "markdown-preview-mode"
   "markdown preview" t)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-preview-mode))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
