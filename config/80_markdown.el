@@ -2,5 +2,4 @@
 (setq markdown-command-needs-filename t)
 
 ;; htmlに仕込むCSS
-(setq markdown-css-paths '("https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css"
-                           "http://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css"))
+(setq markdown-css-paths (list (expand-file-name "~/.emacs.d/resource/github-markdown.css")))
