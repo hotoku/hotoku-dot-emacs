@@ -74,7 +74,6 @@
                 magit
                 markdown-mode
                 markdown-preview-mode
-                markdown-preview-mode
                 moccur-edit
                 open-junk-file
                 projectile
