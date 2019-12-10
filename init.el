@@ -77,6 +77,7 @@
                 moccur-edit
                 open-junk-file
                 projectile
+                py-autopep8
                 session
                 uuidgen
                 web-server
@@ -346,6 +347,14 @@
 
 ;;; markdown-preview-mode
 (autoload 'markdown-preview-mode "markdown-preview-mode.el" t)
+
+
+
+;;; autopep8
+(require 'py-autopep8)
+(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+
+
 
 
 (custom-set-variables
