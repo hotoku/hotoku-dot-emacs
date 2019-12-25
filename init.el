@@ -66,6 +66,7 @@
                 dsvn
                 el-get
                 ensime
+                flycheck
                 flymake-cursor
                 graphviz-dot-mode
                 helm
@@ -367,6 +368,17 @@
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
+
+
+
+;;; flycheck
+(setq flycheck-check-syntax-automatically 
+  '(save idle-change mode-enabled))
+(setq flycheck-idle-change-delay 3)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(eval-after-load 'flycheck
+  '(flycheck-add-mode 'html-tidy 'web-mode))
 
 
 
