@@ -60,6 +60,7 @@ body {
   word-wrap: break-word;
 
   margin: 0 auto;
+  margin-bottom: 1em;
   max-width: 23cm;
   border: 1pt solid #586e75;
   padding: 1em;
