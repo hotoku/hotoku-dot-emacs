@@ -399,3 +399,4 @@
      (run-test-target . test/test-ofx\.py))))
  '(session-use-package t nil (session))
  '(tab-width 2))
+
