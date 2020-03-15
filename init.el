@@ -389,7 +389,7 @@
  ;; If there is more than one, they won't work right.
  '(indent-tabs-mode nil)
  '(js-indent-level 2)
- '(markdown-preview-http-port 9003)
+ '(markdown-preview-http-port 9004)
  '(markdown-unordered-list-item-prefix "* ")
  '(python-shell-interpreter "python3")
  '(recentf-max-saved-items 2000)
