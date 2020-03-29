@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# key: pythonasync
+# name: pythonasync
+# expand-env: ((yas/indent-line (quote fixed)) (yas/wrap-around-region (quote nil)))
+# --
+#!/usr/bin/env python
+
+import argparse
+import asyncio
+         
+async def main():
+    parser = argparse.ArgumentParser()
+    args = parser.parse_args()
+    
+
+if __name__ == "__main__":
+    asyncio.run(main())
