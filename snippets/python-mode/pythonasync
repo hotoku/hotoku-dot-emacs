@@ -7,11 +7,21 @@
 
 import argparse
 import asyncio
+import logging
          
 async def main():
-    parser = argparse.ArgumentParser()
-    args = parser.parse_args()
+    $0
     
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    args = parser.parse_args()
+
+    logging.basicConfig(
+        filename="`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`.log",
+        level=logging.DEBUG,
+        format="[%(levelname)s]%(asctime)s %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S"
+    )
+
     asyncio.run(main())
