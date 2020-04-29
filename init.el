@@ -100,14 +100,6 @@
 
 
 
-;;; package
-(require 'package)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(package-initialize)
-
-
-
-
 ;;; auto-install
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/auto-install/")
@@ -352,9 +344,11 @@
 
 
 
+
 ;;; autopep8
 (require 'py-autopep8)
 (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+
 
 
 
@@ -373,12 +367,13 @@
 
 
 ;;; flycheck
-(setq flycheck-check-syntax-automatically 
+(setq flycheck-check-syntax-automatically
   '(save idle-change mode-enabled))
 (setq flycheck-idle-change-delay 3)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (eval-after-load 'flycheck
   '(flycheck-add-mode 'html-tidy 'web-mode))
+
 
 
 
@@ -399,4 +394,3 @@
      (run-test-target . test/test-ofx\.py))))
  '(session-use-package t nil (session))
  '(tab-width 2))
-
