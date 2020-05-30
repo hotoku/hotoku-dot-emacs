@@ -1,4 +1,11 @@
 ;;; load local settings
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (let ((site-file "~/.emacs.d/site-config/config.el"))
   (when (file-readable-p site-file)
     (load-file site-file)))
@@ -72,6 +79,8 @@
                 helm
                 iedit
                 jinja2-mode
+                kotlin-mode
+                lsp-mode
                 magit
                 markdown-mode
                 markdown-preview-mode
