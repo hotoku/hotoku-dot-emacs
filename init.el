@@ -80,10 +80,12 @@
                 projectile
                 py-autopep8
                 session
+                tide
                 uuidgen
                 web-mode
                 web-server
                 websocket
+                yaml-mode
                 yasnippet
                 yatex)
               (mapcar 'el-get-source-name el-get-sources)))
