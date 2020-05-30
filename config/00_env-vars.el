@@ -1,8 +1,6 @@
 (require 'cl)
-(let* ((added-dirs (list "~/Dropbox/script"
+(let* ((added-dirs (list "/usr/local/anaconda3/bin"
                          "~/bin"
-                         "/opt/local/bin"
-                         "/opt/local/sbin"
                          "/usr/local/bin")))
   (setq exec-path (append added-dirs exec-path))
   (setenv "PATH"
