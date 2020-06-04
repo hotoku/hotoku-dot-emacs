@@ -387,6 +387,7 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (eval-after-load 'flycheck
   '(flycheck-add-mode 'html-tidy 'web-mode))
+(setq flycheck-flake8-maximum-line-length 200)
 
 
 
