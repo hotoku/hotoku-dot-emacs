@@ -15,3 +15,4 @@
 (setenv "LIBRARY_PATH"
         (concat '"/opt/local/lib:" (getenv "LIBRARY_PATH")))
 (setenv "LANG" "ja_JP.UTF-8")
+(setenv "EDITOR" "emacsclient")
