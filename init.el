@@ -46,6 +46,12 @@
   (exec-path-from-shell-initialize))
 
 
+;;; using emlpa recipes
+;;; c.f. https://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-el-get/23169388
+(require 'el-get-elpa) 
+(unless (file-directory-p el-get-recipe-path-elpa)
+  (el-get-elpa-build-local-recipes))
+
 
 
 (setq el-get-sources
