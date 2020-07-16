@@ -109,12 +109,17 @@
 (el-get-cleanup my-packages)
 (el-get-bundle clemera/dired-git-info)
 (el-get-bundle 10sr/git-ps1-mode-el)
+(el-get-bundle prettier/prettier-emacs)
 
 (require 'git-ps1-mode)
 (setq git-ps1-mode-ps1-file "/usr/local/etc/bash_completion.d/git-prompt.sh")
 (add-hook 'dired-mode-hook
           'git-ps1-mode)
 
+
+;;;
+(require 'prettier-js)
+(add-hook 'rjsx-mode-hook 'prettier-js-mode)
 
 
 ;;;
