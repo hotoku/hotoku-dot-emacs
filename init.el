@@ -94,6 +94,7 @@
                 open-junk-file
                 projectile
                 py-autopep8
+                rjsx-mode
                 session
                 tide
                 uuidgen
@@ -130,6 +131,10 @@
 (add-hook 'python-mode-hook
           'which-function-mode)
 
+
+
+;;;
+(add-to-list 'auto-mode-alist '(".*\\.js\\'" . rjsx-mode))
 
 
 ;;; auto-install
