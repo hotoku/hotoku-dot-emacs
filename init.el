@@ -126,6 +126,10 @@
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 
+;;;
+(add-hook 'python-mode-hook
+          'which-function-mode)
+
 
 
 ;;; auto-install

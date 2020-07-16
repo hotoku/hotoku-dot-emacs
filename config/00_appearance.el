@@ -26,7 +26,7 @@
 (set-face-foreground 'font-lock-variable-name-face "IndianRed")
 (set-face-foreground 'font-lock-constant-face      "RoyalBlue")
 (set-face-foreground 'mode-line "white")
-(set-face-background 'mode-line "black")
+(set-face-background 'mode-line "#a0a0a0")
 
 
 
