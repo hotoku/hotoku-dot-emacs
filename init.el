@@ -100,8 +100,18 @@
               (mapcar 'el-get-source-name el-get-sources)))
 (el-get 'sync my-packages)
 (el-get-cleanup my-packages)
+(el-get-bundle clemera/dired-git-info)
+(el-get-bundle 10sr/git-ps1-mode-el)
+
+(require 'git-ps1-mode)
+(setq git-ps1-mode-ps1-file "/usr/local/etc/bash_completion.d/git-prompt.sh")
 
 
+
+
+;;;
+(with-eval-after-load 'dired
+  (define-key dired-mode-map ")" 'dired-git-info-mode))
 
 
 ;;;
