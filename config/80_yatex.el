@@ -7,7 +7,7 @@
 
 
 ;;; tex コマンド
-(defvar tex-command "platex"
+(defvar tex-command "tex2pdf"
   "*Default command for typesetting LaTeX text.")
 
 ;;; 数式の色

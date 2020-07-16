@@ -111,7 +111,8 @@
 
 (require 'git-ps1-mode)
 (setq git-ps1-mode-ps1-file "/usr/local/etc/bash_completion.d/git-prompt.sh")
-
+(add-hook 'dired-mode-hook
+          'git-ps1-mode)
 
 
 
