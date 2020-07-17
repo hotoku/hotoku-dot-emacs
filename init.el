@@ -54,19 +54,8 @@
 
 
 
-(setq el-get-sources
-      '((:name init-loader
-               :type github
-               :pkgname "emacs-jp/init-loader")
-        (:name equally-spaced
-               :type github
-               :pkgname "hotoku/equally-spaced")
-        (:name session
-               :url "http://downloads.sourceforge.net/project/emacs-session/session/session-2.3.tar.gz")
-        (:name qiita-el
-               :description "Qiita API Library for emacs"
-               :type github
-               :pkgname "gongo/qiita-el")))
+(add-to-list 'el-get-recipe-path "~/.emacs.d/recipes/")
+
 (setq my-packages
       (append my-packages
               '(ace-window
@@ -79,11 +68,14 @@
                 dsvn
                 el-get
                 ensime
+		equally-spaced
                 flycheck
                 flymake-cursor
+                git-ps1-mode
                 graphviz-dot-mode
                 helm
                 iedit
+		init-loader
                 jinja2-mode
                 kotlin-mode
                 lsp-mode
@@ -92,6 +84,7 @@
                 markdown-preview-mode
                 moccur-edit
                 open-junk-file
+                prettier-emacs
                 projectile
                 py-autopep8
                 rjsx-mode
@@ -107,9 +100,6 @@
               (mapcar 'el-get-source-name el-get-sources)))
 (el-get 'sync my-packages)
 (el-get-cleanup my-packages)
-(el-get-bundle clemera/dired-git-info)
-(el-get-bundle 10sr/git-ps1-mode-el)
-(el-get-bundle prettier/prettier-emacs)
 
 (require 'git-ps1-mode)
 (setq git-ps1-mode-ps1-file "/usr/local/etc/bash_completion.d/git-prompt.sh")
