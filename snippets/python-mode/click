@@ -1,22 +1,18 @@
 # -*- mode: snippet -*-
-# key: pythonasync
-# name: pythonasync
+# name: click
+# key: click
 # expand-env: ((yas/indent-line (quote fixed)) (yas/wrap-around-region (quote nil)))
 # --
+
 #!/usr/bin/env python
 
-import argparse
-import asyncio
+import click
 import logging
-         
-async def main():
-    $0
-    
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    args = parser.parse_args()
 
+@click.command()
+@click.option("--$1", "-$2", default=None)
+def main($1):
     logging.basicConfig(
         filename="`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`.log",
         level=logging.DEBUG,
@@ -24,4 +20,12 @@ if __name__ == "__main__":
         datefmt="%Y-%m-%d %H:%M:%S"
     )
 
-    asyncio.run(main(args))
+    if $1 is None:
+       raise click.BadParameter(f"{$1} is necessary")
+    $3
+
+
+
+
+if __name__ == "__main__":
+    main()
