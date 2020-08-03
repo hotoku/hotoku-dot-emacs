@@ -1,0 +1,5 @@
+(:name dired-git-info-mode
+       :description "This Emacs packages provides a minor mode which shows git information inside the dired buffer"
+       :website "https://github.com/clemera/dired-git-info"
+       :type github
+       :pkgname "clemera/dired-git-info")
