@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: pythondebug
-# key: pythondebug
+# name: debug
+# key: debug
 # --
 import pdb
 pdb.set_trace()
