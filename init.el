@@ -68,14 +68,14 @@
                 dsvn
                 el-get
                 ensime
-		equally-spaced
+		            equally-spaced
                 flycheck
                 flymake-cursor
                 git-ps1-mode
                 graphviz-dot-mode
                 helm
                 iedit
-		init-loader
+		            init-loader
                 jinja2-mode
                 kotlin-mode
                 lsp-mode
