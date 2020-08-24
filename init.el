@@ -467,4 +467,5 @@
      (run-test-target . test/test-ofx\.py)))
  '(session-use-package t nil (session))
  '(standard-indent 2)
- '(tab-width 2))
+ '(tab-width 2)
+ '(web-mode-code-indent-offset 2))
