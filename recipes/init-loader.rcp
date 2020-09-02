@@ -1,0 +1,3 @@
+(:name init-loader
+       :type github
+       :pkgname "emacs-jp/init-loader")

@@ -18,7 +18,6 @@
   (el-get 'sync yh/my-packages)
   (el-get-cleanup yh/my-packages))
 
-
 ;;; backup
 (progn
   (setq make-backup-files t)

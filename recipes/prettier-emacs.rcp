@@ -1,0 +1,5 @@
+(:name prettier-emacs
+       :description "apply prettier when save"
+       :website "https://github.com/prettier/prettier-emacs"
+       :type github
+       :pkgname "prettier/prettier-emacs")
