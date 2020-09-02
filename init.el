@@ -7,8 +7,18 @@
 	 "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
       (goto-char (point-max))
       (eval-print-last-sexp)))
-  (add-to-list 'el-get-recipe-path "~/.emacs.d/recipes")
+  (add-to-list 'el-get-recipe-path "~/.emacs.d/recipes"))
+
+;;; exec-path-from-shell
+(progn
   (defvar yh/my-packages)
+	(setq yh/my-packages '(exec-path-from-shell))
+	(el-get 'sync yh/my-packages)
+	(require 'exec-path-from-shell)
+	(exec-path-from-shell-initialize))
+
+;;; install other packages
+(progn
   (setq yh/my-packages
 	'(magit use-package browse-kill-ring session color-moccur auto-complete session
 					helm open-junk-file projectile py-autopep8 yasnippet
