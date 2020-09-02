@@ -470,3 +470,9 @@
  '(tab-width 2)
  '(web-mode-code-indent-offset 2)
  '(web-mode-markup-indent-offset 2))
+
+
+
+;;; Local Variables:
+;;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+;;; End:
