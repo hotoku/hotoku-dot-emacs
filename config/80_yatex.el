@@ -19,7 +19,10 @@
 
 ;;; スクリプト挿入
 (defun yatex-insert-script (prefix script)
-  (insert (concat prefix "{" script "}")))
+  (when (< 0 (length script))
+    (if (< 1 (length script)) (insert (concat prefix "{" script "}"))
+      (insert (concat prefix script)))))
+
 (defun yatex-insert-subscript (script)
   (interactive "sscript: ")
   (yatex-insert-script "_" script))
