@@ -1,5 +1,4 @@
-;;; el-git
-(progn
+(progn "install el-git"
   (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
   (unless (require 'el-get nil 'noerror)
     (with-current-buffer
@@ -9,16 +8,14 @@
       (eval-print-last-sexp)))
   (add-to-list 'el-get-recipe-path "~/.emacs.d/recipes"))
 
-;;; exec-path-from-shell
-(progn
+(progn "exec-path-from-shell"
   (defvar yh/my-packages)
 	(setq yh/my-packages '(exec-path-from-shell))
 	(el-get 'sync yh/my-packages)
 	(require 'exec-path-from-shell)
 	(exec-path-from-shell-initialize))
 
-;;; install other packages
-(progn
+(progn "install other packages"
   (setq yh/my-packages
 	'(magit use-package browse-kill-ring session color-moccur auto-complete session
 					helm open-junk-file projectile py-autopep8 yasnippet
@@ -28,21 +25,13 @@
   (el-get 'sync yh/my-packages)
   (el-get-cleanup yh/my-packages))
 
-;;; backup
-(progn
+(progn "backup"
   (setq make-backup-files t)
   (setq backup-directory-alist
 	(cons (cons "\\.*$" (expand-file-name "~/backup"))
 	      backup-directory-alist)))
 
-;;; key
-(progn
-  (global-set-key (kbd "C-x C-j") 'dired-jump)
-  (global-set-key (kbd "C-c m") 'helm-mini)
-  (global-set-key (kbd "M-u") 'revert-buffer))
-
-;;; global setting
-(progn
+(progn "global setting"
 	(add-hook 'before-save-hook 'delete-trailing-whitespace)
 	(setq-default tab-width 2)
 	(show-paren-mode))
@@ -112,8 +101,12 @@
 		'(flycheck-add-mode 'html-tidy 'web-mode))
 	)
 
-;;; shell script
-(progn
+(progn "global key"
+  (global-set-key (kbd "C-x C-j") 'dired-jump)
+  (global-set-key (kbd "C-c m") 'helm-mini)
+  (global-set-key (kbd "M-u") 'revert-buffer))
+
+(progn "shell script"
 	(add-hook 'sh-mode-hook
 	  '(lambda ()
 	     (local-set-key (kbd "C-c C-j") 'yh/sh-insert-var)))
@@ -121,8 +114,7 @@
   (interactive "svariable name:")
   (insert "${" var-name "}")))
 
-;;; Makefile
-(progn
+(progn "Makefile"
 	(add-hook 'makefile-gmake-mode-hook
 	  '(lambda ()
 	     (local-set-key (kbd "C-c C-j") 'yh/make-insert-var)))
@@ -130,21 +122,18 @@
   (interactive "svariable name:")
   (insert "$(" var-name ")")))
 
-;;; python
-(progn
+(progn "python"
 	(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
 	(setq flycheck-flake8-maximum-line-length 200))
 
-;;; emacs-lisp
-(progn
+(progn "emacs-lisp"
 	(add-hook 'emacs-lisp-mode-hook
 	  '(lambda ()
 	     (add-hook 'before-save-hook 'equally-spaced-make-gap-buffer :local t)))
 	(add-hook 'emacs-lisp-mode-hook
 						'hs-hide-all 100))
 
-;;; yatex
-(progn
+(progn "yatex"
 	(setq auto-mode-alist
 				(cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
 	(autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
