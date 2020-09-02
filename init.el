@@ -91,6 +91,7 @@
                 py-autopep8
                 rjsx-mode
                 session
+                slime
                 tide
                 uuidgen
                 web-mode
@@ -109,9 +110,15 @@
           'git-ps1-mode)
 
 
+
+;;;
+(setq inferior-lisp-program "/usr/local/bin/clisp")
+
+
 ;;;
 (require 'prettier-js)
 (add-hook 'rjsx-mode-hook 'prettier-js-mode)
+
 
 
 ;;;
@@ -126,13 +133,35 @@
 
 
 ;;;
-(add-hook 'python-mode-hook
-          'which-function-mode)
+(add-hook 'python-mode-hook 'which-function-mode)
 
 
-
-;;;
+;;; rjsx
 (add-to-list 'auto-mode-alist '(".*\\.js\\'" . rjsx-mode))
+
+
+;;; typescript-mode
+(add-to-list 'auto-mode-alist '(".*\\.ts\\'" . typescript-mode))
+
+;;; tide
+(defun setup-tide-mode ()
+  "Setup tide mode.  This is copied from tide project page."
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+(setq company-tooltip-align-annotations t) ; aligns annotation to the right hand side
+(add-hook 'before-save-hook 'tide-format-before-save) ; formats the buffer before saving
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+(setq tide-format-options
+      '(:indentSize 2 :tabSize 2))
+
 
 
 ;;; auto-install
@@ -402,6 +431,14 @@
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+
+(add-hook 'web-mode-hook
+          (lambda ()
+            (when (string-equal "tsx" (file-name-extension buffer-file-name))
+              (setup-tide-mode))))
+
+
 
 
 
@@ -414,7 +451,7 @@
 (eval-after-load 'flycheck
   '(flycheck-add-mode 'html-tidy 'web-mode))
 (setq flycheck-flake8-maximum-line-length 200)
-
+(flycheck-add-mode 'typescript-tslint 'web-mode)
 
 
 
@@ -430,8 +467,10 @@
  '(python-shell-interpreter "python3")
  '(recentf-max-saved-items 2000)
  '(safe-local-variable-values
-   (quote
-    ((run-test-target . test\.sh)
-     (run-test-target . test/test-ofx\.py))))
+   '((run-test-target . test\.sh)
+     (run-test-target . test/test-ofx\.py)))
  '(session-use-package t nil (session))
- '(tab-width 2))
+ '(standard-indent 2)
+ '(tab-width 2)
+ '(web-mode-code-indent-offset 2)
+ '(web-mode-markup-indent-offset 2))
