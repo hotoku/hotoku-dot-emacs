@@ -65,17 +65,19 @@
                 browse-kill-ring
                 color-moccur
                 dockerfile-mode
+                dired-git-info-mode
                 dsvn
                 el-get
                 ensime
-		            equally-spaced
+                equally-spaced
                 flycheck
                 flymake-cursor
                 git-ps1-mode
                 graphviz-dot-mode
                 helm
+                helm-projectile
                 iedit
-		            init-loader
+                init-loader
                 jinja2-mode
                 kotlin-mode
                 lsp-mode
@@ -378,7 +380,9 @@
 (setq helm-input-idle-delay 0.1)
 (setq helm-delete-minibuffer-contents-from-point t)
 (setq helm-ff-auto-update-initial-value nil)
-
+;; helm
+(require 'helm-projectile)
+(helm-projectile-on)
 
 
 
