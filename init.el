@@ -17,9 +17,10 @@
 
 (progn "install other packages"
   (setq yh/my-packages
-	'(magit use-package browse-kill-ring session color-moccur auto-complete session
-					helm open-junk-file projectile py-autopep8 yasnippet
-					helm-projectile flycheck equally-spaced))
+				(append yh/my-packages
+					'(magit use-package browse-kill-ring session color-moccur auto-complete session
+									helm open-junk-file projectile py-autopep8 yasnippet
+									helm-projectile flycheck equally-spaced)))
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
   (el-get 'sync yh/my-packages)
