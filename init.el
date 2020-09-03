@@ -1,12 +1,12 @@
 (progn "install el-git"
-  (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-  (unless (require 'el-get nil 'noerror)
-    (with-current-buffer
-	(url-retrieve-synchronously
-	 "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (add-to-list 'el-get-recipe-path "~/.emacs.d/recipes"))
+			 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+			 (unless (require 'el-get nil 'noerror)
+				 (with-current-buffer
+						 (url-retrieve-synchronously
+							"https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+					 (goto-char (point-max))
+					 (eval-print-last-sexp)))
+			 (add-to-list 'el-get-recipe-path "~/.emacs.d/recipes"))
 
 ;;; exec-path-from-shell
 (progn
@@ -20,9 +20,9 @@
 (progn
   (setq yh/my-packages
 				(append yh/my-packages
-					'(magit use-package browse-kill-ring session color-moccur auto-complete session
-									helm open-junk-file projectile py-autopep8 yasnippet
-									helm-projectile flycheck equally-spaced)))
+								'(magit use-package browse-kill-ring session color-moccur auto-complete session
+												helm open-junk-file projectile py-autopep8 yasnippet
+												helm-projectile flycheck equally-spaced)))
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
   (el-get 'sync yh/my-packages)
@@ -32,8 +32,8 @@
 (progn
   (setq make-backup-files t)
   (setq backup-directory-alist
-	(cons (cons "\\.*$" (expand-file-name "~/backup"))
-	      backup-directory-alist)))
+				(cons (cons "\\.*$" (expand-file-name "~/backup"))
+							backup-directory-alist)))
 
 ;;; functions
 (defun other-window-or-split ()
@@ -90,13 +90,13 @@
 (use-package py-autopep8
   :config
   (setq py-autopep8-options
-	'("--max-line-length=300"
-	  "--ignore=E402")))
+				'("--max-line-length=300"
+					"--ignore=E402")))
 
 (use-package yasnippet
   :config
   (setq yas-snippet-dirs
-      '("~/.emacs.d/snippets"))
+				'("~/.emacs.d/snippets"))
   (yas-global-mode 1))
 
 (use-package helm-projectile
@@ -121,20 +121,20 @@
 ;;; shell script
 (progn
 	(add-hook 'sh-mode-hook
-	  '(lambda ()
-	     (local-set-key (kbd "C-c C-j") 'yh/sh-insert-var)))
+						'(lambda ()
+							 (local-set-key (kbd "C-c C-j") 'yh/sh-insert-var)))
 	(defun yh/sh-insert-var (var-name)
-  (interactive "svariable name:")
-  (insert "${" var-name "}")))
+		(interactive "svariable name:")
+		(insert "${" var-name "}")))
 
 ;;; Makefile
 (progn
 	(add-hook 'makefile-gmake-mode-hook
-	  '(lambda ()
-	     (local-set-key (kbd "C-c C-j") 'yh/make-insert-var)))
+						'(lambda ()
+							 (local-set-key (kbd "C-c C-j") 'yh/make-insert-var)))
 	(defun yh/make-insert-var (var-name)
-  (interactive "svariable name:")
-  (insert "$(" var-name ")")))
+		(interactive "svariable name:")
+		(insert "$(" var-name ")")))
 
 ;;; python
 (progn
@@ -144,8 +144,8 @@
 ;;; emacs-lisp
 (progn
 	(add-hook 'emacs-lisp-mode-hook
-	  '(lambda ()
-	     (add-hook 'before-save-hook 'equally-spaced-make-gap-buffer :local t)))
+						'(lambda ()
+							 (add-hook 'before-save-hook 'equally-spaced-make-gap-buffer :local t)))
 	(add-hook 'emacs-lisp-mode-hook
 						'hs-hide-all 100))
 
