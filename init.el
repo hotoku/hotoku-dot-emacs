@@ -116,8 +116,7 @@
 ;;; global key
 (progn
   (global-set-key (kbd "C-x C-j") 'dired-jump)
-  (global-set-key (kbd "M-u") 'revert-buffer)
-	(global-set-key (kbd "C-.") 'other-window-or-split))
+  (global-set-key (kbd "M-u") 'revert-buffer))
 
 ;;; shell script
 (progn
@@ -180,7 +179,8 @@
 (when (eq window-system 'ns)
 	(setq ns-command-modifier (quote meta))
 	(setq ns-alternate-modifier (quote super))
-	(global-set-key (kbd "C-;") 'helm-mini))
+	(global-set-key (kbd "C-;") 'helm-mini)
+	(global-set-key (kbd "C-.") 'other-window-or-split))
 
 ;;; when terminal
 (when (not window-system)
