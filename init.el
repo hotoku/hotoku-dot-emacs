@@ -182,7 +182,10 @@
 (progn
 	(add-hook 'emacs-lisp-mode-hook
 						'(lambda ()
-							 (add-hook 'before-save-hook 'equally-spaced-make-gap-buffer :local t)))
+							 (add-hook 'before-save-hook
+												 #'(lambda () (equally-spaced-make-gap-buffer)
+														 (indent-region (point-min) (point-max)))
+												 :local t)))
 	(add-hook 'emacs-lisp-mode-hook
 						'hs-hide-all 100))
 
@@ -231,7 +234,7 @@ This is inconvinient when opening file at the beginning of Emacs session."
 
 ;;; when terminal
 (when (not window-system)
-	(global-set-key (kbd "C-c m") 'helm-mini))
+  (global-set-key (kbd "C-c m") 'helm-mini))
 
 ;;; Local Variables:
 ;;; equally-spaced-width: 1
