@@ -214,7 +214,8 @@
                (local-set-key "\C-c\C-f" 'yatex-insert-subscript)
                (local-set-key "\C-c\C-g" 'yatex-insert-superscript)
                (local-set-key "\C-\M-a" 'foiltex-previous-page)
-               (local-set-key "\C-\M-e" 'foiltex-next-page))))
+               (local-set-key "\C-\M-e" 'foiltex-next-page)
+               (add-hook 'before-save-hook 'equally-spaced-make-gap-buffer :local t))))
 
 ;;; when Emacs.app on Mac
 (when (eq window-system 'ns)
