@@ -1,4 +1,4 @@
-x;;; load local settings
+;;; load local settings
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -10,17 +10,11 @@ x;;; load local settings
   (when (file-readable-p site-file)
     (load-file site-file)))
 
-
-
-
 ;;; load path
 (let ((default-directory (expand-file-name "~/.emacs.d/site-lisp")))
   (add-to-list 'load-path default-directory)
   (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
       (normal-top-level-add-subdirs-to-load-path)))
-
-
-
 
 ;;; el-get install check
 (setq el-get-git-install-url "https://github.com/dimitri/el-get")
@@ -34,9 +28,6 @@ x;;; load local settings
       (goto-char (point-max))
       (eval-print-last-sexp))))
 
-
-
-
 ;;; install necessary library by el-get
 (defvar my-packages
   '(exec-path-from-shell))
@@ -45,14 +36,11 @@ x;;; load local settings
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
-
 ;;; using emlpa recipes
 ;;; c.f. https://stackoverflow.com/questions/23165158/how-do-i-install-melpa-packages-via-el-get/23169388
 (require 'el-get-elpa) 
 (unless (file-directory-p el-get-recipe-path-elpa)
   (el-get-elpa-build-local-recipes))
-
-
 
 (add-to-list 'el-get-recipe-path "~/.emacs.d/recipes/")
 
@@ -91,7 +79,6 @@ x;;; load local settings
                 py-autopep8
                 rjsx-mode
                 session
-                slime
                 tide
                 uuidgen
                 web-mode
@@ -109,36 +96,27 @@ x;;; load local settings
 (add-hook 'dired-mode-hook
           'git-ps1-mode)
 
-
-
 ;;;
 (setq inferior-lisp-program "/usr/local/bin/clisp")
-
 
 ;;;
 (require 'prettier-js)
 (add-hook 'rjsx-mode-hook 'prettier-js-mode)
 
-
-
 ;;;
 (with-eval-after-load 'dired
   (define-key dired-mode-map ")" 'dired-git-info-mode))
-
 
 ;;;
 (require 'projectile)
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
-
 ;;;
 (add-hook 'python-mode-hook 'which-function-mode)
 
-
 ;;; rjsx
 (add-to-list 'auto-mode-alist '(".*\\.js\\'" . rjsx-mode))
-
 
 ;;; typescript-mode
 (add-to-list 'auto-mode-alist '(".*\\.ts\\'" . typescript-mode))
@@ -162,24 +140,16 @@ x;;; load local settings
 (setq tide-format-options
       '(:indentSize 2 :tabSize 2))
 
-
-
 ;;; auto-install
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/auto-install/")
 (auto-install-compatibility-setup)
 (add-to-list 'load-path auto-install-directory)
 
-
-
-
 ;;; dsvn
 (autoload 'svn-status "dsvn" "Run `svn status'." t)
 (autoload 'svn-update "dsvn" "Run `svn update'." t)
 (require 'vc-svn)
-
-
-
 
 ;; ;;; ini
 ;; (require 'ini-mode)
@@ -188,23 +158,14 @@ x;;; load local settings
 ;;        '(("\\.[iI][nN][iI]$" . ini-mode))
 ;;        auto-mode-alist))
 
-
-
-
 ;;; uniquify
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-
-
-
 
 ;;; init-loader
 (require 'init-loader)
 (setq init-loader-directory "~/.emacs.d/config")
 (init-loader-load)
-
-
-
 
 ;;; back up file
 (setq make-backup-files t)
@@ -212,33 +173,18 @@ x;;; load local settings
       (cons (cons "\\.*$" (expand-file-name "~/misc/backup"))
             backup-directory-alist))
 
-
-
-
 ;;; move currrent buffer with shift + (arrow key)
 (windmove-default-keybindings)
-
-
-
 
 ;;; server
 (server-start)
 
-
-
-
 ;;; show-paren-mode
 (show-paren-mode)
-
-
-
 
 ;;; 動的略語補完
 (require 'dabbrev)
 (setq dabbrev-case-fold-search nil)
-
-
-
 
 ;;; yasnippet
 (require 'yasnippet)
@@ -247,85 +193,46 @@ x;;; load local settings
         "/Users/01004106/.emacs.d/el-get/yasnippet/snippets"))
 (yas-global-mode 1)
 
-
-
-
 ;;; for Imaxima
 (autoload 'imaxima "imaxima" "Image support for Maxima." t)
 
-
-
-
 ;;; input backslush
 (define-key global-map [?¥] [?\\])
-
-
-
 
 ;;; scheme
 (require 'cmuscheme)
 (setq scheme-program-name "gosh -i")
 
-
-
-
 ;;; emacs-lisp-mode
 (add-hook 'emacs-lisp-mode-hook
           '(lambda ()
-             (local-set-key "\C-c\C-c" 'anything-lisp-complete-symbol-partial-match)
-             (add-hook 'emacs-lisp-mode-hook 'equally-spaced-make-gap-buffer :local t)))
-
-
-
-
-
+             (add-hook 'before-save-hook 'equally-spaced-make-gap-buffer :local t)))
 
 ;;;
 (require 'browse-kill-ring)
 (global-set-key (kbd "C-c k") 'browse-kill-ring)
 
-
-
-
 ;;; magit
 (require 'magit)
-
-
-
 
 ;;; session
 (require 'session)
 (add-hook 'after-init-hook 'session-initialize)
-
-
-
 
 ;;; haskell-mode
 ;; (load "haskell-site-file")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 
-
-
-
 ;;; sqlite
 (require 'sql)
 (setq sql-sqlite-program "sqlite3")
 
-
-
-
 ;;; w3m
 (defvar w3m-command "/opt/local/bin/w3m")
 
-
-
-
 ;;; equally-spaced
 (require 'equally-spaced)
-
-
-
 
 ;;; markdown
 (autoload 'markdown-preview-mode "markdown-preview-mode"
@@ -344,15 +251,9 @@ x;;; load local settings
  '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.4))))
  '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.2)))))
 
-
-
-
 ;;; auto-complete
 (require 'auto-complete-config)
 (ac-config-default)
-
-
-
 
 ;;; auto-complete-c-headers
 (defun my:ac-c-header-init ()
@@ -367,14 +268,8 @@ x;;; load local settings
 (add-hook 'c++-mode-hook 'my:ac-c-header-init)
 (add-hook 'c-mode-hook 'my:ac-c-header-init)
 
-
-
-
 ;;; iedit
 (define-key global-map (kbd "C-c ;") 'iedit-mode)
-
-
-
 
 ;;; helm
 (require 'helm-config)
@@ -387,8 +282,6 @@ x;;; load local settings
 (require 'helm-projectile)
 (helm-projectile-on)
 
-
-
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
 (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
@@ -399,20 +292,11 @@ x;;; load local settings
 (global-unset-key (kbd "C-x c"))
 (global-set-key (kbd "C-c h o") 'helm-occur)
 
-
-
-
 ;;; recentf
 (setq recentf-auto-save-timer (run-with-idle-timer 30 t 'recentf-save-list))
 
-
-
-
 ;;; markdown-preview-mode
 (autoload 'markdown-preview-mode "markdown-preview-mode.el" t)
-
-
-
 
 ;;; autopep8
 (require 'py-autopep8)
@@ -420,9 +304,6 @@ x;;; load local settings
       '("--max-line-length=300"
         "--ignore=E402"))
 (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
-
-
-
 
 ;;; web-mode
 (require 'web-mode)
@@ -441,11 +322,6 @@ x;;; load local settings
             (when (string-equal "tsx" (file-name-extension buffer-file-name))
               (setup-tide-mode))))
 
-
-
-
-
-
 ;;; flycheck
 (setq flycheck-check-syntax-automatically
   '(save idle-change mode-enabled))
@@ -455,8 +331,6 @@ x;;; load local settings
   '(flycheck-add-mode 'html-tidy 'web-mode))
 (setq flycheck-flake8-maximum-line-length 200)
 (flycheck-add-mode 'typescript-tslint 'web-mode)
-
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -478,7 +352,7 @@ x;;; load local settings
  '(web-mode-code-indent-offset 2)
  '(web-mode-markup-indent-offset 2))
 
-
 ;;; Local Variables:
 ;;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;;; equally-spaced-width: 2
+;;; equally-spaced-width: 1
+;;; End:
