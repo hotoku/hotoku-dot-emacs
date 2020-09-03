@@ -49,7 +49,8 @@
 (progn
 	(add-hook 'before-save-hook 'delete-trailing-whitespace)
 	(setq-default tab-width 2)
-	(show-paren-mode))
+	(show-paren-mode)
+	(setq-default indent-tabs-mode nil))
 
 (use-package dabbrev
   :config
@@ -191,7 +192,7 @@
 
 ;;; yatex
 (progn
-	(setq auto-mode-alist
+ 	(setq auto-mode-alist
 				(cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
 	(autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
 	(add-hook 'yatex-mode-hook '(lambda () (auto-fill-mode -1)))
