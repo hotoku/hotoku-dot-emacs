@@ -1,4 +1,4 @@
-;;; load local settings
+x;;; load local settings
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -272,7 +272,10 @@
 ;;; emacs-lisp-mode
 (add-hook 'emacs-lisp-mode-hook
           '(lambda ()
-             (local-set-key "\C-c\C-c" 'anything-lisp-complete-symbol-partial-match)))
+             (local-set-key "\C-c\C-c" 'anything-lisp-complete-symbol-partial-match)
+             (add-hook 'emacs-lisp-mode-hook 'equally-spaced-make-gap-buffer :local t)))
+
+
 
 
 
@@ -476,7 +479,6 @@
  '(web-mode-markup-indent-offset 2))
 
 
-
 ;;; Local Variables:
 ;;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;;; End:
+;;; equally-spaced-width: 2
