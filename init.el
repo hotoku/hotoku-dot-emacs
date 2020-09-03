@@ -22,7 +22,7 @@
 				(append yh/my-packages
 								'(magit use-package browse-kill-ring session color-moccur auto-complete session
 												helm open-junk-file projectile py-autopep8 yasnippet
-												helm-projectile flycheck equally-spaced)))
+												helm-projectile flycheck equally-spaced ace-window)))
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
   (el-get 'sync yh/my-packages)
@@ -113,10 +113,13 @@
 		'(flycheck-add-mode 'html-tidy 'web-mode))
 	)
 
+(use-package ace-window)
+
 ;;; global key
 (progn
   (global-set-key (kbd "C-x C-j") 'dired-jump)
-  (global-set-key (kbd "M-u") 'revert-buffer))
+  (global-set-key (kbd "M-u") 'revert-buffer)
+	(global-set-key (kbd "C-c C-q") 'ace-window))
 
 ;;; shell script
 (progn
