@@ -8,14 +8,16 @@
       (eval-print-last-sexp)))
   (add-to-list 'el-get-recipe-path "~/.emacs.d/recipes"))
 
-(progn "exec-path-from-shell"
+;;; exec-path-from-shell
+(progn
   (defvar yh/my-packages)
 	(setq yh/my-packages '(exec-path-from-shell))
 	(el-get 'sync yh/my-packages)
 	(require 'exec-path-from-shell)
 	(exec-path-from-shell-initialize))
 
-(progn "install other packages"
+;;; install other packages
+(progn
   (setq yh/my-packages
 				(append yh/my-packages
 					'(magit use-package browse-kill-ring session color-moccur auto-complete session
@@ -26,13 +28,22 @@
   (el-get 'sync yh/my-packages)
   (el-get-cleanup yh/my-packages))
 
-(progn "backup"
+;;; backup
+(progn
   (setq make-backup-files t)
   (setq backup-directory-alist
 	(cons (cons "\\.*$" (expand-file-name "~/backup"))
 	      backup-directory-alist)))
 
-(progn "global setting"
+;;; functions
+(defun other-window-or-split ()
+  (interactive)
+  (when (one-window-p)
+    (split-window-horizontally))
+  (other-window 1))
+
+;;; global setting"
+(progn
 	(add-hook 'before-save-hook 'delete-trailing-whitespace)
 	(setq-default tab-width 2)
 	(show-paren-mode))
@@ -102,11 +113,14 @@
 		'(flycheck-add-mode 'html-tidy 'web-mode))
 	)
 
-(progn "global key"
+;;; global key
+(progn
   (global-set-key (kbd "C-x C-j") 'dired-jump)
-  (global-set-key (kbd "M-u") 'revert-buffer))
+  (global-set-key (kbd "M-u") 'revert-buffer)
+	(global-set-key (kbd "C-.") 'other-window-or-split))
 
-(progn "shell script"
+;;; shell script
+(progn
 	(add-hook 'sh-mode-hook
 	  '(lambda ()
 	     (local-set-key (kbd "C-c C-j") 'yh/sh-insert-var)))
@@ -114,7 +128,8 @@
   (interactive "svariable name:")
   (insert "${" var-name "}")))
 
-(progn "Makefile"
+;;; Makefile
+(progn
 	(add-hook 'makefile-gmake-mode-hook
 	  '(lambda ()
 	     (local-set-key (kbd "C-c C-j") 'yh/make-insert-var)))
@@ -122,18 +137,21 @@
   (interactive "svariable name:")
   (insert "$(" var-name ")")))
 
-(progn "python"
+;;; python
+(progn
 	(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
 	(setq flycheck-flake8-maximum-line-length 200))
 
-(progn "emacs-lisp"
+;;; emacs-lisp
+(progn
 	(add-hook 'emacs-lisp-mode-hook
 	  '(lambda ()
 	     (add-hook 'before-save-hook 'equally-spaced-make-gap-buffer :local t)))
 	(add-hook 'emacs-lisp-mode-hook
 						'hs-hide-all 100))
 
-(progn "yatex"
+;;; yatex
+(progn
 	(setq auto-mode-alist
 				(cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
 	(autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
