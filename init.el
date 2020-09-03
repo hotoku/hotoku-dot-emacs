@@ -202,7 +202,9 @@
 
   ;; スクリプト挿入
   (defun yatex-insert-script (prefix script)
-    (insert (concat prefix "{" script "}")))
+    (let ((len (length script)))
+      (cond ((= 1 len) (insert (concat prefix script)))
+            ((< 1 len) (insert (concat prefix "{" script "}"))))))
   (defun yatex-insert-subscript (script)
     (interactive "sscript: ")
     (yatex-insert-script "_" script))
