@@ -175,8 +175,8 @@
 
 ;;; python
 (progn
-	(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
-	(setq flycheck-flake8-maximum-line-length 200))
+ 	(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+  (setq flycheck-flake8-maximum-line-length 200))
 
 ;;; emacs-lisp
 (progn
