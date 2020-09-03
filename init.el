@@ -19,10 +19,13 @@
 ;;; install other packages
 (progn
   (setq yh/my-packages
-				(append yh/my-packages
-								'(magit use-package browse-kill-ring session color-moccur auto-complete session
-												helm open-junk-file projectile py-autopep8 yasnippet
-												helm-projectile flycheck equally-spaced ace-window)))
+				(delete-dups
+				 (append
+					yh/my-packages
+					'(magit use-package browse-kill-ring session color-moccur auto-complete session
+									helm open-junk-file projectile py-autopep8 yasnippet
+									helm-projectile flycheck equally-spaced ace-window
+									web-mode company-mode tide s))))
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
   (el-get 'sync yh/my-packages)
@@ -114,6 +117,37 @@
 	)
 
 (use-package ace-window)
+
+(use-package web-mode)
+
+(use-package tide
+	:config
+	(defun setup-tide-mode ()
+		(interactive)
+		(tide-setup)
+		(flycheck-mode +1)
+		(setq flycheck-check-syntax-automatically '(save mode-enabled))
+		(eldoc-mode +1)
+		(tide-hl-identifier-mode +1)
+		;; company is an optional dependency. You have to
+		;; install it separately via package-install
+		;; `M-x package-install [ret] company`
+		(company-mode +1))
+
+	;; aligns annotation to the right hand side
+	(setq company-tooltip-align-annotations t)
+
+	(add-hook 'typescript-mode-hook
+						#'(lambda ()
+								(setup-tide-mode)
+								(add-hook 'before-save-hook 'tide-format-before-save :local t)))
+	(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+	(add-hook 'web-mode-hook
+						(lambda ()
+							(when (string-equal "tsx" (file-name-extension buffer-file-name))
+								(setup-tide-mode))))
+	;; enable typescript-tslint checker
+	(flycheck-add-mode 'typescript-tslint 'web-mode))
 
 ;;; global key
 (progn
