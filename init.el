@@ -103,7 +103,6 @@
 
 (progn "global key"
   (global-set-key (kbd "C-x C-j") 'dired-jump)
-  (global-set-key (kbd "C-c m") 'helm-mini)
   (global-set-key (kbd "M-u") 'revert-buffer))
 
 (progn "shell script"
@@ -157,6 +156,14 @@
 							 (local-set-key "\C-c\C-g" 'yatex-insert-superscript)
 							 (local-set-key "\C-\M-a" 'foiltex-previous-page)
 							 (local-set-key "\C-\M-e" 'foiltex-next-page))))
+
+(when (eq window-system 'ns)
+	(setq ns-command-modifier (quote meta))
+	(setq ns-alternate-modifier (quote super))
+	(global-set-key (kbd "C-;") 'helm-mini))
+
+(when (not window-system)
+	(global-set-key (kbd "C-c m") 'helm-mini))
 
 ;;; Local Variables:
 ;;; equally-spaced-width: 1
