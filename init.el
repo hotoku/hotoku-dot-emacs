@@ -121,6 +121,10 @@
 
 (use-package web-mode)
 
+(use-package company
+  :config
+  (setq company-idle-delay 0.1))
+
 (use-package tide
   :config
   (defun setup-tide-mode ()
@@ -133,15 +137,15 @@
     ;; company is an optional dependency. You have to
     ;; install it separately via package-install
     ;; `M-x package-install [ret] company`
-    (company-mode +1))
+    (company-mode +1)
+    (add-hook 'before-save-hook 'tide-format-before-save :local t))
 
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
 
-  (add-hook 'typescript-mode-hook
-            #'(lambda ()
-                (setup-tide-mode)
-                (add-hook 'before-save-hook 'tide-format-before-save :local t)))
+  (add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+  ;; for tsx
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
   (add-hook 'web-mode-hook
             (lambda ()
