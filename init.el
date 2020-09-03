@@ -157,11 +157,13 @@
 							 (local-set-key "\C-\M-a" 'foiltex-previous-page)
 							 (local-set-key "\C-\M-e" 'foiltex-next-page))))
 
+;;; when Emacs.app on Mac
 (when (eq window-system 'ns)
 	(setq ns-command-modifier (quote meta))
 	(setq ns-alternate-modifier (quote super))
 	(global-set-key (kbd "C-;") 'helm-mini))
 
+;;; when terminal
 (when (not window-system)
 	(global-set-key (kbd "C-c m") 'helm-mini))
 
