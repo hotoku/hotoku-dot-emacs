@@ -225,22 +225,22 @@
                (local-set-key "\C-\M-e" 'foiltex-next-page)
                (add-hook 'before-save-hook 'equally-spaced-make-gap-buffer :local t))))
 
-(lyh/config "when Emacs.app on Mac"
-            (when (eq window-system 'ns)
-              (setq ns-command-modifier (quote meta))
-              (setq ns-alternate-modifier (quote super))
-              (global-set-key (kbd "C-;") 'helm-mini)
-              (global-set-key (kbd "C-.") 'other-window-or-split)
+(yh/config "when Emacs.app on Mac"
+  (when (eq window-system 'ns)
+    (setq ns-command-modifier (quote meta))
+    (setq ns-alternate-modifier (quote super))
+    (global-set-key (kbd "C-;") 'helm-mini)
+    (global-set-key (kbd "C-.") 'other-window-or-split)
 
-              ;; change default directory for C-x C-f
-              (when (version< "27.0" emacs-version)
-                (defun ad:helm-find-files (f prompt)
-                  "When uploading to Emacs 27.1, default directory for buffers like *Emacs* changes from ~ to /.
+    ;; change default directory for C-x C-f
+    (when (version< "27.0" emacs-version)
+      (defun ad:helm-find-files (f prompt)
+        "When uploading to Emacs 27.1, default directory for buffers like *Emacs* changes from ~ to /.
 This is inconvinient when opening file at the beginning of Emacs session."
-                  (when (equal default-directory "/")
-                    (setq default-directory "~/"))
-                  (funcall f prompt))
-                (advice-add 'helm-find-files :around #'ad:helm-find-files))))
+        (when (equal default-directory "/")
+          (setq default-directory "~/"))
+        (funcall f prompt))
+      (advice-add 'helm-find-files :around #'ad:helm-find-files))))
 
 (yh/config "when terminal"
   (when (not window-system)
