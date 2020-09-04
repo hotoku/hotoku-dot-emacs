@@ -1,0 +1,3 @@
+(:name afternoon-theme
+       :type github
+       :pkgname "osener/emacs-afternoon-theme")

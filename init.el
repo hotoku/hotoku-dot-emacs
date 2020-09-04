@@ -25,7 +25,7 @@
           '(magit use-package browse-kill-ring session color-moccur auto-complete session
                   helm open-junk-file projectile py-autopep8 yasnippet
                   helm-projectile flycheck equally-spaced ace-window
-                  web-mode company-mode tide s))))
+                  web-mode company-mode tide s srcery-theme))))
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
   (el-get 'sync yh/my-packages)
@@ -171,9 +171,12 @@
 
 ;;; Makefile
 (progn
-  (add-hook 'makefile-gmake-mode-hook
-            '(lambda ()
-               (local-set-key (kbd "C-c C-j") 'yh/make-insert-var)))
+  (add-hook 'makefile-gmake-mode-hook 'yh/setup-make-mode)
+  (add-hook 'makefile-bsdmake-mode-hook 'yh/setup-make-mode)
+
+  (defun yh/setup-make-mode ()
+    (local-set-key (kbd "C-c C-j") 'yh/make-insert-var)
+    (add-hook 'before-save-hook 'equally-spaced-make-gap-buffer :local t))
   (defun yh/make-insert-var (var-name)
     (interactive "svariable name:")
     (insert "$(" var-name ")")))
