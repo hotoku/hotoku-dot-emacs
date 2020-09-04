@@ -191,11 +191,16 @@
   (add-hook 'emacs-lisp-mode-hook
             '(lambda ()
                (add-hook 'before-save-hook
-                         #'(lambda () (equally-spaced-make-gap-buffer)
-                             (indent-region (point-min) (point-max)))
-                         :local t)))
+                         '(lambda () (equally-spaced-make-gap-buffer)
+                            (indent-region (point-min) (point-max)))
+                         :local t)
+               (local-set-key (kbd "RET") 'yh/ret-in-elisp)))
   (add-hook 'emacs-lisp-mode-hook
-            'hs-hide-all 100))
+            'hs-hide-all 100)
+  (defun yh/ret-in-elisp (&optional arg inter)
+    (interactive)
+    (if (hs-already-hidden-p) (hs-show-block)
+      (newline arg inter))))
 
 ;;; yatex
 (progn
