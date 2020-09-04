@@ -1,23 +1,25 @@
-(progn "install el-git"
-       (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-       (unless (require 'el-get nil 'noerror)
-         (with-current-buffer
-             (url-retrieve-synchronously
-              "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-           (goto-char (point-max))
-           (eval-print-last-sexp)))
-       (add-to-list 'el-get-recipe-path "~/.emacs.d/recipes"))
+(defmacro yh/config (desc &rest body)
+  `(progn ,@body))
+(put 'yh/config 'lisp-indent-function 'defun)
 
-;;; exec-path-from-shell
-(progn
+(yh/config "install el-git"
+  (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+  (unless (require 'el-get nil 'noerror)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (add-to-list 'el-get-recipe-path "~/.emacs.d/recipes"))
+
+(yh/config "exec-path-from-shell"
   (defvar yh/my-packages)
   (setq yh/my-packages '(exec-path-from-shell))
   (el-get 'sync yh/my-packages)
   (require 'exec-path-from-shell)
   (exec-path-from-shell-initialize))
 
-;;; install other packages
-(progn
+(yh/config "install other packages"
   (setq yh/my-packages
         (delete-dups
          (append
@@ -31,22 +33,20 @@
   (el-get 'sync yh/my-packages)
   (el-get-cleanup yh/my-packages))
 
-;;; backup
-(progn
+(yh/config "backup"
   (setq make-backup-files t)
   (setq backup-directory-alist
         (cons (cons "\\.*$" (expand-file-name "~/backup"))
               backup-directory-alist)))
 
-;;; functions
-(defun other-window-or-split ()
-  (interactive)
-  (when (one-window-p)
-    (split-window-horizontally))
-  (other-window 1))
+(yh/config "functions & macros"
+  (defun other-window-or-split ()
+    (interactive)
+    (when (one-window-p)
+      (split-window-horizontally))
+    (other-window 1)))
 
-;;; global setting"
-(progn
+(yh/config "global setting"
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (setq-default tab-width 2)
   (show-paren-mode)
@@ -154,14 +154,12 @@
   ;; enable typescript-tslint checker
   (flycheck-add-mode 'typescript-tslint 'web-mode))
 
-;;; global key
-(progn
+(yh/config "global key"
   (global-set-key (kbd "C-x C-j") 'dired-jump)
   (global-set-key (kbd "M-u") 'revert-buffer)
   (global-set-key (kbd "C-c C-q") 'ace-window))
 
-;;; shell script
-(progn
+(yh/config "shell script"
   (add-hook 'sh-mode-hook
             '(lambda ()
                (local-set-key (kbd "C-c C-j") 'yh/sh-insert-var)))
@@ -169,8 +167,7 @@
     (interactive "svariable name:")
     (insert "${" var-name "}")))
 
-;;; Makefile
-(progn
+(yh/config "Makefile"
   (add-hook 'makefile-gmake-mode-hook 'yh/setup-make-mode)
   (add-hook 'makefile-bsdmake-mode-hook 'yh/setup-make-mode)
 
@@ -181,13 +178,11 @@
     (interactive "svariable name:")
     (insert "$(" var-name ")")))
 
-;;; python
-(progn
+(yh/config "python"
   (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
   (setq flycheck-flake8-maximum-line-length 200))
 
-;;; emacs-lisp
-(progn
+(yh/config "emacs-lisp"
   (add-hook 'emacs-lisp-mode-hook
             '(lambda ()
                (add-hook 'before-save-hook
@@ -202,8 +197,7 @@
     (if (hs-already-hidden-p) (hs-show-block)
       (newline arg inter))))
 
-;;; yatex
-(progn
+(yh/config "yatex"
   (setq auto-mode-alist
         (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
   (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
