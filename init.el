@@ -117,7 +117,8 @@
     '(flycheck-add-mode 'html-tidy 'web-mode))
   )
 
-(use-package ace-window)
+(use-package ace-window
+  :bind (("C-c C-q" . ace-window)))
 
 (use-package web-mode)
 
@@ -156,8 +157,7 @@
 
 (yh/config "global key"
   (global-set-key (kbd "C-x C-j") 'dired-jump)
-  (global-set-key (kbd "M-u") 'revert-buffer)
-  (global-set-key (kbd "C-c C-q") 'ace-window))
+  (global-set-key (kbd "M-u") 'revert-buffer))
 
 (yh/config "shell script"
   (add-hook 'sh-mode-hook
