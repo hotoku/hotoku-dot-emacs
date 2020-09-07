@@ -237,6 +237,7 @@
     ;; global key assign only for Emacs.app
     (global-set-key (kbd "C-;") 'helm-mini)
     (global-set-key (kbd "C-.") 'other-window-or-split)
+    (define-key global-map [?¥] [?\\])
 
     ;; theme
     (require 'dakrone-theme)
