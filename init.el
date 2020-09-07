@@ -27,7 +27,7 @@
           '(magit use-package browse-kill-ring session color-moccur auto-complete session
                   helm open-junk-file projectile py-autopep8 yasnippet
                   helm-projectile flycheck equally-spaced ace-window
-                  web-mode company-mode tide s srcery-theme))))
+                  web-mode company-mode tide s dakrone-theme))))
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
   (el-get 'sync yh/my-packages)
@@ -231,6 +231,8 @@
     (setq ns-alternate-modifier (quote super))
     (global-set-key (kbd "C-;") 'helm-mini)
     (global-set-key (kbd "C-.") 'other-window-or-split)
+    (require 'dakrone-theme)
+    (load-theme 'dakrone)
 
     ;; change default directory for C-x C-f
     (when (version< "27.0" emacs-version)
@@ -245,6 +247,21 @@ This is inconvinient when opening file at the beginning of Emacs session."
 (yh/config "when terminal"
   (when (not window-system)
     (global-set-key (kbd "C-c m") 'helm-mini)))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("afe5e2fb3b1e295e11c3c22e7d9ea7288a605c110363673987c8f6d05b1e9972" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
 ;;; Local Variables:
 ;;; equally-spaced-width: 1
