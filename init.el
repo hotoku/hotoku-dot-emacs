@@ -241,7 +241,8 @@
     ;; theme
     (require 'dakrone-theme)
     (load-theme 'dakrone)
-    (set-face-foreground 'font-lock-comment-face "IndianRed")
+    (set-face-foreground 'font-lock-comment-face "#8AE234")
+    (set-face-foreground 'font-lock-string-face "IndianRed")
 
     ;; change default directory for C-x C-f
     (when (version< "27.0" emacs-version)
