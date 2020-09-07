@@ -139,12 +139,14 @@
     ;; install it separately via package-install
     ;; `M-x package-install [ret] company`
     (company-mode +1)
-    (add-hook 'before-save-hook 'tide-format-before-save :local t))
+    (add-hook 'before-save-hook 'tide-format :local t))
 
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
 
   (add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+  (setq typescript-indent-level 2)
 
   ;; for tsx
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
@@ -265,8 +267,8 @@ This is inconvinient when opening file at the beginning of Emacs session."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   (quote
-    ("afe5e2fb3b1e295e11c3c22e7d9ea7288a605c110363673987c8f6d05b1e9972" default))))
+   '("afe5e2fb3b1e295e11c3c22e7d9ea7288a605c110363673987c8f6d05b1e9972" default)))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
