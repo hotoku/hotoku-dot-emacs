@@ -269,7 +269,8 @@ This is inconvinient when opening file at the beginning of Emacs session."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("afe5e2fb3b1e295e11c3c22e7d9ea7288a605c110363673987c8f6d05b1e9972" default)))
+   (quote
+    ("afe5e2fb3b1e295e11c3c22e7d9ea7288a605c110363673987c8f6d05b1e9972" default))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
