@@ -24,12 +24,15 @@
         (delete-dups
          (append
           yh/my-packages
-          '(magit use-package browse-kill-ring session color-moccur auto-complete session
-                  helm open-junk-file projectile py-autopep8 yasnippet
-                  helm-projectile flycheck equally-spaced ace-window
-                  web-mode company-mode tide s dakrone-theme))))
+          '(session use-package browse-kill-ring color-moccur auto-complete session
+                    helm open-junk-file projectile py-autopep8 yasnippet
+                    helm-projectile flycheck equally-spaced ace-window
+                    web-mode company-mode tide s dakrone-theme))))
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
+  (when (executable-find "makeinfo")
+    (add-to-list 'yh/my-packages 'magit))
+
   (el-get 'sync yh/my-packages)
   (el-get-cleanup yh/my-packages))
 
