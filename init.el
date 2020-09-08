@@ -114,8 +114,7 @@
   (setq flycheck-idle-change-delay 1)
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (eval-after-load 'flycheck
-    '(flycheck-add-mode 'html-tidy 'web-mode))
-  )
+    '(flycheck-add-mode 'html-tidy 'web-mode)))
 
 (use-package ace-window
   :bind (("C-c C-q" . ace-window)))
