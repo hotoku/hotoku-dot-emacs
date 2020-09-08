@@ -120,7 +120,9 @@
 (use-package ace-window
   :bind (("C-c C-q" . ace-window)))
 
-(use-package web-mode)
+(use-package web-mode
+  :config
+  (setq-default web-mode-code-indent-offset 2))
 
 (use-package company
   :config
