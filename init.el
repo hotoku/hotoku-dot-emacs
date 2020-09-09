@@ -50,7 +50,8 @@
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (setq-default tab-width 2)
   (show-paren-mode)
-  (setq-default indent-tabs-mode nil))
+  (setq-default indent-tabs-mode nil)
+  (server-start))
 
 (use-package dabbrev
   :config
