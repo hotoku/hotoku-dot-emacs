@@ -24,12 +24,15 @@
         (delete-dups
          (append
           yh/my-packages
-          '(magit use-package browse-kill-ring session color-moccur auto-complete session
-                  helm open-junk-file projectile py-autopep8 yasnippet
-                  helm-projectile flycheck equally-spaced ace-window
-                  web-mode company-mode tide s dakrone-theme))))
+          '(session use-package browse-kill-ring color-moccur auto-complete session
+                    helm open-junk-file projectile py-autopep8 yasnippet
+                    helm-projectile flycheck equally-spaced ace-window
+                    web-mode company-mode tide s dakrone-theme))))
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
+  (when (executable-find "makeinfo")
+    (add-to-list 'yh/my-packages 'magit))
+
   (el-get 'sync yh/my-packages)
   (el-get-cleanup yh/my-packages))
 
@@ -115,8 +118,7 @@
   (setq flycheck-idle-change-delay 1)
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (eval-after-load 'flycheck
-    '(flycheck-add-mode 'html-tidy 'web-mode))
-  )
+    '(flycheck-add-mode 'html-tidy 'web-mode)))
 
 (use-package ace-window
   :bind (("C-c C-q" . ace-window)))
@@ -233,6 +235,21 @@
 (yh/config "javascript"
   (setq js-indent-level 2))
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("afe5e2fb3b1e295e11c3c22e7d9ea7288a605c110363673987c8f6d05b1e9972" default)))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
 (yh/config "when Emacs.app on Mac"
   (when (eq window-system 'ns)
     ;; meta key
@@ -263,22 +280,6 @@ This is inconvinient when opening file at the beginning of Emacs session."
 (yh/config "when terminal"
   (when (not window-system)
     (global-set-key (kbd "C-c m") 'helm-mini)))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("afe5e2fb3b1e295e11c3c22e7d9ea7288a605c110363673987c8f6d05b1e9972" default))))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 ;;; Local Variables:
 ;;; equally-spaced-width: 1
