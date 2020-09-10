@@ -51,10 +51,17 @@
 
 (yh/config "global setting"
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
-  (setq-default tab-width 2)
+  (setq-default
+   tab-width 2
+   indent-tabs-mode nil)
+  (fset 'yes-or-no-p 'y-or-n-p)
   (show-paren-mode)
   (setq-default indent-tabs-mode nil)
-  (server-start))
+  (server-start)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (column-number-mode)
+  (blink-cursor-mode -1))
 
 (use-package dabbrev
   :config
@@ -267,6 +274,7 @@
     (load-theme 'dakrone)
     (set-face-foreground 'font-lock-comment-face "#8AE234")
     (set-face-foreground 'font-lock-string-face "IndianRed")
+    (set-face-background 'default "202040")
 
     ;; change default directory for C-x C-f
     (when (version< "27.0" emacs-version)
@@ -280,7 +288,8 @@ This is inconvinient when opening file at the beginning of Emacs session."
 
 (yh/config "when terminal"
   (when (not window-system)
-    (global-set-key (kbd "C-c m") 'helm-mini)))
+    (global-set-key (kbd "C-c m") 'helm-mini)
+    (menu-bar-mode -1)))
 
 ;;; Local Variables:
 ;;; equally-spaced-width: 1
