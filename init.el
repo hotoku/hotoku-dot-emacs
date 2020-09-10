@@ -56,6 +56,8 @@
    indent-tabs-mode nil)
   (fset 'yes-or-no-p 'y-or-n-p)
   (show-paren-mode)
+  (setq-default indent-tabs-mode nil)
+  (server-start)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (column-number-mode)
@@ -123,7 +125,8 @@
   (setq flycheck-idle-change-delay 1)
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (eval-after-load 'flycheck
-    '(flycheck-add-mode 'html-tidy 'web-mode)))
+    '(flycheck-add-mode 'html-tidy 'web-mode))
+  (setq flycheck-flake8-maximum-line-length 200))
 
 (use-package ace-window
   :bind (("C-x o" . ace-window)))
