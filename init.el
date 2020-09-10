@@ -274,7 +274,7 @@
     (load-theme 'dakrone)
     (set-face-foreground 'font-lock-comment-face "#8AE234")
     (set-face-foreground 'font-lock-string-face "IndianRed")
-    (set-face-background 'default "202040")
+    (set-face-background 'default "#202040")
 
     ;; change default directory for C-x C-f
     (when (version< "27.0" emacs-version)
