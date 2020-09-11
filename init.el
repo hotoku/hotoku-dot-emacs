@@ -27,7 +27,7 @@
           '(session use-package browse-kill-ring color-moccur auto-complete session
                     helm open-junk-file projectile py-autopep8 yasnippet
                     helm-projectile flycheck equally-spaced ace-window
-                    web-mode company-mode tide s dakrone-theme))))
+                    web-mode company-mode tide s dakrone-theme markdown-mode))))
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
   (when (executable-find "makeinfo")
@@ -47,21 +47,41 @@
     (interactive)
     (when (one-window-p)
       (split-window-horizontally))
-    (other-window 1)))
+    (other-window 1))
+  (defun yh/dired-do-open (&optional arg)
+    "In dired, invoke /usr/bin/open on the marked files.
+If no files are marked or a specific numeric prefix arg is given,
+the next ARG files are used.  Just \\[universal-argument] means the current file."
+    (interactive "P")
+    (let ((files (dired-get-marked-files nil arg)))
+      (apply 'start-process "open_ps" nil "open" files))))
 
 (yh/config "global setting"
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (setq-default
    tab-width 2
-   indent-tabs-mode nil)
+   indent-tabs-mode nil
+   truncate-lines t)
   (fset 'yes-or-no-p 'y-or-n-p)
   (show-paren-mode)
-  (setq-default indent-tabs-mode nil)
   (server-start)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (column-number-mode)
   (blink-cursor-mode -1))
+
+(use-package markdown-mode
+  :mode
+  (("\\.md\\'" . markdown-mode)
+   ("\\.md.jinja\\'" . markdown-mode))
+  :config
+  (custom-set-faces
+   '(markdown-code-face ((t (:inherit fixed-pitch :background "ivory" :foreground "SlateGray4"))))
+   '(markdown-header-face ((t (:inherit font-lock-function-name-face :family "MeiryoKe_UIGothic"))))
+   '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 2.0 :underline t))))
+   '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.6))))
+   '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.4))))
+   '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.2))))))
 
 (use-package dabbrev
   :config
@@ -284,7 +304,11 @@ This is inconvinient when opening file at the beginning of Emacs session."
         (when (equal default-directory "/")
           (setq default-directory "~/"))
         (funcall f prompt))
-      (advice-add 'helm-find-files :around #'ad:helm-find-files))))
+      (advice-add 'helm-find-files :around #'ad:helm-find-files))
+
+    ;; `open` file by input 'z'
+    (eval-after-load "dired"
+      '(define-key dired-mode-map "z" 'yh/dired-do-open))))
 
 (yh/config "when terminal"
   (when (not window-system)
