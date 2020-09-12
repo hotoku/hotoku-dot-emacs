@@ -139,14 +139,18 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (helm-projectile-on))
 
 (use-package flycheck
+  :bind
+  (("C-c C-n" . flycheck-next-error)
+   ("C-c C-p"  . flycheck-previous-error))
+
   :config
-  (setq flycheck-check-syntax-automatically
-        '(save idle-change mode-enabled))
-  (setq flycheck-idle-change-delay 1)
+  (setq
+   flycheck-check-syntax-automatically '(save idle-change mode-enabled)
+   flycheck-idle-change-delay 1
+   flycheck-flake8-maximum-line-length 200)
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (eval-after-load 'flycheck
-    '(flycheck-add-mode 'html-tidy 'web-mode))
-  (setq flycheck-flake8-maximum-line-length 200))
+    '(flycheck-add-mode 'html-tidy 'web-mode)))
 
 (use-package ace-window
   :bind (("C-x o" . ace-window)))
