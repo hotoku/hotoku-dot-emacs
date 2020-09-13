@@ -54,7 +54,11 @@ If no files are marked or a specific numeric prefix arg is given,
 the next ARG files are used.  Just \\[universal-argument] means the current file."
     (interactive "P")
     (let ((files (dired-get-marked-files nil arg)))
-      (apply 'start-process "open_ps" nil "open" files))))
+      (apply 'start-process "open_ps" nil "open" files)))
+  (defun yh/insert-hash ()
+    "Insert hash value of buffer string at current point. Intended using for debugging"
+    (interactive)
+    (insert (substring (secure-hash 'md5 (buffer-string)) 0 10))))
 
 (yh/config "global setting"
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
