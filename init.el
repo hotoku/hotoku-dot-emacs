@@ -58,7 +58,12 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (defun yh/insert-hash ()
     "Insert hash value of buffer string at current point. Intended using for debugging"
     (interactive)
-    (insert (substring (secure-hash 'md5 (buffer-string)) 0 10))))
+    (insert (substring (secure-hash 'md5 (buffer-string)) 0 10)))
+  (defun yh/indent-buffer ()
+    "Indent the whole buffer."
+    (interactive)
+    (delete-trailing-whitespace)
+    (indent-region (point-min) (point-max) nil)))
 
 (yh/config "global setting"
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
