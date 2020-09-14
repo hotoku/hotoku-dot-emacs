@@ -27,7 +27,8 @@
           '(session use-package browse-kill-ring color-moccur auto-complete session
                     helm open-junk-file projectile py-autopep8 yasnippet
                     helm-projectile flycheck equally-spaced ace-window
-                    web-mode company-mode tide s dakrone-theme markdown-mode))))
+                    web-mode company-mode tide s dakrone-theme markdown-mode
+                    json-mode))))
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
   (when (executable-find "makeinfo")
@@ -69,6 +70,10 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (scroll-bar-mode -1)
   (column-number-mode)
   (blink-cursor-mode -1))
+
+(use-package json-mode
+  :mode
+  (("\\.json\\'" . json-mode)))
 
 (use-package markdown-mode
   :mode
