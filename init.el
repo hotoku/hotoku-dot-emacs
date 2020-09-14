@@ -28,7 +28,7 @@
                     helm open-junk-file projectile py-autopep8 yasnippet
                     helm-projectile flycheck equally-spaced ace-window
                     web-mode company-mode tide s dakrone-theme markdown-mode
-                    json-mode))))
+                    json-mode prettier-emacs rjsx-mode))))
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
   (when (executable-find "makeinfo")
@@ -95,6 +95,14 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
    '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.6))))
    '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.4))))
    '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.2))))))
+
+(use-package prettier-js
+  :config
+  (add-hook 'rjsx-mode-hook 'prettier-js-mode))
+
+(use-package rjsx-mode
+  :config
+  (add-to-list 'auto-mode-alist '(".*\\.jsx?\\'" . rjsx-mode)))
 
 (use-package dabbrev
   :config
