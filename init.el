@@ -334,7 +334,7 @@ This is inconvinient when opening file at the beginning of Emacs session."
     ;; `open` file by input 'z'
     (eval-after-load "dired"
       '(define-key dired-mode-map "z" 'yh/dired-do-open))
-    (setq-default cursor-type 'hollow)))
+    (setq-default cursor-type 'bar)))
 
 (yh/config "when terminal"
   (when (not window-system)
