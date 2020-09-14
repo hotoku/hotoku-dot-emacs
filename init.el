@@ -55,10 +55,18 @@ If no files are marked or a specific numeric prefix arg is given,
 the next ARG files are used.  Just \\[universal-argument] means the current file."
     (interactive "P")
     (let ((files (dired-get-marked-files nil arg)))
-      (apply 'start-process "open_ps" nil "open" files))))
+      (apply 'start-process "open_ps" nil "open" files)))
+  (defun yh/insert-hash ()
+    "Insert hash value of buffer string at current point. Intended using for debugging"
+    (interactive)
+    (insert (substring (secure-hash 'md5 (buffer-string)) 0 10)))
+  (defun yh/before-save ()
+    (interactive)
+    (delete-trailing-whitespace)
+    (indent-region (point-min) (point-max) nil)))
 
 (yh/config "global setting"
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  (add-hook 'before-save-hook 'yh/before-save)
   (setq-default
    tab-width 2
    indent-tabs-mode nil
@@ -144,14 +152,18 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (helm-projectile-on))
 
 (use-package flycheck
+  :bind
+  (("C-c C-n" . flycheck-next-error)
+   ("C-c C-p"  . flycheck-previous-error))
+
   :config
-  (setq flycheck-check-syntax-automatically
-        '(save idle-change mode-enabled))
-  (setq flycheck-idle-change-delay 1)
+  (setq
+   flycheck-check-syntax-automatically '(save idle-change mode-enabled)
+   flycheck-idle-change-delay 1
+   flycheck-flake8-maximum-line-length 200)
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (eval-after-load 'flycheck
-    '(flycheck-add-mode 'html-tidy 'web-mode))
-  (setq flycheck-flake8-maximum-line-length 200))
+    '(flycheck-add-mode 'html-tidy 'web-mode)))
 
 (use-package ace-window
   :bind (("C-x o" . ace-window)))
