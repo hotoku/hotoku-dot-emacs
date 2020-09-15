@@ -86,7 +86,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 (use-package makefle
   :no-require t
   :config
-  (defun yh/my-makefile-indent-line ()
+  (defun yh/makefile-indent-line ()
     "https://emacs.stackexchange.com/questions/3074/customizing-indentation-in-makefile-mode"
     (save-excursion
       (forward-line 0)
