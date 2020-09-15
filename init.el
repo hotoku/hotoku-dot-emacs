@@ -83,6 +83,30 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   :mode
   (("\\.json\\'" . json-mode)))
 
+(use-package makefle
+  :no-require t
+  :config
+  (defun yh/my-makefile-indent-line ()
+    "https://emacs.stackexchange.com/questions/3074/customizing-indentation-in-makefile-mode"
+    (save-excursion
+      (forward-line 0)
+      (cond
+       ;; keep TABs
+       ((looking-at "\t")
+        t)
+       ;; indent continuation lines to 4
+       ((and (not (bobp))
+             (= (char-before (1- (point))) ?\\))
+        (delete-horizontal-space)
+        (indent-to 4))
+       ;; delete all other leading whitespace
+       ((looking-at "\\s-+")
+        (replace-match "")))))
+
+  (add-hook 'makefile-mode-hook
+            (lambda ()
+              (setq-local indent-line-function 'my-makefile-indent-line))))
+
 (use-package markdown-mode
   :mode
   (("\\.md\\'" . markdown-mode)
@@ -101,8 +125,8 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (add-hook 'rjsx-mode-hook 'prettier-js-mode))
 
 (use-package rjsx-mode
-  :config
-  (add-to-list 'auto-mode-alist '(".*\\.jsx?\\'" . rjsx-mode)))
+  :mode
+  ((".*\\.jsx?\\'" . rjsx-mode)))
 
 (use-package dabbrev
   :config
