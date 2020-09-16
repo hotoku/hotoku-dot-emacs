@@ -28,7 +28,7 @@
                     helm open-junk-file projectile py-autopep8 yasnippet
                     helm-projectile flycheck equally-spaced ace-window
                     web-mode company-mode tide s dakrone-theme markdown-mode
-                    json-mode prettier-emacs rjsx-mode))))
+                    json-mode prettier-emacs rjsx-mode yaml-mode))))
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
   (when (executable-find "makeinfo")
@@ -60,10 +60,13 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     "Insert hash value of buffer string at current point. Intended using for debugging"
     (interactive)
     (insert (substring (secure-hash 'md5 (buffer-string)) 0 10)))
+  (defvar yh/no-indent-extension-list '("yml"))
+
   (defun yh/before-save ()
     (interactive)
-    (delete-trailing-whitespace)
-    (indent-region (point-min) (point-max) nil)))
+    (when (not (member (file-name-extension buffer-file-name) yh/no-indent-extension-list))
+      (indent-region (point-min) (point-max) nil))
+    (delete-trailing-whitespace)))
 
 (yh/config "global setting"
   (add-hook 'before-save-hook 'yh/before-save)
