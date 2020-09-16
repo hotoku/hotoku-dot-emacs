@@ -67,7 +67,17 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     (interactive)
     (when (not (member (file-name-extension buffer-file-name) yh/no-indent-extension-list))
       (indent-region (point-min) (point-max) nil))
-    (delete-trailing-whitespace)))
+    (delete-trailing-whitespace))
+  (defun yh/all-lines ()
+    (save-excursion
+      (goto-char (point-max))
+      (beginning-of-line)
+      (let ((ret '()))
+        (while (not (= (point) (point-min)))
+          (setq ret (cons (buffer-substring (point-beginning-of-line) (point-end-of-line))
+                          ret))
+          (forward-line -1))
+        ret))))
 
 (yh/config "global setting"
   (add-hook 'before-save-hook 'yh/before-save)
