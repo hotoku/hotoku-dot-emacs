@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (defmacro yh/config (desc &rest body)
   `(progn ,@body))
 (put 'yh/config 'lisp-indent-function 'defun)
@@ -77,7 +79,19 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
           (setq ret (cons (buffer-substring (point-beginning-of-line) (point-end-of-line))
                           ret))
           (forward-line -1))
-        ret))))
+        ret)))
+  (defun yh/reduce (f ls)
+    (let ((len (length ls)))
+      (cond
+       ((= 0 len) nil)
+       ((= 1 len) (car ls))
+       (t (let ((ret (car ls)))
+            (while (cdr ls)
+              (setq ret (funcall f ret (cadr ls)))
+              (setq ls (cdr ls)))
+            ret)))))
+  (defun yh/join (s ss)
+    (yh/reduce '(lambda (a b) (concat a s b)) ss)))
 
 (yh/config "global setting"
   (add-hook 'before-save-hook 'yh/before-save)
@@ -92,6 +106,26 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (scroll-bar-mode -1)
   (column-number-mode)
   (blink-cursor-mode -1))
+
+(use-package generator
+  :config
+  (iter-defun yh/enumerate (iter)
+    (let ((i 0))
+      (iter-do (val iter)
+        (iter-yield (cons i val))
+        (setq i (1+ i)))))
+  (iter-defun yh/filter (iter pred)
+    (iter-do (val iter)
+      (if (funcall pred val) (iter-yield val))))
+  (iter-defun yh/iter-list (ls)
+    (while ls
+      (iter-yield (car ls))
+      (setq ls (cdr ls))))
+  (defun yh/iter-last (iter)
+    (let ((ret nil))
+      (iter-do (val iter)
+        (setq ret val))
+      ret)))
 
 (use-package git-ps1-mode
   :config
