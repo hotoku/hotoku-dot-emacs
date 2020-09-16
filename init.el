@@ -320,7 +320,26 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
 (yh/config "python"
   (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
-  (setq flycheck-flake8-maximum-line-length 200))
+  (setq flycheck-flake8-maximum-line-length 200)
+  (defun yh/python-do-insert-import (&rest args)
+    "Insert import sentence at the bottom of import lines"
+    (let* ((last-line (yh/iter-last (yh/filter
+                                     (yh/enumerate
+                                      (yh/iter-list (yh/all-lines)))
+                                     '(lambda (x)
+                                        (yh/python-import-linep (cdr x))))))
+           (line-num (car last-line))
+           (sentence "todo"))
+      (save-excursion
+        (beginning-of-buffer)
+        (forward-line (1+ line-num))
+        (insert args "\n"))))
+  (defun yh/python-import (module)
+    (interactive "Mmodule: ")
+    (yh/python-do-insert-import (yh/join " " `("import" ,module))))
+  (defun yh/python-import-from (module object)
+    (interactive "Mmodule: \nMobject: ")
+    (yh/python-do-insert-import (yh/join " " `("from" ,module "import" ,object)))))
 
 (yh/config "emacs-lisp"
   (add-hook 'emacs-lisp-mode-hook
