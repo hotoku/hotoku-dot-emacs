@@ -28,7 +28,8 @@
                     helm open-junk-file projectile py-autopep8 yasnippet
                     helm-projectile flycheck equally-spaced ace-window
                     web-mode company-mode tide s dakrone-theme markdown-mode
-                    json-mode prettier-emacs rjsx-mode yaml-mode))))
+                    json-mode prettier-emacs rjsx-mode yaml-mode git-ps1-mode))))
+
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
   (when (executable-find "makeinfo")
@@ -82,6 +83,13 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (column-number-mode)
   (blink-cursor-mode -1))
 
+(use-package git-ps1-mode
+  :config
+  (let ((file (expand-file-name "misc/git-ps1-mode.el" user-emacs-directory)))
+    (when (file-exists-p file)
+      (load file)
+      (add-hook 'dired-mode-hook 'git-ps1-mode))))
+
 (use-package json-mode
   :mode
   (("\\.json\\'" . json-mode)))
@@ -108,7 +116,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
   (add-hook 'makefile-mode-hook
             (lambda ()
-              (setq-local indent-line-function 'my-makefile-indent-line))))
+              (setq-local indent-line-function 'yh/makefile-indent-line))))
 
 (use-package markdown-mode
   :mode
@@ -197,8 +205,9 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
    flycheck-idle-change-delay 1
    flycheck-flake8-maximum-line-length 200)
   (add-hook 'after-init-hook #'global-flycheck-mode)
-  (eval-after-load 'flycheck
-    '(flycheck-add-mode 'html-tidy 'web-mode)))
+  (flycheck-add-mode 'html-tidy 'web-mode)
+  (with-eval-after-load "python"
+    (define-key python-mode-map (kbd "C-c C-p") 'flycheck-previous-error)))
 
 (use-package ace-window
   :bind (("C-x o" . ace-window)))
