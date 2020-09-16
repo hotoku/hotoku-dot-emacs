@@ -92,7 +92,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
               (setq ls (cdr ls)))
             ret)))))
   (defun yh/join (s ss)
-    (yh/reduce #'(lambda (a b) (concat a s b)) ss)))
+    (yh/reduce (lambda (a b) (concat a s b)) ss)))
 
 (yh/config "global setting"
   (add-hook 'before-save-hook 'yh/before-save)
