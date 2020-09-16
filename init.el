@@ -438,10 +438,24 @@ This is inconvinient when opening file at the beginning of Emacs session."
       '(define-key dired-mode-map "z" 'yh/dired-do-open))
 
     ;; display size
+    (defun yh/use-large-font (&optional no-recreate)
+      (interactive)
+      (setf (alist-get 'font default-frame-alist) "Monospace-16")
+      (unless no-recreate
+        (yh/recreate-frame)))
+    (defun yh/use-small-font (&optional no-recreate)
+      (interactive)
+      (setf (alist-get 'font default-frame-alist) "Monospace-12")
+      (unless no-recreate
+        (yh/recreate-frame)))
+    (defun yh/recreate-frame ()
+      (let ((f (selected-frame)))
+        (make-frame)
+        (delete-frame f)))
+
     (when (> (x-display-pixel-width) 2000)
       (message "This display has high resolution. Setting large font.")
-      (add-to-list 'default-frame-alist
-                   '(font . "Monospace-16")))))
+      (yh/use-large-font t))))
 
 (yh/config "when terminal"
   (when (not window-system)
