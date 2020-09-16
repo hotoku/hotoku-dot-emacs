@@ -290,7 +290,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
             'hs-hide-all 100)
   (defun yh/ret-in-elisp (&optional arg inter)
     (interactive)
-    (if (hs-already-hidden-p) (hs-show-block)
+    (if (ignore-errors (hs-already-hidden-p)) (hs-show-block)
       (newline arg inter))))
 
 (yh/config "yatex"
