@@ -435,7 +435,13 @@ This is inconvinient when opening file at the beginning of Emacs session."
 
     ;; `open` file by input 'z'
     (eval-after-load "dired"
-      '(define-key dired-mode-map "z" 'yh/dired-do-open))))
+      '(define-key dired-mode-map "z" 'yh/dired-do-open))
+
+    ;; display size
+    (when (> (x-display-pixel-width) 2000)
+      (message "This display has high resolution. Setting large font.")
+      (add-to-list 'default-frame-alist
+                   '(font . "Monospace-16")))))
 
 (yh/config "when terminal"
   (when (not window-system)
