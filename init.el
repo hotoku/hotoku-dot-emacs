@@ -85,7 +85,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
 (use-package git-ps1-mode
   :config
-  (let ((file (expand-file-name "misc/git-ps1-mode.el" user-emacs-directory)))
+  (let ((file (expand-file-name "site-local/git-ps1-mode.el" user-emacs-directory)))
     (when (file-exists-p file)
       (load file)
       (add-hook 'dired-mode-hook 'git-ps1-mode))))
