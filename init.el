@@ -144,22 +144,25 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   :config
   (defun yh/makefile-indent-line ()
     "https://emacs.stackexchange.com/questions/3074/customizing-indentation-in-makefile-mode"
-    (if (and (= (point-beginning-of-line) (point))
-             (string= (yh/current-line) ""))
-        (progn (insert "\t") (forward-char 1))
-      (save-excursion
-        (forward-line 0)
-        (cond
-         ;; keep TABs
-         ((looking-at "\t") t)
-         ;; indent continuation lines to 4
-         ((and (not (bobp))
-               (= (char-before (1- (point))) ?\\))
-          (delete-horizontal-space)
-          (indent-to 4))
-         ;; delete all other leading whitespace
-         ((looking-at "\\s-+")
-          (replace-match ""))))))
+    (let ((bol (= (point-beginning-of-line) (point)))
+          (empty (string= (yh/current-line) "")))
+      (message "-- %s %s %s" bol empty (point))
+      (if bol
+          (progn (when empty (insert "\t"))
+                 (forward-char 1))
+        (save-excursion
+          (forward-line 0)
+          (cond
+           ;; keep TABs
+           ((looking-at "\t") t)
+           ;; indent continuation lines to 4
+           ((and (not (bobp))
+                 (= (char-before (1- (point))) ?\\))
+            (delete-horizontal-space)
+            (indent-to 4))
+           ;; delete all other leading whitespace
+           ((looking-at "\\s-+")
+            (replace-match "")))))))
 
   (add-hook 'makefile-mode-hook
             (lambda ()
