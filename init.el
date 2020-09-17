@@ -482,10 +482,9 @@ This is inconvinient when opening file at the beginning of Emacs session."
       (let ((f (selected-frame)))
         (make-frame)
         (delete-frame f)))
-
-    (when (> (x-display-pixel-width) 2000)
-      (message "This display has high resolution. Setting large font.")
-      (yh/use-large-font t))))
+    (let ((file (expand-file-name "site-local/font.el" user-emacs-directory)))
+      (when (file-exists-p file)
+        (load file)))))
 
 (yh/config "when terminal"
   (when (not window-system)
