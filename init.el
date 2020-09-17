@@ -128,6 +128,15 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
         (setq ret val))
       ret)))
 
+(use-package ssh-config
+  :no-require t
+  :config
+  (defun yh/indent-ssh-config-line ()
+    (goto-char (line-beginning-position))
+    (delete-horizontal-space)
+    (unless (or (looking-at "Host\\b") (looking-at "#"))
+      (indent-to (indent-next-tab-stop 0)))))
+
 (use-package git-ps1-mode
   :config
   (let ((file (expand-file-name "site-local/git-ps1-mode.el" user-emacs-directory)))
