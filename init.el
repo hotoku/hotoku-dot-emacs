@@ -128,14 +128,18 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
         (setq ret val))
       ret)))
 
-(use-package ssh-config
+(use-package conf-mode
   :no-require t
   :config
   (defun yh/indent-ssh-config-line ()
     (goto-char (line-beginning-position))
     (delete-horizontal-space)
-    (unless (or (looking-at "Host\\b") (looking-at "#"))
-      (indent-to (indent-next-tab-stop 0)))))
+    (unless (looking-at "Host\\b")
+      (indent-to (indent-next-tab-stop 0))))
+  (defun yh/ssh-config-setup-indent ()
+    (when (s-ends-with-p "/.ssh/config" (buffer-file-name))
+      (setq-local indent-line-function 'yh/indent-ssh-config-line)))
+  (add-hook 'conf-space-mode-hook 'yh/ssh-config-setup-indent))
 
 (use-package git-ps1-mode
   :config
