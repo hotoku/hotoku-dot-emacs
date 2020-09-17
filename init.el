@@ -161,21 +161,23 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
           (empty (string= (yh/current-line) "")))
       (message "-- %s %s %s" bol empty (point))
       (if bol
-          (progn (when empty (insert "\t"))
-                 (forward-char 1))
+          (progn (when empty (insert "\t")))
         (save-excursion
           (forward-line 0)
           (cond
            ;; keep TABs
-           ((looking-at "\t") t)
+           ((looking-at "\t") t (message "1 %s" (point-max)))
            ;; indent continuation lines to 4
            ((and (not (bobp))
                  (= (char-before (1- (point))) ?\\))
             (delete-horizontal-space)
-            (indent-to 4))
+            (indent-to 4)
+            (message "2"))
            ;; delete all other leading whitespace
            ((looking-at "\\s-+")
-            (replace-match "")))))))
+            (replace-match "")
+            (message "3"))
+           (t (message "4 %s" (point-max))))))))
 
   (add-hook 'makefile-mode-hook
             (lambda ()
