@@ -153,8 +153,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
   :config
   (progn (show-smartparens-global-mode t))
-  (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-  (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-smartparens-strict-mode)
   ;; https://ebzzry.io/en/emacs-pairs/
   (defmacro yh/def-pairs (pairs)
     "Define functions for pairing. PAIRS is an alist of (NAME . STRING)
@@ -332,8 +331,8 @@ respectively."
   (setq web-mode-enable-auto-pairing t)
   (setq web-mode-enable-auto-closing t)
   :mode (("\\.html\\'" . web-mode)
-         ("\\.tsx?\\'" . web-mode)
-         ("\\.jsx?\\'" . web-mode)))
+         ("\\.tsx\\'" . web-mode)
+         ("\\.jsx\\'" . web-mode)))
 
 (use-package company
   :config
@@ -362,7 +361,6 @@ respectively."
   (setq typescript-indent-level 2)
 
   ;; for tsx
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
   (add-hook 'web-mode-hook
             (lambda ()
               (when (string-equal "tsx" (file-name-extension buffer-file-name))
@@ -372,8 +370,13 @@ respectively."
 
 (use-package dired-k
   :config
-  (progn
-    (add-hook 'dired-initial-position-hook 'dired-k)))
+  (defun yh/dired-revert ()
+    (interactive)
+    (revert-buffer)
+    (dired-k))
+  :bind
+  (:map dired-mode-map
+        ("g" . yh/dired-revert)))
 
 (yh/config "global key"
   (global-set-key (kbd "C-x C-j") 'dired-jump)
