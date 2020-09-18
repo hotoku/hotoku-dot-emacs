@@ -64,7 +64,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     "Insert hash value of buffer string at current point. Intended using for debugging"
     (interactive)
     (insert (substring (secure-hash 'md5 (buffer-string)) 0 10)))
-  (defvar yh/no-indent-extension-list '("yml"))
+  (defvar yh/no-indent-extension-list '("yml" "sql" "py"))
 
   (defun yh/before-save ()
     (interactive)
