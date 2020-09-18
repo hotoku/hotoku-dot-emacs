@@ -109,6 +109,35 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (column-number-mode)
   (blink-cursor-mode -1))
 
+(yh/config "makefle"
+  (defun yh/makefile-indent-line ()
+    "https://emacs.stackexchange.com/questions/3074/customizing-indentation-in-makefile-mode"
+    (let ((bol (= (point-beginning-of-line) (point)))
+          (empty (string= (yh/current-line) "")))
+      (message "-- %s %s %s" bol empty (point))
+      (if bol
+          (progn (when empty (insert "\t")))
+        (save-excursion
+          (forward-line 0)
+          (cond
+           ;; keep TABs
+           ((looking-at "\t") t (message "1 %s" (point-max)))
+           ;; indent continuation lines to 4
+           ((and (not (bobp))
+                 (= (char-before (1- (point))) ?\\))
+            (delete-horizontal-space)
+            (indent-to 4)
+            (message "2"))
+           ;; delete all other leading whitespace
+           ((looking-at "\\s-+")
+            (replace-match "")
+            (message "3"))
+           (t (message "4 %s" (point-max))))))))
+
+  (add-hook 'makefile-mode-hook
+            (lambda ()
+              (setq-local indent-line-function 'yh/makefile-indent-line))))
+
 (use-package smartparens-config
   :init
   (add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
@@ -139,7 +168,6 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
       ret)))
 
 (use-package conf-mode
-  :no-require t
   :config
   (defun yh/indent-ssh-config-line ()
     (goto-char (line-beginning-position))
@@ -161,37 +189,6 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 (use-package json-mode
   :mode
   (("\\.json\\'" . json-mode)))
-
-(use-package makefle
-  :no-require t
-  :config
-  (defun yh/makefile-indent-line ()
-    "https://emacs.stackexchange.com/questions/3074/customizing-indentation-in-makefile-mode"
-    (let ((bol (= (point-beginning-of-line) (point)))
-          (empty (string= (yh/current-line) "")))
-      (message "-- %s %s %s" bol empty (point))
-      (if bol
-          (progn (when empty (insert "\t")))
-        (save-excursion
-          (forward-line 0)
-          (cond
-           ;; keep TABs
-           ((looking-at "\t") t (message "1 %s" (point-max)))
-           ;; indent continuation lines to 4
-           ((and (not (bobp))
-                 (= (char-before (1- (point))) ?\\))
-            (delete-horizontal-space)
-            (indent-to 4)
-            (message "2"))
-           ;; delete all other leading whitespace
-           ((looking-at "\\s-+")
-            (replace-match "")
-            (message "3"))
-           (t (message "4 %s" (point-max))))))))
-
-  (add-hook 'makefile-mode-hook
-            (lambda ()
-              (setq-local indent-line-function 'yh/makefile-indent-line))))
 
 (use-package markdown-mode
   :mode
