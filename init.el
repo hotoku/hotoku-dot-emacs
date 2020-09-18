@@ -31,7 +31,7 @@
                     helm-projectile flycheck equally-spaced ace-window
                     web-mode company-mode tide s dakrone-theme markdown-mode
                     json-mode prettier-emacs rjsx-mode yaml-mode git-ps1-mode
-                    undo-tree))))
+                    undo-tree smartparens))))
 
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
@@ -108,6 +108,11 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (scroll-bar-mode -1)
   (column-number-mode)
   (blink-cursor-mode -1))
+
+(use-package smartparens-config
+  :init
+  (add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
+  (add-hook 'python-mode-hook 'smartparens-mode))
 
 (use-package undo-tree
   :config
