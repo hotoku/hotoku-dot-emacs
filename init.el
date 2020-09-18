@@ -31,7 +31,7 @@
                     helm-projectile flycheck equally-spaced ace-window
                     web-mode company-mode tide s dakrone-theme markdown-mode
                     json-mode prettier-emacs rjsx-mode yaml-mode git-ps1-mode
-                    undo-tree smartparens))))
+                    undo-tree smartparens dired-k))))
 
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
@@ -143,10 +143,46 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
             (lambda ()
               (setq-local indent-line-function 'yh/makefile-indent-line))))
 
+(use-package savehist
+  :config
+  (savehist-mode t))
+
 (use-package smartparens-config
-  :init
-  (add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
-  (add-hook 'python-mode-hook 'smartparens-mode))
+  :ensure
+  smartparens
+
+  :config
+  (progn (show-smartparens-global-mode t))
+  (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+  (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
+  ;; https://ebzzry.io/en/emacs-pairs/
+  (defmacro yh/def-pairs (pairs)
+    "Define functions for pairing. PAIRS is an alist of (NAME . STRING)
+conses, where NAME is the function name that will be created and
+STRING is a single-character string that marks the opening character.
+
+  (def-pairs ((paren . \"(\")
+              (bracket . \"[\"))
+
+defines the functions WRAP-WITH-PAREN and WRAP-WITH-BRACKET,
+respectively."
+    `(progn
+       ,@(loop for (key . val) in pairs
+               collect
+               `(defun ,(read (concat
+                               "yh/wrap-with-"
+                               (prin1-to-string key)
+                               "s"))
+                    (&optional arg)
+                  (interactive "p")
+                  (sp-wrap-with-pair ,val)))))
+
+  (yh/def-pairs ((paren . "(")
+                 (bracket . "[")
+                 (brace . "{")
+                 (single-quote . "'")
+                 (double-quote . "\"")
+                 (back-quote . "`"))))
 
 (use-package undo-tree
   :config
@@ -333,6 +369,11 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
                 (setup-tide-mode))))
   ;; enable typescript-tslint checker
   (flycheck-add-mode 'typescript-tslint 'web-mode))
+
+(use-package dired-k
+  :config
+  (progn
+    (add-hook 'dired-initial-position-hook 'dired-k)))
 
 (yh/config "global key"
   (global-set-key (kbd "C-x C-j") 'dired-jump)
