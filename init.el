@@ -289,7 +289,13 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
 (use-package web-mode
   :config
-  (setq-default web-mode-code-indent-offset 2))
+  (setq-default web-mode-code-indent-offset 2)
+
+  (setq web-mode-enable-auto-pairing t)
+  (setq web-mode-enable-auto-closing t)
+  :mode (("\\.html\\'" . web-mode)
+         ("\\.tsx?\\'" . web-mode)
+         ("\\.jsx?\\'" . web-mode)))
 
 (use-package company
   :config
