@@ -65,12 +65,17 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     (interactive)
     (insert (substring (secure-hash 'md5 (buffer-string)) 0 10)))
   (defvar yh/no-indent-extension-list '("yml" "sql" "py"))
+  (defvar yh/indent-before-save t)
 
   (defun yh/before-save ()
     (interactive)
-    (when (not (member (file-name-extension buffer-file-name) yh/no-indent-extension-list))
+    (when (and (not (member (file-name-extension buffer-file-name) yh/no-indent-extension-list))
+               yh/indent-before-save)
       (indent-region (point-min) (point-max) nil))
     (delete-trailing-whitespace))
+  (defun yh/no-indent-on-save ()
+    (interactive)
+    (setq-local yh/indent-before-save nil))
   (defun yh/current-line ()
     (buffer-substring (point-beginning-of-line) (point-end-of-line)))
   (defun yh/all-lines ()
@@ -336,10 +341,16 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 (yh/config "shell script"
   (add-hook 'sh-mode-hook
             '(lambda ()
-               (local-set-key (kbd "C-c C-j") 'yh/sh-insert-var)))
+               (local-set-key (kbd "C-c C-j") 'yh/sh-insert-var)
+               (setq-local after-save-hook (cons 'yh/make-execultable after-save-hook))))
   (defun yh/sh-insert-var (var-name)
     (interactive "svariable name:")
-    (insert "${" var-name "}")))
+    (insert "${" var-name "}"))
+  (defun yh/make-execultable ()
+    (let ((fn (buffer-file-name))
+          (process-connection-type nil))
+      (start-process "yh/make-executable" nil "chmod" "u+x" fn ))))
+;; (message "%s" fn)
 
 (yh/config "Makefile"
   (add-hook 'makefile-gmake-mode-hook 'yh/setup-make-mode)
