@@ -154,9 +154,6 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (savehist-mode t))
 
 (use-package smartparens-config
-  :ensure
-  smartparens
-
   :config
   (progn (show-smartparens-global-mode t))
   (add-hook 'emacs-lisp-mode-hook 'turn-on-smartparens-strict-mode)
