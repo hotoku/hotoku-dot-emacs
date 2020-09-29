@@ -113,7 +113,8 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
           (buf (get-buffer-create "*yh/publish-blog*")))
       (call-process "git" nil buf t "add" fn)
       (call-process "git" nil buf t "commit" "-m" "publish")
-      (call-process "git" nil buf t "push"))))
+      (call-process "git" nil buf t "push"))
+    (message "pushed")))
 
 (yh/config "global setting"
   (add-hook 'before-save-hook 'yh/before-save)
