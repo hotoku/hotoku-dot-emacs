@@ -106,6 +106,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
           (process-connection-type nil))
       (start-process "yh/make-executable" nil "chmod" "u+x" fn )))
   (defun yh/publish-blog ()
+    "commit change and push to remote"
     (interactive)
     (let ((fn (buffer-file-name))
           (process-connection-type nil))
