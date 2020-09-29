@@ -31,7 +31,7 @@
                     helm-projectile flycheck equally-spaced ace-window
                     web-mode company-mode tide s dakrone-theme markdown-mode
                     json-mode prettier-emacs rjsx-mode yaml-mode git-ps1-mode
-                    undo-tree smartparens dired-k))))
+                    undo-tree smartparens dired-k dash f online-judge))))
 
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
@@ -104,7 +104,14 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (defun yh/make-executable ()
     (let ((fn (buffer-file-name))
           (process-connection-type nil))
-      (start-process "yh/make-executable" nil "chmod" "u+x" fn ))))
+      (start-process "yh/make-executable" nil "chmod" "u+x" fn )))
+  (defun yh/publish-blog ()
+    (interactive)
+    (let ((fn (buffer-file-name))
+          (process-connection-type nil))
+      (start-process "yh/publish-blog1" nil "git" "add" fn)
+      (start-process "yh/publish-blog1" nil "git" "commit" "-m" "publish")
+      (start-process "yh/publish-blog2" nil "git" "push" "origin" "master"))))
 
 (yh/config "global setting"
   (add-hook 'before-save-hook 'yh/before-save)
@@ -148,6 +155,8 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (add-hook 'makefile-mode-hook
             (lambda ()
               (setq-local indent-line-function 'yh/makefile-indent-line))))
+
+(use-package online-judge)
 
 (use-package savehist
   :config
