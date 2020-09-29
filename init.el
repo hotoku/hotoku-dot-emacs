@@ -111,7 +111,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
           (process-connection-type nil))
       (start-process "yh/publish-blog1" nil "git" "add" fn)
       (start-process "yh/publish-blog1" nil "git" "commit" "-m" "publish")
-      (start-process "yh/publish-blog2" nil "git" "push"))))
+      (start-process "yh/publish-blog2" nil "git" "push")) ))
 
 (yh/config "global setting"
   (add-hook 'before-save-hook 'yh/before-save)
