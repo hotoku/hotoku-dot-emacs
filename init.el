@@ -109,10 +109,11 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     "commit change and push to remote"
     (interactive)
     (let ((fn (buffer-file-name))
-          (process-connection-type nil))
-      (start-process "yh/publish-blog1" nil "git" "add" fn)
-      (start-process "yh/publish-blog1" nil "git" "commit" "-m" "publish")
-      (start-process "yh/publish-blog2" nil "git" "push"))))
+          (process-connection-type nil)
+          (buf (get-buffer-create "*yh/publish-blog*")))
+      (call-process "git" nil buf t "add" fn)
+      (call-process "git" nil buf t "commit" "-m" "publish")
+      (call-process "git" nil buf t "push"))))
 
 (yh/config "global setting"
   (add-hook 'before-save-hook 'yh/before-save)
