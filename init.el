@@ -104,17 +104,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (defun yh/make-executable ()
     (let ((fn (buffer-file-name))
           (process-connection-type nil))
-      (start-process "yh/make-executable" nil "chmod" "u+x" fn )))
-  (defun yh/publish-blog ()
-    "commit change and push to remote"
-    (interactive)
-    (let ((fn (buffer-file-name))
-          (process-connection-type nil)
-          (buf (get-buffer-create "*yh/publish-blog*")))
-      (call-process "git" nil buf t "add" fn)
-      (call-process "git" nil buf t "commit" "-m" "publish")
-      (call-process "git" nil buf t "push"))
-    (message "pushed")))
+      (start-process "yh/make-executable" nil "chmod" "u+x" fn ))))
 
 (yh/config "global setting"
   (add-hook 'before-save-hook 'yh/before-save)
@@ -158,6 +148,36 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (add-hook 'makefile-mode-hook
             (lambda ()
               (setq-local indent-line-function 'yh/makefile-indent-line))))
+
+(use-package blog
+  :no-require t
+  :if (file-exists-p (expand-file-name "site-local/blog.el" user-emacs-directory))
+  :config
+  (load (expand-file-name "site-local/blog.el" user-emacs-directory))
+  (defun yh/blog-publish ()
+    "commit change and push to remote"
+    (interactive)
+    (let ((fn (buffer-file-name))
+          (process-connection-type nil)
+          (buf (get-buffer-create "*yh/publish-blog*")))
+      (call-process "git" nil buf t "add" fn)
+      (call-process "git" nil buf t "commit" "-m" "publish")
+      (call-process "git" nil buf t "push"))
+    (message "pushed"))
+  (defun yh/blog-new (title)
+    (interactive "sblog title: ")
+    (let* ((y (format-time-string "%Y"))
+           (m (format-time-string "%m"))
+           (d (format-time-string "%d"))
+           (fn (format "%s-%s-%s-%s.md" y m d title)))
+      (find-file (expand-file-name fn yh/blog-posts-dir))
+      (insert (format "---
+layout: post
+title: %s
+date: %s-%s-%s %s +0900
+categories:
+---
+" title y m d (format-time-string "%H:%M:%S"))))))
 
 (use-package online-judge)
 
