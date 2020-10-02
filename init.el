@@ -31,7 +31,7 @@
                     helm-projectile flycheck equally-spaced ace-window
                     web-mode company-mode tide s dakrone-theme markdown-mode
                     json-mode prettier-emacs rjsx-mode yaml-mode git-ps1-mode
-                    undo-tree smartparens dired-k dash f online-judge))))
+                    undo-tree smartparens dired-k dash f online-judge elpy))))
 
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
@@ -40,6 +40,10 @@
 
   (el-get 'sync yh/my-packages)
   (el-get-cleanup yh/my-packages))
+
+(use-package elpy
+  :init
+  (elpy-enable))
 
 (yh/config "backup"
   (setq make-backup-files t)
@@ -299,7 +303,14 @@ respectively."
 
 (use-package hideshow
   :init
-  (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode))
+  (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+  (add-hook 'emacs-lisp-mode-hook 'hs-hide-all 100)
+  (add-hook 'python-mode-hook 'hs-minor-mode)
+  (add-hook 'python-mode-hook 'hs-hide-all 100)
+  (defun yh/ret-hs (&optional arg inter)
+    (interactive)
+    (if (ignore-errors (hs-already-hidden-p)) (hs-show-block)
+      (newline arg inter))))
 
 (use-package helm-config
   :config
@@ -461,7 +472,8 @@ respectively."
     (yh/python-do-insert-import (yh/join " " `("import" ,module))))
   (defun yh/python-import-from (module object)
     (interactive "Mmodule: \nMobject: ")
-    (yh/python-do-insert-import (yh/join " " `("from" ,module "import" ,object)))))
+    (yh/python-do-insert-import (yh/join " " `("from" ,module "import" ,object))))
+  (add-hook 'python-mode-hook '(lambda () (local-set-key (kbd "RET") 'yh/ret-hs))))
 
 (yh/config "emacs-lisp"
   (add-hook 'emacs-lisp-mode-hook
@@ -470,13 +482,7 @@ respectively."
                          '(lambda () (equally-spaced-make-gap-buffer)
                             (indent-region (point-min) (point-max)))
                          :local t)
-               (local-set-key (kbd "RET") 'yh/ret-in-elisp)))
-  (add-hook 'emacs-lisp-mode-hook
-            'hs-hide-all 100)
-  (defun yh/ret-in-elisp (&optional arg inter)
-    (interactive)
-    (if (ignore-errors (hs-already-hidden-p)) (hs-show-block)
-      (newline arg inter))))
+               (local-set-key (kbd "RET") 'yh/ret-hs))))
 
 (yh/config "yatex"
   (setq auto-mode-alist
