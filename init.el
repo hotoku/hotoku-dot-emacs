@@ -127,7 +127,8 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (column-number-mode)
-  (blink-cursor-mode -1))
+  (blink-cursor-mode -1)
+  (setenv "LANG" "ja_JP.UTF-8"))
 
 (yh/config "makefle"
   (defun yh/makefile-indent-line ()
@@ -280,13 +281,23 @@ respectively."
    ("\\.md.jinja\\'" . markdown-mode))
   :config
   (custom-set-faces
-   '(markdown-code-face ((t (:inherit fixed-pitch :background "ivory" :foreground "SlateGray4"))))
+   '(markdown-code-face ((t (:inherit fixed-pitch :background "SkyBlue1" :foreground "gray13"))))
    '(markdown-header-face ((t (:inherit font-lock-function-name-face :family "MeiryoKe_UIGothic"))))
    '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 2.0 :underline t))))
    '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.6))))
    '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.4))))
    '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.2)))))
-  (add-hook 'markdown-mode-hook (lambda () (setq-local yh/indent-before-save nil))))
+  (add-hook 'markdown-mode-hook (lambda () (setq-local yh/indent-before-save nil)))
+  (setq markdown-command "commonmarker --extension=autolink --extension=strikethrough --extension=table --extension=tagfilter --extension=tasklist"
+        markdown-css-paths '("https://cdn.jsdelivr.net/npm/github-markdown-css"
+                             "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css")
+        markdown-xhtml-header-content "
+<style><!-- CSS HERE --></style>
+<script src=\"https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js\"></script>
+<script>hljs.initHighlightingOnLoad();</script>"
+        markdown-xhtml-body-preamble "<div class=\"markdown-body\">"
+        markdown-xhtml-body-epilogue "</div>"
+        markdown-command-needs-filename t))
 
 (use-package prettier-js
   :config
