@@ -31,7 +31,8 @@
                     helm-projectile flycheck equally-spaced ace-window
                     web-mode company-mode tide s dakrone-theme markdown-mode
                     json-mode prettier-emacs rjsx-mode yaml-mode git-ps1-mode
-                    undo-tree smartparens dired-k dash f online-judge elpy))))
+                    undo-tree smartparens dired-k dash f online-judge elpy
+                    dockerfile-mode))))
 
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
@@ -40,6 +41,10 @@
 
   (el-get 'sync yh/my-packages)
   (el-get-cleanup yh/my-packages))
+
+(use-package dockerfile-mode
+  :mode
+  (("Dockerfile\\'" . dockerfile-mode)))
 
 (use-package elpy
   :init
