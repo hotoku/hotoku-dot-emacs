@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: procon
+# key: procon
+# --
+#include<iostream>
+#include<vector>
+#include<string>
+#include<cstdio>
+
+using namespace std;
+typedef long long ll;
+typedef unsigned long long ull;
+
+
+int main(){
+return 0;
+}

@@ -42,6 +42,11 @@
   (el-get 'sync yh/my-packages)
   (el-get-cleanup yh/my-packages))
 
+(use-package online-judge
+  :init
+  (setq online-judge-executable "/usr/local/bin/oj")
+  (setq online-judge-directories '("~/onedrive/procon/atcoder/")))
+
 (use-package dockerfile-mode
   :mode
   (("Dockerfile\\'" . dockerfile-mode)))
@@ -188,8 +193,6 @@ date: %s-%s-%s %s +0900
 categories:
 ---
 " title y m d (format-time-string "%H:%M:%S"))))))
-
-(use-package online-judge)
 
 (use-package savehist
   :config
