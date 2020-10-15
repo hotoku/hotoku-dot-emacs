@@ -42,19 +42,6 @@
   (el-get 'sync yh/my-packages)
   (el-get-cleanup yh/my-packages))
 
-(use-package online-judge
-  :init
-  (setq online-judge-executable "/usr/local/bin/oj")
-  (setq online-judge-directories '("~/onedrive/procon/atcoder/")))
-
-(use-package dockerfile-mode
-  :mode
-  (("Dockerfile\\'" . dockerfile-mode)))
-
-(use-package elpy
-  :init
-  (elpy-enable))
-
 (yh/config "backup"
   (setq make-backup-files t)
   (setq backup-directory-alist
@@ -135,7 +122,20 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (blink-cursor-mode -1)
   (setenv "LANG" "ja_JP.UTF-8"))
 
-(yh/config "makefle"
+(yh/config "global key"
+  (global-set-key (kbd "C-x C-j") 'dired-jump)
+  (global-set-key (kbd "M-u") 'revert-buffer))
+
+(yh/config "shell script"
+  (add-hook 'sh-mode-hook
+            '(lambda ()
+               (local-set-key (kbd "C-c C-j") 'yh/sh-insert-var)
+               (setq-local after-save-hook (cons 'yh/make-executable after-save-hook))))
+  (defun yh/sh-insert-var (var-name)
+    (interactive "svariable name:")
+    (insert "${" var-name "}")))
+
+(yh/config "Makefile"
   (defun yh/makefile-indent-line ()
     "https://emacs.stackexchange.com/questions/3074/customizing-indentation-in-makefile-mode"
     (let ((bol (= (point-beginning-of-line) (point)))
@@ -162,7 +162,99 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
   (add-hook 'makefile-mode-hook
             (lambda ()
-              (setq-local indent-line-function 'yh/makefile-indent-line))))
+              (setq-local indent-line-function 'yh/makefile-indent-line)))
+
+  (add-hook 'makefile-gmake-mode-hook 'yh/setup-make-mode)
+  (add-hook 'makefile-bsdmake-mode-hook 'yh/setup-make-mode)
+
+  (defun yh/setup-make-mode ()
+    (local-set-key (kbd "C-c C-j") 'yh/make-insert-var)
+    (add-hook 'before-save-hook 'equally-spaced-make-gap-buffer :local t))
+  (defun yh/make-insert-var (var-name)
+    (interactive "svariable name:")
+    (insert "$(" var-name ")")))
+
+(yh/config "python"
+  (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+  (setq flycheck-flake8-maximum-line-length 200)
+  (defun yh/python-do-insert-import (line)
+    "Insert import sentence at the bottom of import lines"
+    (let* ((last-line (yh/iter-last (yh/filter
+                                     (yh/enumerate
+                                      (yh/iter-list (yh/all-lines)))
+                                     '(lambda (x)
+                                        (yh/python-import-linep (cdr x))))))
+
+           (line-num (car last-line)))
+      (save-excursion
+        (beginning-of-buffer)
+        (forward-line (1+ line-num))
+        (insert line "\n"))))
+  (defun yh/python-import-linep (s)
+    (string-match ".*import [0-9a-zA-Z]+" s))
+  (defun yh/python-import (module)
+    (interactive "Mmodule: ")
+    (yh/python-do-insert-import (yh/join " " `("import" ,module))))
+  (defun yh/python-import-from (module object)
+    (interactive "Mmodule: \nMobject: ")
+    (yh/python-do-insert-import (yh/join " " `("from" ,module "import" ,object))))
+  (add-hook 'python-mode-hook
+            '(lambda ()
+               (local-set-key (kbd "RET") 'yh/ret-hs)
+               (auto-complete-mode -1))))
+
+(yh/config "emacs-lisp"
+  (add-hook 'emacs-lisp-mode-hook
+            '(lambda ()
+               (add-hook 'before-save-hook
+                         '(lambda () (equally-spaced-make-gap-buffer)
+                            (indent-region (point-min) (point-max)))
+                         :local t)
+               (local-set-key (kbd "RET") 'yh/ret-hs))))
+
+(yh/config "yatex"
+  (setq auto-mode-alist
+        (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
+  (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
+  (add-hook 'yatex-mode-hook '(lambda () (auto-fill-mode -1)))
+
+  (defvar tex-command "tex2pdf"
+    "*Default command for typesetting LaTeX text.")
+
+  ;; スクリプト挿入
+  (defun yatex-insert-script (prefix script)
+    (let ((len (length script)))
+      (cond ((= 1 len) (insert (concat prefix script)))
+            ((< 1 len) (insert (concat prefix "{" script "}"))))))
+  (defun yatex-insert-subscript (script)
+    (interactive "sscript: ")
+    (yatex-insert-script "_" script))
+  (defun yatex-insert-superscript (script)
+    (interactive "sscript: ")
+    (yatex-insert-script "^" script))
+  (add-hook 'yatex-mode-hook
+            '(lambda ()
+               (local-set-key "\C-c\C-f" 'yatex-insert-subscript)
+               (local-set-key "\C-c\C-g" 'yatex-insert-superscript)
+               (local-set-key "\C-\M-a" 'foiltex-previous-page)
+               (local-set-key "\C-\M-e" 'foiltex-next-page)
+               (add-hook 'before-save-hook 'equally-spaced-make-gap-buffer :local t))))
+
+(yh/config "javascript"
+  (setq js-indent-level 2))
+
+(use-package online-judge
+  :init
+  (setq online-judge-executable "/usr/local/bin/oj")
+  (setq online-judge-directories '("~/onedrive/procon/atcoder/")))
+
+(use-package dockerfile-mode
+  :mode
+  (("Dockerfile\\'" . dockerfile-mode)))
+
+(use-package elpy
+  :init
+  (elpy-enable))
 
 (use-package blog
   :no-require t
@@ -443,96 +535,6 @@ respectively."
   :bind
   (:map dired-mode-map
         ("g" . yh/dired-revert)))
-
-(yh/config "global key"
-  (global-set-key (kbd "C-x C-j") 'dired-jump)
-  (global-set-key (kbd "M-u") 'revert-buffer))
-
-(yh/config "shell script"
-  (add-hook 'sh-mode-hook
-            '(lambda ()
-               (local-set-key (kbd "C-c C-j") 'yh/sh-insert-var)
-               (setq-local after-save-hook (cons 'yh/make-executable after-save-hook))))
-  (defun yh/sh-insert-var (var-name)
-    (interactive "svariable name:")
-    (insert "${" var-name "}")))
-
-(yh/config "Makefile"
-  (add-hook 'makefile-gmake-mode-hook 'yh/setup-make-mode)
-  (add-hook 'makefile-bsdmake-mode-hook 'yh/setup-make-mode)
-
-  (defun yh/setup-make-mode ()
-    (local-set-key (kbd "C-c C-j") 'yh/make-insert-var)
-    (add-hook 'before-save-hook 'equally-spaced-make-gap-buffer :local t))
-  (defun yh/make-insert-var (var-name)
-    (interactive "svariable name:")
-    (insert "$(" var-name ")")))
-
-(yh/config "python"
-  (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
-  (setq flycheck-flake8-maximum-line-length 200)
-  (defun yh/python-do-insert-import (line)
-    "Insert import sentence at the bottom of import lines"
-    (let* ((last-line (yh/iter-last (yh/filter
-                                     (yh/enumerate
-                                      (yh/iter-list (yh/all-lines)))
-                                     '(lambda (x)
-                                        (yh/python-import-linep (cdr x))))))
-
-           (line-num (car last-line)))
-      (save-excursion
-        (beginning-of-buffer)
-        (forward-line (1+ line-num))
-        (insert line "\n"))))
-  (defun yh/python-import-linep (s)
-    (string-match ".*import [0-9a-zA-Z]+" s))
-  (defun yh/python-import (module)
-    (interactive "Mmodule: ")
-    (yh/python-do-insert-import (yh/join " " `("import" ,module))))
-  (defun yh/python-import-from (module object)
-    (interactive "Mmodule: \nMobject: ")
-    (yh/python-do-insert-import (yh/join " " `("from" ,module "import" ,object))))
-  (add-hook 'python-mode-hook '(lambda () (local-set-key (kbd "RET") 'yh/ret-hs))))
-
-(yh/config "emacs-lisp"
-  (add-hook 'emacs-lisp-mode-hook
-            '(lambda ()
-               (add-hook 'before-save-hook
-                         '(lambda () (equally-spaced-make-gap-buffer)
-                            (indent-region (point-min) (point-max)))
-                         :local t)
-               (local-set-key (kbd "RET") 'yh/ret-hs))))
-
-(yh/config "yatex"
-  (setq auto-mode-alist
-        (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
-  (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
-  (add-hook 'yatex-mode-hook '(lambda () (auto-fill-mode -1)))
-
-  (defvar tex-command "tex2pdf"
-    "*Default command for typesetting LaTeX text.")
-
-  ;; スクリプト挿入
-  (defun yatex-insert-script (prefix script)
-    (let ((len (length script)))
-      (cond ((= 1 len) (insert (concat prefix script)))
-            ((< 1 len) (insert (concat prefix "{" script "}"))))))
-  (defun yatex-insert-subscript (script)
-    (interactive "sscript: ")
-    (yatex-insert-script "_" script))
-  (defun yatex-insert-superscript (script)
-    (interactive "sscript: ")
-    (yatex-insert-script "^" script))
-  (add-hook 'yatex-mode-hook
-            '(lambda ()
-               (local-set-key "\C-c\C-f" 'yatex-insert-subscript)
-               (local-set-key "\C-c\C-g" 'yatex-insert-superscript)
-               (local-set-key "\C-\M-a" 'foiltex-previous-page)
-               (local-set-key "\C-\M-e" 'foiltex-next-page)
-               (add-hook 'before-save-hook 'equally-spaced-make-gap-buffer :local t))))
-
-(yh/config "javascript"
-  (setq js-indent-level 2))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
