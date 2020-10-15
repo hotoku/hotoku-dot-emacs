@@ -26,7 +26,7 @@
         (delete-dups
          (append
           yh/my-packages
-          '(session use-package browse-kill-ring color-moccur auto-complete session
+          '(session use-package browse-kill-ring color-moccur session
                     helm open-junk-file projectile py-autopep8 yasnippet
                     helm-projectile flycheck equally-spaced ace-window
                     web-mode company-mode tide s dakrone-theme markdown-mode
@@ -200,8 +200,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     (yh/python-do-insert-import (yh/join " " `("from" ,module "import" ,object))))
   (add-hook 'python-mode-hook
             '(lambda ()
-               (local-set-key (kbd "RET") 'yh/ret-hs)
-               (auto-complete-mode -1))))
+               (local-set-key (kbd "RET") 'yh/ret-hs))))
 
 (yh/config "emacs-lisp"
   (add-hook 'emacs-lisp-mode-hook
