@@ -1,47 +1,5 @@
 ;; -*- lexical-binding: t -*-
 
-(defmacro yh/config (desc &rest body)
-  `(progn ,@body))
-(put 'yh/config 'lisp-indent-function 'defun)
-
-(yh/config "install el-git"
-  (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-  (unless (require 'el-get nil 'noerror)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (add-to-list 'el-get-recipe-path "~/.emacs.d/recipes"))
-
-(yh/config "exec-path-from-shell"
-  (defvar yh/my-packages)
-  (setq yh/my-packages '(exec-path-from-shell))
-  (el-get 'sync yh/my-packages)
-  (require 'exec-path-from-shell)
-  (exec-path-from-shell-initialize))
-
-(yh/config "install other packages"
-  (setq yh/my-packages
-        (delete-dups
-         (append
-          yh/my-packages
-          '(session use-package browse-kill-ring color-moccur session
-                    helm open-junk-file projectile py-autopep8 yasnippet
-                    helm-projectile flycheck equally-spaced ace-window
-                    web-mode company-mode tide s dakrone-theme markdown-mode
-                    json-mode prettier-emacs rjsx-mode yaml-mode git-ps1-mode
-                    undo-tree smartparens dired-k dash f online-judge elpy
-                    dockerfile-mode))))
-
-  (when (executable-find "hg")
-    (add-to-list 'yh/my-packages 'yatex))
-  (when (executable-find "makeinfo")
-    (add-to-list 'yh/my-packages 'magit))
-
-  (el-get 'sync yh/my-packages)
-  (el-get-cleanup yh/my-packages))
-
 (yh/config "backup"
   (setq make-backup-files t)
   (setq backup-directory-alist
@@ -541,14 +499,20 @@ respectively."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("afe5e2fb3b1e295e11c3c22e7d9ea7288a605c110363673987c8f6d05b1e9972" default)))
+   '("afe5e2fb3b1e295e11c3c22e7d9ea7288a605c110363673987c8f6d05b1e9972" default))
+ '(package-selected-packages '(lsp-java)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(markdown-code-face ((t (:inherit fixed-pitch :background "SkyBlue1" :foreground "gray13"))))
+ '(markdown-header-face ((t (:inherit font-lock-function-name-face :family "MeiryoKe_UIGothic"))))
+ '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 2.0 :underline t))))
+ '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.6))))
+ '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.4))))
+ '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.2)))))
 
 (yh/config "when Emacs.app on Mac"
   (when (eq window-system 'ns)
