@@ -200,6 +200,28 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 (yh/config "javascript"
   (setq js-indent-level 2))
 
+(use-package lsp-mode
+  :hook
+  ((lsp-mode . lsp-enable-which-key-integration))
+  :config
+  (setq lsp-completion-enable-additional-text-edit nil))
+
+(use-package hydra)
+
+(use-package lsp-ui)
+
+(use-package which-key :config (which-key-mode))
+
+(use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
+
+(use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
+
+(use-package dap-java :ensure nil)
+
+(use-package helm-lsp)
+
+(use-package lsp-treemacs)
+
 (use-package online-judge
   :init
   (setq online-judge-executable "/usr/local/bin/oj")
@@ -228,12 +250,12 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
       (call-process "git" nil buf t "commit" "-m" "publish")
       (call-process "git" nil buf t "push"))
     (message "pushed"))
-  (defun yh/blog-new (title)
-    (interactive "sblog title: ")
+  (defun yh/blog-new (title url)
+    (interactive "sblog title: \nsurl: ")
     (let* ((y (format-time-string "%Y"))
            (m (format-time-string "%m"))
            (d (format-time-string "%d"))
-           (fn (format "%s-%s-%s-%s.md" y m d title)))
+           (fn (format "%s-%s-%s-%s.md" y m d url)))
       (find-file (expand-file-name fn yh/blog-posts-dir))
       (insert (format "---
 layout: post

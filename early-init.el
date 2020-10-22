@@ -30,7 +30,8 @@
                     web-mode company-mode tide s dakrone-theme markdown-mode
                     json-mode prettier-emacs rjsx-mode yaml-mode git-ps1-mode
                     undo-tree smartparens dired-k dash f online-judge elpy
-                    dockerfile-mode gnu-elpa-keyring-update lsp-java))))
+                    dockerfile-mode gnu-elpa-keyring-update lsp-java
+                    lsp-ui which-key))))
 
   (when (executable-find "hg")
     (add-to-list 'yh/my-packages 'yatex))
