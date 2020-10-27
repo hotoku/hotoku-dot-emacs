@@ -272,6 +272,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (defun yh/blog-publish ()
     "commit change and push to remote"
     (interactive)
+    (message "pushing")
     (let ((fn (buffer-file-name))
           (process-connection-type nil)
           (buf (get-buffer-create "*yh/publish-blog*")))
