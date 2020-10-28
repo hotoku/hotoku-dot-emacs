@@ -1,3 +1,4 @@
 (:name helm-lsp
-       :type elpa
-       :repo ("melpa" . "https://melpa.org/packages/"))
+       :description "helm for lsp"
+       :type github
+       :pkgname "emacs-lsp/helm-lsp")

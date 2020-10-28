@@ -552,7 +552,7 @@ respectively."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    '("afe5e2fb3b1e295e11c3c22e7d9ea7288a605c110363673987c8f6d05b1e9972" default))
- '(package-selected-packages '(lsp-java)))
+ '(package-selected-packages '(helm-lsp lsp-java)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
