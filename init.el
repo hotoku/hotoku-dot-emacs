@@ -377,7 +377,8 @@ respectively."
 
 (use-package json-mode
   :mode
-  (("\\.json\\'" . json-mode)))
+  (("\\.json\\'" . json-mode)
+   ("\\.geojson\\'" . json-mode)))
 
 (use-package markdown-mode
   :mode
