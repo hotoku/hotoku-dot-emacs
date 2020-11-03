@@ -519,7 +519,7 @@ respectively."
     ;; install it separately via package-install
     ;; `M-x package-install [ret] company`
     (company-mode +1)
-    (add-hook 'before-save-hook 'tide-format :local t))
+    (add-hook 'before-save-hook 'prettier-js :local t))
 
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
