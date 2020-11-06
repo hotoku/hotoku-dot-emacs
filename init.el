@@ -427,7 +427,6 @@ respectively."
   (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
   (add-hook 'emacs-lisp-mode-hook 'hs-hide-all 100)
   (add-hook 'python-mode-hook 'hs-minor-mode)
-  (add-hook 'python-mode-hook 'hs-hide-all 100)
   (defun yh/ret-hs (&optional arg inter)
     (interactive)
     (if (ignore-errors (hs-already-hidden-p)) (hs-show-block)
