@@ -291,7 +291,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 layout: post
 title: %s
 date: %s-%s-%s %s +0900
-categories:
+tags:
 ---
 " title y m d (format-time-string "%H:%M:%S"))))))
 
@@ -391,7 +391,10 @@ respectively."
    '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 2.0 :underline t))))
    '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.6))))
    '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.4))))
-   '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.2)))))
+   '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.2))))
+   '(markdown-language-keyword-face ((t (:foreground "dark green"))))
+   '(markdown-markup-face ((t (:foreground "indian red"))))
+   '(markdown-header-delimiter-face ((t (:foreground "indian red")))))
   (add-hook 'markdown-mode-hook (lambda () (setq-local yh/indent-before-save nil)))
   (setq markdown-command "commonmarker --extension=autolink --extension=strikethrough --extension=table --extension=tagfilter --extension=tasklist"
         markdown-css-paths '("https://cdn.jsdelivr.net/npm/github-markdown-css"
