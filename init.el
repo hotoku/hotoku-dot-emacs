@@ -117,7 +117,9 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
 (yh/config "global key"
   (global-set-key (kbd "C-x C-j") 'dired-jump)
-  (global-set-key (kbd "M-u") 'revert-buffer))
+  (global-set-key (kbd "M-u") 'revert-buffer)
+  (global-set-key (kbd "C-M-f") 'sp-forward-slurp-sexp)
+  (global-set-key (kbd "C-M-b") 'sp-barckward-slurp-sexp))
 
 (yh/config "shell script"
   (add-hook 'sh-mode-hook
@@ -656,7 +658,5 @@ This is inconvinient when opening file at the beginning of Emacs session."
 ;;; Local Variables:
 ;;; equally-spaced-width: 1
 ;;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;;; eval: (define-key emacs-lisp-mode-map (kbd "C-M-f") 'sp-forward-slurp-sexp)
-;;; eval: (define-key emacs-lisp-mode-map (kbd "C-M-b") 'sp-backward-slurp-sexp)
 ;;; todo: move key binding to contents
 ;;; End:
