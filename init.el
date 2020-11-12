@@ -653,4 +653,5 @@ This is inconvinient when opening file at the beginning of Emacs session."
 ;;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;;; eval: (define-key emacs-lisp-mode-map (kbd "C-M-f") 'sp-forward-slurp-sexp)
 ;;; eval: (define-key emacs-lisp-mode-map (kbd "C-M-b") 'sp-backward-slurp-sexp)
+;;; todo: move key binding to contents
 ;;; End:
