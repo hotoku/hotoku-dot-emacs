@@ -305,7 +305,18 @@ tags:
 " title y m d (format-time-string "%H:%M:%S")))
       (beginning-of-buffer)
       (search-forward "tags:")
-      (insert " "))))
+      (insert " ")))
+  (defun yh/blog-to-draft ()
+    (interactive)
+    (let*  ((path (buffer-file-name))
+            (ls (split-string path "/"))
+            (fn (car (last ls)))
+            (jekyll-root (seq-take ls (- (length ls) 2)))
+            (new-fn (reduce (lambda (x y) (concat x "/" y))
+                            `(,@jekyll-root "_drafts" ,fn))))
+      (write-file new-fn)
+      (when (file-exists-p path)
+        (delete-file path)))))
 
 (use-package savehist
   :config
@@ -640,4 +651,6 @@ This is inconvinient when opening file at the beginning of Emacs session."
 ;;; Local Variables:
 ;;; equally-spaced-width: 1
 ;;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+;;; eval: (define-key emacs-lisp-mode-map (kbd "C-M-f") 'sp-forward-slurp-sexp)
+;;; eval: (define-key emacs-lisp-mode-map (kbd "C-M-b") 'sp-backward-slurp-sexp)
 ;;; End:
