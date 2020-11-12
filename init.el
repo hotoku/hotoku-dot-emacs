@@ -302,7 +302,10 @@ title: %s
 date: %s-%s-%s %s +0900
 tags:
 ---
-" title y m d (format-time-string "%H:%M:%S"))))))
+" title y m d (format-time-string "%H:%M:%S")))
+      (beginning-of-buffer)
+      (search-forward "tags:")
+      (insert " "))))
 
 (use-package savehist
   :config
