@@ -6,6 +6,8 @@
 #include<vector>
 #include<string>
 #include<cstdio>
+#include<alogrithm>
+#include<iomanip>
 
 using namespace std;
 typedef long long ll;
@@ -16,5 +18,5 @@ const int IMAX = (1llu<<(sizeof(int)*8-1)) - 1;
 
 
 int main(){
-return 0;
+  return 0;
 }
