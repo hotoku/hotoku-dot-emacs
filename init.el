@@ -323,7 +323,20 @@ tags:
     (yh/blog-to-other "_drafts"))
   (defun yh/blog-to-post ()
     (interactive)
-    (yh/blog-to-other "_posts")))
+    (yh/blog-to-other "_posts"))
+  (defun yh/blog-preview ()
+    (interactive)
+    (let* ((fpath (buffer-file-name))
+           (fn (file-name-nondirectory fpath))
+           (y-m-d (replace-regexp-in-string
+                   "-" "/"
+                   (replace-regexp-in-string
+                    "^\\([0-9]+-[0-9]+-[0-9]+\\).*" "\\1" fn)))
+           (body (replace-regexp-in-string
+                  "^[0-9]+-[0-9]+-[0-9]+-\\(.+\\)\\.md\\'" "\\1" fn))
+           (url (concat "http://localhost:4000/" y-m-d  "/" body))
+           (buf (get-buffer-create "*yh/publish-blog*")))
+      (call-process "open" nil buf t url))))
 
 (use-package savehist
   :config
@@ -435,7 +448,9 @@ respectively."
 <script>hljs.initHighlightingOnLoad();</script>"
         markdown-xhtml-body-preamble "<div class=\"markdown-body\">"
         markdown-xhtml-body-epilogue "</div>"
-        markdown-command-needs-filename t))
+        markdown-command-needs-filename t)
+  :bind
+  (("C-c C-c x" . yh/blog-preview)))
 
 (use-package prettier-js
   :config
@@ -658,5 +673,4 @@ This is inconvinient when opening file at the beginning of Emacs session."
 ;;; Local Variables:
 ;;; equally-spaced-width: 1
 ;;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
-;;; todo: move key binding to contents
 ;;; End:
