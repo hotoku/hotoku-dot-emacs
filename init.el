@@ -204,7 +204,8 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (add-hook 'python-mode-hook
             '(lambda ()
                (local-set-key (kbd "RET") 'yh/ret-hs)))
-  (setq python-shell-interpreter "python3"))
+  (setq python-shell-interpreter "python3")
+  (setq elpy-rpc-python-command "python3"))
 
 (yh/config "emacs-lisp"
   (add-hook 'emacs-lisp-mode-hook
