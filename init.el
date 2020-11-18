@@ -1,5 +1,8 @@
 ;; -*- lexical-binding: t -*-
 
+(when (< emacs-major-version 27)
+  (load (concat (expand-file-name user-emacs-directory) "early-init.el")))
+
 (yh/config "exec-path-from-shell"
   (defvar yh/my-packages)
   (setq yh/my-packages '(exec-path-from-shell))
@@ -195,7 +198,8 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     (yh/python-do-insert-import (yh/join " " `("from" ,module "import" ,object))))
   (add-hook 'python-mode-hook
             '(lambda ()
-               (local-set-key (kbd "RET") 'yh/ret-hs))))
+               (local-set-key (kbd "RET") 'yh/ret-hs)))
+  (setq python-shell-interpreter "python3"))
 
 (yh/config "emacs-lisp"
   (add-hook 'emacs-lisp-mode-hook
@@ -534,8 +538,7 @@ respectively."
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (flycheck-add-mode 'html-tidy 'web-mode)
   (with-eval-after-load "python"
-    (define-key python-mode-map (kbd "C-c C-p") 'flycheck-previous-error))
-  (setq python-shell-interpreter "python3"))
+    (define-key python-mode-map (kbd "C-c C-p") 'flycheck-previous-error)))
 
 (use-package ace-window
   :bind (("C-x o" . ace-window)))
