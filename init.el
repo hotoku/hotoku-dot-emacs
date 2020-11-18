@@ -534,7 +534,8 @@ respectively."
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (flycheck-add-mode 'html-tidy 'web-mode)
   (with-eval-after-load "python"
-    (define-key python-mode-map (kbd "C-c C-p") 'flycheck-previous-error)))
+    (define-key python-mode-map (kbd "C-c C-p") 'flycheck-previous-error))
+  (setq python-shell-interpreter "python3"))
 
 (use-package ace-window
   :bind (("C-x o" . ace-window)))
