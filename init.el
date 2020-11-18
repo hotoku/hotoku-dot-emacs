@@ -76,7 +76,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     (interactive)
     (setq-local yh/indent-before-save nil))
   (defun yh/current-line ()
-    (buffer-substring (point-beginning-of-line) (point-end-of-line)))
+    (buffer-substring (yh/point-beginning-of-line) (point-end-of-line)))
   (defun yh/all-lines ()
     (save-excursion
       (goto-char (point-max))
@@ -101,7 +101,12 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (defun yh/make-executable ()
     (let ((fn (buffer-file-name))
           (process-connection-type nil))
-      (start-process "yh/make-executable" nil "chmod" "u+x" fn ))))
+      (start-process "yh/make-executable" nil "chmod" "u+x" fn )))
+  (defun yh/point-beginning-of-line ()
+    (interactive)
+    (save-excursion
+      (beginning-of-line)
+      (point))))
 
 (yh/config "global setting"
   (add-hook 'before-save-hook 'yh/before-save)
@@ -136,7 +141,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 (yh/config "Makefile"
   (defun yh/makefile-indent-line ()
     "https://emacs.stackexchange.com/questions/3074/customizing-indentation-in-makefile-mode"
-    (let ((bol (= (point-beginning-of-line) (point)))
+    (let ((bol (= (yh/point-beginning-of-line) (point)))
           (empty (string= (yh/current-line) "")))
       (message "-- %s %s %s" bol empty (point))
       (if bol
