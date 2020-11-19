@@ -561,7 +561,8 @@ respectively."
 
 (use-package company
   :config
-  (setq company-idle-delay 0.1))
+  (setq company-idle-delay 0.1)
+  (add-hook 'emacs-lisp-mode-hook 'company-mode))
 
 (use-package tide
   :config
