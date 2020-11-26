@@ -178,7 +178,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     (insert "$(" var-name ")")))
 
 (yh/config "python"
-  (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+  (add-hook 'python-mode-hook '(lambda () (py-autopep8-enable-on-save) (yh/before-save)))
   (setq flycheck-flake8-maximum-line-length 200)
   (defun yh/python-do-insert-import (line)
     "Insert import sentence at the bottom of import lines"
@@ -622,11 +622,14 @@ respectively."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(markdown-code-face ((t (:inherit fixed-pitch :background "SkyBlue1" :foreground "gray13"))))
+ '(markdown-header-delimiter-face ((t (:foreground "indian red"))))
  '(markdown-header-face ((t (:inherit font-lock-function-name-face :family "MeiryoKe_UIGothic"))))
  '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 2.0 :underline t))))
  '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.6))))
  '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.4))))
- '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.2)))))
+ '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.2))))
+ '(markdown-language-keyword-face ((t (:foreground "dark green"))))
+ '(markdown-markup-face ((t (:foreground "indian red")))))
 
 (yh/config "when Emacs.app on Mac"
   (when (eq window-system 'ns)
