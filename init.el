@@ -71,6 +71,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
       (indent-region (point-min) (point-max) nil))
     (delete-trailing-whitespace)
     (when (string= (buffer-substring (point-min) (+ (point-min) 2)) "#!")
+      (message "true")
       (yh/make-executable)))
   (defun yh/no-indent-on-save ()
     (interactive)
@@ -638,7 +639,7 @@ respectively."
     (setq ns-alternate-modifier (quote super))
 
     ;; global key assign only for Emacs.app
-    (global-set-key (kbd "C-;") 'helm-mini)
+    (global-set-key (kbd "C-c m") 'helm-mini)
     (global-set-key (kbd "C-.") 'other-window-or-split)
     (define-key global-map [?¥] [?\\])
 
@@ -686,6 +687,17 @@ This is inconvinient when opening file at the beginning of Emacs session."
   (when (not window-system)
     (global-set-key (kbd "C-c m") 'helm-mini)
     (menu-bar-mode -1)))
+
+;;; todo
+;; とある.pyファイルで使ったlocal variables設定。
+;; 違和感なく使えたのでinit.elに書き加える。
+;; # Local Variables:
+;; # eval: (define-key python-mode-map (kbd "C-M-f") 'sp-forward-slurp-sexp)
+;; # eval: (define-key python-mode-map (kbd "C-M-g") 'sp-forward-barf-sexp)
+;; # eval: (smartparens-strict-mode)
+;; # eval: (define-key python-mode-map (kbd "C-M-/") 'comment-region)
+;; # eval: (define-key python-mode-map (kbd "C-M--") 'uncomment-region)
+;; # End:
 
 ;;; Local Variables:
 ;;; equally-spaced-width: 1
