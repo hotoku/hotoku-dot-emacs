@@ -128,7 +128,11 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (global-set-key (kbd "C-x C-j") 'dired-jump)
   (global-set-key (kbd "M-u") 'revert-buffer)
   (global-set-key (kbd "C-M-f") 'sp-forward-slurp-sexp)
-  (global-set-key (kbd "C-M-b") 'sp-barckward-slurp-sexp))
+  (global-set-key (kbd "C-M-b") 'sp-barckward-slurp-sexp)
+  (global-set-key (kbd "C-M-g") 'sp-forward-barf-sexp)
+  (global-set-key (kbd "C-M-h") 'sp-barckward-barf-sexp)
+  (global-set-key (kbd "C-M-/") 'comment-region)
+  (global-set-key (kbd "C-M--") 'uncomment-region))
 
 (yh/config "shell script"
   (add-hook 'sh-mode-hook
@@ -179,7 +183,11 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     (insert "$(" var-name ")")))
 
 (yh/config "python"
-  (add-hook 'python-mode-hook '(lambda () (py-autopep8-enable-on-save) (yh/before-save)))
+  (add-hook 'python-mode-hook
+            '(lambda ()
+               (py-autopep8-enable-on-save)
+               (yh/before-save)
+               (smartparens-strict-mode)))
   (setq flycheck-flake8-maximum-line-length 200)
   (defun yh/python-do-insert-import (line)
     "Insert import sentence at the bottom of import lines"
@@ -687,17 +695,6 @@ This is inconvinient when opening file at the beginning of Emacs session."
   (when (not window-system)
     (global-set-key (kbd "C-c m") 'helm-mini)
     (menu-bar-mode -1)))
-
-;;; todo
-;; とある.pyファイルで使ったlocal variables設定。
-;; 違和感なく使えたのでinit.elに書き加える。
-;; # Local Variables:
-;; # eval: (define-key python-mode-map (kbd "C-M-f") 'sp-forward-slurp-sexp)
-;; # eval: (define-key python-mode-map (kbd "C-M-g") 'sp-forward-barf-sexp)
-;; # eval: (smartparens-strict-mode)
-;; # eval: (define-key python-mode-map (kbd "C-M-/") 'comment-region)
-;; # eval: (define-key python-mode-map (kbd "C-M--") 'uncomment-region)
-;; # End:
 
 ;;; Local Variables:
 ;;; equally-spaced-width: 1
