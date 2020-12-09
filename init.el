@@ -574,7 +574,7 @@ respectively."
   (add-hook 'emacs-lisp-mode-hook 'company-mode))
 
 (use-package tide
-  :config
+  :init
   (defun setup-tide-mode ()
     (interactive)
     (tide-setup)
