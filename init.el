@@ -58,6 +58,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (defvar yh/no-indent-extension-list '("yml" "sql" "py"))
   (defvar yh/no-indent-directory-list `(,(expand-file-name (concat user-emacs-directory "snippet"))))
   (defvar yh/indent-before-save t)
+  (put 'yh/indent-before-save 'safe-local-variable (lambda (x) t))
   (defun yh/head? (s1 s2)
     (let* ((l (length s1))
            (s3 (cond ((< l (length s2)) (substring s2 0 l))
