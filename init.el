@@ -195,35 +195,35 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
                (yh/before-save)
                (smartparens-strict-mode)
                (py-autopep8-enable-on-save)
-               (setq-local after-save-hook (cons 'yh/make-executable after-save-hook)))))
+               (setq-local after-save-hook (cons 'yh/make-executable after-save-hook))))
 
-(setq flycheck-flake8-maximum-line-length 200)
-(defun yh/python-do-insert-import (line)
-  "Insert import sentence at the bottom of import lines"
-  (let* ((last-line (yh/iter-last (yh/filter
-                                   (yh/enumerate
-                                    (yh/iter-list (yh/all-lines)))
-                                   '(lambda (x)
-                                      (yh/python-import-linep (cdr x))))))
+  (setq flycheck-flake8-maximum-line-length 200)
+  (defun yh/python-do-insert-import (line)
+    "Insert import sentence at the bottom of import lines"
+    (let* ((last-line (yh/iter-last (yh/filter
+                                     (yh/enumerate
+                                      (yh/iter-list (yh/all-lines)))
+                                     '(lambda (x)
+                                        (yh/python-import-linep (cdr x))))))
 
-         (line-num (car last-line)))
-    (save-excursion
-      (beginning-of-buffer)
-      (forward-line (1+ line-num))
-      (insert line "\n"))))
-(defun yh/python-import-linep (s)
-  (string-match ".*import [0-9a-zA-Z]+" s))
-(defun yh/python-import (module)
-  (interactive "Mmodule: ")
-  (yh/python-do-insert-import (yh/join " " `("import" ,module))))
-(defun yh/python-import-from (module object)
-  (interactive "Mmodule: \nMobject: ")
-  (yh/python-do-insert-import (yh/join " " `("from" ,module "import" ,object))))
-(add-hook 'python-mode-hook
-          '(lambda ()
-             (local-set-key (kbd "RET") 'yh/ret-hs)))
-(setq python-shell-interpreter "python3")
-(setq elpy-rpc-python-command "python3"))
+           (line-num (car last-line)))
+      (save-excursion
+        (beginning-of-buffer)
+        (forward-line (1+ line-num))
+        (insert line "\n"))))
+  (defun yh/python-import-linep (s)
+    (string-match ".*import [0-9a-zA-Z]+" s))
+  (defun yh/python-import (module)
+    (interactive "Mmodule: ")
+    (yh/python-do-insert-import (yh/join " " `("import" ,module))))
+  (defun yh/python-import-from (module object)
+    (interactive "Mmodule: \nMobject: ")
+    (yh/python-do-insert-import (yh/join " " `("from" ,module "import" ,object))))
+  (add-hook 'python-mode-hook
+            '(lambda ()
+               (local-set-key (kbd "RET") 'yh/ret-hs)))
+  (setq python-shell-interpreter "python3")
+  (setq elpy-rpc-python-command "python3"))
 
 (yh/config "emacs-lisp"
   (add-hook 'emacs-lisp-mode-hook
