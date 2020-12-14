@@ -78,7 +78,7 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     (interactive)
     (setq-local yh/indent-before-save nil))
   (defun yh/current-line ()
-    (buffer-substring (yh/point-beginning-of-line) (point-end-of-line)))
+    (buffer-substring (yh/point-beginning-of-line) (yh/point-end-of-line)))
   (defun yh/all-lines ()
     (save-excursion
       (goto-char (point-max))
@@ -108,6 +108,11 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     (interactive)
     (save-excursion
       (beginning-of-line)
+      (point)))
+  (defun yh/point-end-of-line ()
+    (interactive)
+    (save-excursion
+      (end-of-line)
       (point))))
 
 (yh/config "global setting"
@@ -188,34 +193,37 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
             '(lambda ()
                (py-autopep8-enable-on-save)
                (yh/before-save)
-               (smartparens-strict-mode)))
-  (setq flycheck-flake8-maximum-line-length 200)
-  (defun yh/python-do-insert-import (line)
-    "Insert import sentence at the bottom of import lines"
-    (let* ((last-line (yh/iter-last (yh/filter
-                                     (yh/enumerate
-                                      (yh/iter-list (yh/all-lines)))
-                                     '(lambda (x)
-                                        (yh/python-import-linep (cdr x))))))
+               (smartparens-strict-mode)
+               (py-autopep8-enable-on-save)
+               (setq-local after-save-hook (cons 'yh/make-executable after-save-hook)))))
 
-           (line-num (car last-line)))
-      (save-excursion
-        (beginning-of-buffer)
-        (forward-line (1+ line-num))
-        (insert line "\n"))))
-  (defun yh/python-import-linep (s)
-    (string-match ".*import [0-9a-zA-Z]+" s))
-  (defun yh/python-import (module)
-    (interactive "Mmodule: ")
-    (yh/python-do-insert-import (yh/join " " `("import" ,module))))
-  (defun yh/python-import-from (module object)
-    (interactive "Mmodule: \nMobject: ")
-    (yh/python-do-insert-import (yh/join " " `("from" ,module "import" ,object))))
-  (add-hook 'python-mode-hook
-            '(lambda ()
-               (local-set-key (kbd "RET") 'yh/ret-hs)))
-  (setq python-shell-interpreter "python3")
-  (setq elpy-rpc-python-command "python3"))
+(setq flycheck-flake8-maximum-line-length 200)
+(defun yh/python-do-insert-import (line)
+  "Insert import sentence at the bottom of import lines"
+  (let* ((last-line (yh/iter-last (yh/filter
+                                   (yh/enumerate
+                                    (yh/iter-list (yh/all-lines)))
+                                   '(lambda (x)
+                                      (yh/python-import-linep (cdr x))))))
+
+         (line-num (car last-line)))
+    (save-excursion
+      (beginning-of-buffer)
+      (forward-line (1+ line-num))
+      (insert line "\n"))))
+(defun yh/python-import-linep (s)
+  (string-match ".*import [0-9a-zA-Z]+" s))
+(defun yh/python-import (module)
+  (interactive "Mmodule: ")
+  (yh/python-do-insert-import (yh/join " " `("import" ,module))))
+(defun yh/python-import-from (module object)
+  (interactive "Mmodule: \nMobject: ")
+  (yh/python-do-insert-import (yh/join " " `("from" ,module "import" ,object))))
+(add-hook 'python-mode-hook
+          '(lambda ()
+             (local-set-key (kbd "RET") 'yh/ret-hs)))
+(setq python-shell-interpreter "python3")
+(setq elpy-rpc-python-command "python3"))
 
 (yh/config "emacs-lisp"
   (add-hook 'emacs-lisp-mode-hook
