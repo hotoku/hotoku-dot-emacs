@@ -324,7 +324,8 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     (let* ((y (format-time-string "%Y"))
            (m (format-time-string "%m"))
            (d (format-time-string "%d"))
-           (fn (format "%s-%s-%s-%s.md" y m d url)))
+           (url2 (replace-regexp-in-string " " "-" url))
+           (fn (format "%s-%s-%s-%s.md" y m d url2)))
       (find-file (expand-file-name fn yh/blog-posts-dir))
       (insert (format "---
 layout: post
