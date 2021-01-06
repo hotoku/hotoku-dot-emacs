@@ -128,7 +128,8 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (scroll-bar-mode -1)
   (column-number-mode)
   (blink-cursor-mode -1)
-  (setenv "LANG" "ja_JP.UTF-8"))
+  (setenv "LANG" "ja_JP.UTF-8")
+  (set-language-environment "Japanese"))
 
 (yh/config "global key"
   (global-set-key (kbd "C-x C-j") 'dired-jump)
@@ -667,12 +668,6 @@ respectively."
     (set-face-foreground 'font-lock-comment-face "#8AE234")
     (set-face-foreground 'font-lock-string-face "IndianRed")
     (set-face-background 'default "#202040")
-
-    ;; font
-    (set-fontset-font
-     (frame-parameter nil 'font)
-     'japanese-jisx0208
-     (font-spec :family "Hiragino Sans" :size 14))
 
     ;; change default directory for C-x C-f
     (when (version< "27.0" emacs-version)
