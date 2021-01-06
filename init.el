@@ -668,6 +668,12 @@ respectively."
     (set-face-foreground 'font-lock-string-face "IndianRed")
     (set-face-background 'default "#202040")
 
+    ;; font
+    (set-fontset-font
+     (frame-parameter nil 'font)
+     'japanese-jisx0208
+     (font-spec :family "Hiragino Sans" :size 14))
+
     ;; change default directory for C-x C-f
     (when (version< "27.0" emacs-version)
       (defun ad:helm-find-files (f prompt)
