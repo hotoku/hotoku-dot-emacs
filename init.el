@@ -3,14 +3,18 @@
 (when (< emacs-major-version 27)
   (load (concat (expand-file-name user-emacs-directory) "early-init.el")))
 
-(yh/config "exec-path-from-shell"
+(use-package exec-path-from-shell
+  :no-require t
+  :config
   (defvar yh/my-packages)
   (setq yh/my-packages '(exec-path-from-shell))
   (el-get 'sync yh/my-packages)
   (require 'exec-path-from-shell)
   (exec-path-from-shell-initialize))
 
-(yh/config "install other packages"
+(use-package install-other-packages
+  :no-require t
+  :config
   (setq yh/my-packages
         (delete-dups
          (append
@@ -32,13 +36,17 @@
   (el-get 'sync yh/my-packages)
   (el-get-cleanup yh/my-packages))
 
-(yh/config "backup"
+(use-package backup
+  :no-require t
+  :config
   (setq make-backup-files t)
   (setq backup-directory-alist
         (cons (cons "\\.*$" (expand-file-name "~/backup"))
               backup-directory-alist)))
 
-(yh/config "functions & macros"
+(use-package functions-and-macros
+  :no-require t
+  :config
   (defun other-window-or-split ()
     (interactive)
     (when (one-window-p)
@@ -115,7 +123,9 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
       (end-of-line)
       (point))))
 
-(yh/config "global setting"
+(use-package global-setting
+  :no-require t
+  :config
   (add-hook 'before-save-hook 'yh/before-save)
   (setq-default
    tab-width 2
@@ -131,7 +141,9 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (setenv "LANG" "ja_JP.UTF-8")
   (set-language-environment "Japanese"))
 
-(yh/config "global key"
+(use-package global-key
+  :no-require t
+  :config
   (global-set-key (kbd "C-x C-j") 'dired-jump)
   (global-set-key (kbd "M-u") 'revert-buffer)
   (global-set-key (kbd "C-M-f") 'sp-forward-slurp-sexp)
@@ -141,7 +153,9 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (global-set-key (kbd "C-M-/") 'comment-region)
   (global-set-key (kbd "C-M--") 'uncomment-region))
 
-(yh/config "shell script"
+(use-package shell-script
+  :no-require t
+  :config
   (add-hook 'sh-mode-hook
             '(lambda ()
                (local-set-key (kbd "C-c C-j") 'yh/sh-insert-var)
@@ -150,7 +164,9 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     (interactive "svariable name:")
     (insert "${" var-name "}")))
 
-(yh/config "Makefile"
+(use-package Makefile
+  :no-require t
+  :config
   (defun yh/makefile-indent-line ()
     "https://emacs.stackexchange.com/questions/3074/customizing-indentation-in-makefile-mode"
     (let ((bol (= (yh/point-beginning-of-line) (point)))
@@ -189,7 +205,9 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     (interactive "svariable name:")
     (insert "$(" var-name ")")))
 
-(yh/config "python"
+(use-package python
+  :no-require t
+  :config
   (add-hook 'python-mode-hook
             '(lambda ()
                (py-autopep8-enable-on-save)
@@ -226,7 +244,9 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (setq python-shell-interpreter "python3")
   (setq elpy-rpc-python-command "python3"))
 
-(yh/config "emacs-lisp"
+(use-package emacs-lisp
+  :no-require t
+  :config
   (add-hook 'emacs-lisp-mode-hook
             '(lambda ()
                (add-hook 'before-save-hook
@@ -235,7 +255,9 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
                          :local t)
                (local-set-key (kbd "RET") 'yh/ret-hs))))
 
-(yh/config "yatex"
+(use-package yatex
+  :no-require t
+  :config
   (setq auto-mode-alist
         (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
   (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
@@ -263,7 +285,9 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
                (local-set-key "\C-\M-e" 'foiltex-next-page)
                (add-hook 'before-save-hook 'equally-spaced-make-gap-buffer :local t))))
 
-(yh/config "javascript"
+(use-package javascript
+  :no-require t
+  :config
   (setq js-indent-level 2))
 
 (use-package lsp-mode
@@ -651,7 +675,9 @@ respectively."
  '(markdown-language-keyword-face ((t (:foreground "dark green"))))
  '(markdown-markup-face ((t (:foreground "indian red")))))
 
-(yh/config "when Emacs.app on Mac"
+(use-package when-Emacs.app-on-Mac
+  :no-require t
+  :config
   (when (eq window-system 'ns)
     ;; meta key
     (setq ns-command-modifier (quote meta))
@@ -702,7 +728,9 @@ This is inconvinient when opening file at the beginning of Emacs session."
       (when (file-exists-p file)
         (load file)))))
 
-(yh/config "when terminal"
+(use-package when-terminal
+  :no-require t
+  :config
   (when (not window-system)
     (global-set-key (kbd "C-c m") 'helm-mini)
     (menu-bar-mode -1)))
