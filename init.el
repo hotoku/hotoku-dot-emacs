@@ -240,7 +240,15 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
             '(lambda ()
                (local-set-key (kbd "RET") 'yh/ret-hs)))
   (setq python-shell-interpreter "python3")
-  (setq elpy-rpc-python-command "python3"))
+  (setq elpy-rpc-python-command "python3")
+
+  (define-key python-mode-map (kbd "C-c d")
+    #'(lambda ()
+        (interactive)
+        (insert "import pdb\n")
+        (indent-for-tab-command)
+        (insert "pdb.set_trace()")
+        (save-buffer))))
 
 (use-package emacs-lisp
   :no-require t
