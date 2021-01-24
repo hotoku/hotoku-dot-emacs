@@ -243,12 +243,12 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (setq elpy-rpc-python-command "python3")
 
   (define-key python-mode-map (kbd "C-c d")
-    #'(lambda ()
-        (interactive)
-        (insert "import pdb\n")
-        (indent-for-tab-command)
-        (insert "pdb.set_trace()")
-        (save-buffer))))
+    '(lambda ()
+       (interactive)
+       (insert "import pdb\n")
+       (indent-for-tab-command)
+       (insert "pdb.set_trace()")
+       (save-buffer))))
 
 (use-package emacs-lisp
   :no-require t
