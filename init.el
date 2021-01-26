@@ -26,7 +26,14 @@
 
 
 ;;; misc
+;; mark correspondig parens
 (show-paren-mode)
+
+;; make backup files in a specific directory
+(setq make-backup-files t)
+(add-to-list 'backup-directory-alist
+	     `("\\.*\\" . ,(expand-file-name "~/backup")))
+
 
 
 ;;; custom
