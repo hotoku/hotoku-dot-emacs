@@ -8,7 +8,7 @@
                          ("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
 (package-initialize)
-(package-refresh-contents)
+;; (package-refresh-contents)
 
 
 ;;; use-package initialize
@@ -18,8 +18,12 @@
 (setq use-package-always-ensure t)
 
 
-;;; magit
-(use-package magit)
+
+(use-package magit
+  :bind (("C-c g" . magit)))
+
+(use-package session)
+
 
 ;;; misc
 (show-paren-mode)
@@ -31,7 +35,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(use-package)))
+ '(package-selected-packages '(session use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
