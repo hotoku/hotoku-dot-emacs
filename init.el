@@ -205,7 +205,6 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
     (insert "$(" var-name ")")))
 
 (use-package python
-  :no-require t
   :config
   (add-hook 'python-mode-hook
             '(lambda ()
