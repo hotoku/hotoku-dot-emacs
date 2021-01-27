@@ -43,10 +43,10 @@
 
 (use-package helm
   :bind (("M-x" . helm-M-x)
-	 ("M-y" . helm-show-kill-ring)
-	 ("C-x C-f" . helm-find-files)
-	 ("C-c h o" . helm-occur)
-	 ("C-c m" . helm-mini))
+	       ("M-y" . helm-show-kill-ring)
+	       ("C-x C-f" . helm-find-files)
+	       ("C-c h o" . helm-occur)
+	       ("C-c m" . helm-mini))
   :config
   (helm-mode 1)
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
@@ -74,11 +74,18 @@
   (projectile-mode 1)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
+;;; configurations for programming languages
+;; elisp
+(add-hook
+ 'emacs-lisp-mode-hook
+ '(lambda ()
+    (add-hook 'before-save-hook 'yh/indent-buffer nil t)))
+
 ;;; misc
 ;; make backup files in a specific directory
 (setq make-backup-files t)
 (add-to-list 'backup-directory-alist
-	     `("\\.*\\'" . ,(expand-file-name "~/backup")))
+	           `("\\.*\\'" . ,(expand-file-name "~/backup")))
 
 ;; meta key
 (setq ns-command-modifier (quote meta))
