@@ -11,8 +11,8 @@
 (package-initialize)
 
 
-;;; my functions
-(add-to-list 'load-path (expand-file-name (format "%s%s" user-emacs-directory "yh")))
+;;; my utilities
+(add-to-list 'load-path (expand-file-name "yh" user-emacs-directory))
 (require 'yh)
 
 
@@ -27,9 +27,11 @@
 (setq use-package-always-ensure t)
 
 
-;;; 
+;;; configuration of packages
 (use-package magit
   :bind (("C-c g" . magit)))
+
+
 
 (use-package session)
 
