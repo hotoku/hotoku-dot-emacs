@@ -80,6 +80,31 @@
 (global-set-key (kbd "C-M--") 'uncomment-region)
 (global-set-key [?¥] [?\\])
 
+;; tab
+(setq-default
+ tab-width 2
+ indent-tabs-mode nil)
+
+;; truncate lines
+(setq-default
+ truncate-lines t)
+
+;; always answer in y or n
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; emacsclient
+(server-start)
+
+;; aes
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(column-number-mode)
+(blink-cursor-mode -1)
+
+;; language
+(setenv "LANG" "ja_JP.UTF-8")
+(set-language-environment "Japanese")
+
 
 ;;; custom
 (custom-set-variables
