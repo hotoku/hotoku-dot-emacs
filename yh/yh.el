@@ -1,6 +1,7 @@
 (require 'package)
 
 
+;;; font
 (defun yh/use-large-font (&optional no-recreate)
   (interactive)
   (setf (alist-get 'font default-frame-alist) "Monospace-16")
@@ -17,5 +18,9 @@
     (delete-frame f)))
 
 
+
+;;; indent
+(defun yh/indent-buffer ()
+  (indent-region (point-min) (point-max)))
 
 (provide 'yh)
