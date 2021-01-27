@@ -55,8 +55,11 @@
    helm-delete-minibuffer-contents-from-point t
    helm-ff-auto-update-initial-value nil))
 
-
-
+(use-package smartparens-config
+  :ensure nil
+  :init
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-smartparens-strict-mode)
+  (add-hook 'python-mode-hook 'turn-on-smartparens-strict-mode))
 
 
 
@@ -112,7 +115,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(helm company session use-package))
+ '(package-selected-packages '(smartparens helm company session use-package))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
