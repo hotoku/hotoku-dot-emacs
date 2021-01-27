@@ -74,6 +74,14 @@
   (projectile-mode 1)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
+(use-package dakrone-theme
+  :config
+  (load-theme 'dakrone)
+  (set-face-foreground 'font-lock-comment-face "#8AE234")
+  (set-face-foreground 'font-lock-string-face "IndianRed")
+  (set-face-background 'default "#202040"))
+
+
 ;;; configurations for programming languages
 ;; elisp
 (add-hook
@@ -130,7 +138,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(smartparens helm company session use-package))
+ '(custom-safe-themes
+   '("246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
+ '(package-selected-packages
+   '(dakrone-theme smartparens helm company session use-package))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
