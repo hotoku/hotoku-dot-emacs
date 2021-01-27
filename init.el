@@ -77,6 +77,10 @@
 (use-package open-junk-file
   :commands open-junk-file)
 
+(use-package yasnippet
+  :config
+  (yas-global-mode 1))
+
 
 
 ;;; configurations for programming languages
@@ -149,7 +153,7 @@ This is inconvinient when opening file at the beginning of Emacs session."
  '(custom-safe-themes
    '("246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
  '(package-selected-packages
-   '(open-junk-file dakrone-theme smartparens helm company session use-package))
+   '(yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
