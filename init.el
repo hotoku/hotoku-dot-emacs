@@ -126,6 +126,11 @@
     (add-hook 'dired-mode-hook 'git-ps1-mode)))
 
 
+;; (use-package undo-tree
+;;   :config
+;;   (global-undo-tree-mode t))
+
+
 
 ;;; configurations for programming languages
 ;; elisp
