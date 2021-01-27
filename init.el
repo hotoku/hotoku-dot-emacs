@@ -99,6 +99,7 @@
 (global-set-key (kbd "C-M-/") 'comment-region)
 (global-set-key (kbd "C-M--") 'uncomment-region)
 (global-set-key [?¥] [?\\])
+(global-set-key (kbd "C-.") 'yh/other-window-or-split)
 
 ;; tab
 (setq-default tab-width 2

@@ -1,7 +1,6 @@
 (require 'package)
 
-
-;;; font
+;;; font size
 (defun yh/use-large-font (&optional no-recreate)
   (interactive)
   (setf (alist-get 'font default-frame-alist) "Monospace-16")
@@ -17,13 +16,11 @@
     (make-frame)
     (delete-frame f)))
 
-
-
-;;; indent
+;;; indent buffer
 (defun yh/indent-buffer ()
   (indent-region (point-min) (point-max)))
 
-;;; package util
+;;; package-refresh-contents
 (defun yh/package-refresh-contents ()
   "package-refresh-contents if last update is older than or equal to yesterday."
   (let* ((path (expand-file-name ".date-of-last-package-refresh-contents" user-emacs-directory))
@@ -40,6 +37,12 @@
         (insert today)
         (write-region (point-min) (point-max) path)))))
 
-
+;;; other-window
+(defun yh/other-window-or-split ()
+  "Move to another window. If the frame has only 1 window, split first"
+  (interactive)
+  (when (one-window-p)
+    (split-window-vertically))
+  (other-window 1))
 
 (provide 'yh)
