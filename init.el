@@ -33,6 +33,10 @@
 ;;; configuration of packages
 (use-package gnu-elpa-keyring-update) ; This should be first.
 
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode t))
+
 
 (use-package exec-path-from-shell
   :config
@@ -130,9 +134,6 @@
 
 
 
-(use-package undo-tree
-  :config
-  (global-undo-tree-mode t))
 
 
 
