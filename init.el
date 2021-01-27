@@ -74,6 +74,9 @@
   (projectile-mode 1)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
+(use-package open-junk-file
+  :commands open-junk-file)
+
 
 
 ;;; configurations for programming languages
@@ -146,7 +149,7 @@ This is inconvinient when opening file at the beginning of Emacs session."
  '(custom-safe-themes
    '("246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
  '(package-selected-packages
-   '(dakrone-theme smartparens helm company session use-package))
+   '(open-junk-file dakrone-theme smartparens helm company session use-package))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
