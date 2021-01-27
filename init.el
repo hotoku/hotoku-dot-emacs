@@ -126,6 +126,18 @@
 (set-language-environment "Japanese")
 
 
+;; change default directory for C-x C-f
+(when (version< "27.0" emacs-version)
+  (defun ad:helm-find-files (f prompt)
+    "When uploading to Emacs 27.1, default directory for buffers like *Emacs* changes from ~ to /.
+This is inconvinient when opening file at the beginning of Emacs session."
+    (when (equal default-directory "/")
+      (setq default-directory "~/"))
+    (funcall f prompt))
+  (advice-add 'helm-find-files :around 'ad:helm-find-files))
+
+
+
 ;;; custom
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
