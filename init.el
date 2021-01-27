@@ -12,6 +12,7 @@
 (package-initialize)
 
 
+
 ;;; my utilities
 (defconst yh/additional-loadpath (expand-file-name "yh" user-emacs-directory))
 (add-to-list 'load-path yh/additional-loadpath)
@@ -133,6 +134,15 @@
     (add-hook 'dired-mode-hook 'git-ps1-mode)))
 
 
+(use-package json-mode
+  :mode
+  (("\\.json\\'" . json-mode)
+   ("\\.geojson\\'" . json-mode)))
+
+
+(use-package yaml-mode
+  :mode
+  (("\\.ya?ml\\'" . yaml-mode)))
 
 
 
@@ -189,7 +199,7 @@
 ;; change default directory for C-x C-f
 (when (version< "27.0" emacs-version)
   (defun ad:helm-find-files (f prompt)
-    "When uploading to Emacs 27.1, default directory for buffers like *Emacs* changes from ~ to /.
+    "In Emacs 27.1 on Mac OS X, default directory for buffers like *Emacs* changes from ~ to /.
 This is inconvinient when opening file at the beginning of Emacs session."
     (when (equal default-directory "/")
       (setq default-directory "~/"))
@@ -207,7 +217,7 @@ This is inconvinient when opening file at the beginning of Emacs session."
  '(custom-safe-themes
    '("246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
  '(package-selected-packages
-   '(gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
+   '(yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
