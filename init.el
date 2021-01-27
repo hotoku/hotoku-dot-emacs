@@ -69,6 +69,11 @@
 
 (use-package smartparens-config :ensure nil)
 
+(use-package projectile
+  :config
+  (projectile-mode 1)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+
 ;;; misc
 ;; make backup files in a specific directory
 (setq make-backup-files t)
