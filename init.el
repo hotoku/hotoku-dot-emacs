@@ -93,9 +93,35 @@
   :bind (("C-x o" . ace-window)))
 
 (use-package markdown-mode
-  ())
+  :mode
+  (("\\.md\\'" . markdown-mode))
+  :config
+  (custom-set-faces
+   '(markdown-code-face ((t (:inherit fixed-pitch :background "SkyBlue1" :foreground "gray13"))))
+   '(markdown-header-face ((t (:inherit font-lock-function-name-face :family "MeiryoKe_UIGothic"))))
+   '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 2.0 :underline t))))
+   '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.6))))
+   '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.4))))
+   '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.2))))
+   '(markdown-language-keyword-face ((t (:foreground "dark green"))))
+   '(markdown-markup-face ((t (:foreground "indian red"))))
+   '(markdown-header-delimiter-face ((t (:foreground "indian red")))))
+  ;; (add-hook 'markdown-mode-hook (lambda () (setq-local yh/indent-before-save nil)))
 
 
+  (setq
+   ;; commonmarker command can be installed by "gem install -V commonmarker -n <destination directory>"
+   markdown-command "commonmarker --extension=autolink --extension=strikethrough --extension=table --extension=tagfilter --extension=tasklist"
+   markdown-command-needs-filename t
+   markdown-css-paths '("https://cdn.jsdelivr.net/npm/github-markdown-css"
+                        "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css")
+   markdown-xhtml-header-content (mapconcat 'identity
+                                            '("<style><!-- CSS HERE --></style>"
+                                              "<script src=\"https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js\"></script>"
+                                              "<script>hljs.initHighlightingOnLoad();</script>")
+                                            "\n")
+   markdown-xhtml-body-preamble "<div class=\"markdown-body\">"
+   markdown-xhtml-body-epilogue "</div>"))
 
 ;;; configurations for programming languages
 ;; elisp
