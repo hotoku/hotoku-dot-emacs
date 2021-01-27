@@ -1,4 +1,4 @@
-;;; init.el -- initial setting up process
+;;; init.el -- initial setting up process -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
@@ -91,6 +91,9 @@
    flycheck-emacs-lisp-load-path 'inherit)
   (add-hook 'after-init-hook 'global-flycheck-mode))
 
+(use-package ace-window
+  :bind (("C-x o" . ace-window)))
+
 
 
 ;;; configurations for programming languages
@@ -163,7 +166,7 @@ This is inconvinient when opening file at the beginning of Emacs session."
  '(custom-safe-themes
    '("246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
  '(package-selected-packages
-   '(flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
+   '(ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -180,9 +183,7 @@ This is inconvinient when opening file at the beginning of Emacs session."
   (set-face-foreground 'font-lock-string-face "IndianRed"))
 
 
+
+
 (provide 'init)
 ;;; init.el ends here
-
-;;; Local Variables:
-;;; lexical-binding: t
-;;; End:
