@@ -74,12 +74,6 @@
   (projectile-mode 1)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
-(use-package dakrone-theme
-  :config
-  (load-theme 'dakrone)
-  (set-face-foreground 'font-lock-comment-face "#8AE234")
-  (set-face-foreground 'font-lock-string-face "IndianRed")
-  (set-face-background 'default "#202040"))
 
 
 ;;; configurations for programming languages
@@ -149,3 +143,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+
+;; Theme loading should be after registration of it as safe by custom-set-variables
+(use-package dakrone-theme
+  :config
+  (load-theme 'dakrone)
+  (set-face-foreground 'font-lock-comment-face "#8AE234")
+  (set-face-foreground 'font-lock-string-face "IndianRed")
+  (set-face-background 'default "#202040"))
