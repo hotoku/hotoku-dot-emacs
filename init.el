@@ -37,11 +37,9 @@
 (use-package session)
 
 (use-package company
-  :commands company-mode
-  :init
-  (add-hook 'emacs-lisp-mode-hook 'company-mode)
   :config
-  (setq company-idel-delay 0.01))
+  (global-company-mode)
+  (setq-default company-idel-delay 0.01))
 
 (use-package helm
   :bind (("M-x" . helm-M-x)
@@ -53,7 +51,7 @@
   (helm-mode 1)
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-  (setq
+  (setq-default
    helm-idle-delay 0.1
    helm-input-idle-delay 0.1
    helm-delete-minibuffer-contents-from-point t
@@ -93,6 +91,9 @@
 
 (use-package ace-window
   :bind (("C-x o" . ace-window)))
+
+(use-package markdown-mode
+  ())
 
 
 
