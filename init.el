@@ -90,8 +90,8 @@
 	           `("\\.*\\'" . ,(expand-file-name "~/backup")))
 
 ;; meta key
-(setq ns-command-modifier (quote meta))
-(setq ns-alternate-modifier (quote super))
+(setq ns-command-modifier (quote meta)
+      ns-alternate-modifier (quote super))
 
 ;; global key
 (global-set-key (kbd "C-x C-j") 'dired-jump)
@@ -101,13 +101,11 @@
 (global-set-key [?¥] [?\\])
 
 ;; tab
-(setq-default
- tab-width 2
- indent-tabs-mode nil)
+(setq-default tab-width 2
+              indent-tabs-mode nil)
 
 ;; truncate lines
-(setq-default
- truncate-lines t)
+(setq-default truncate-lines t)
 
 ;; always answer in y or n
 (fset 'yes-or-no-p 'y-or-n-p)
