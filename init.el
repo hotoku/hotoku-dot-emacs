@@ -1,7 +1,8 @@
-;; -*- lexical-binding: t -*-
+;;; init.el -- initial setting up process
 
+;;; Commentary:
 
-
+;;; Code:
 
 ;;; package
 (require 'package)
@@ -12,7 +13,8 @@
 
 
 ;;; my utilities
-(add-to-list 'load-path (expand-file-name "yh" user-emacs-directory))
+(defconst yh/additional-loadpath (expand-file-name "yh" user-emacs-directory))
+(add-to-list 'load-path yh/additional-loadpath)
 (require 'yh)
 
 
@@ -80,6 +82,14 @@
 (use-package yasnippet
   :config
   (yas-global-mode 1))
+
+(use-package flycheck
+  :config
+  (setq
+   flycheck-check-syntax-automatically '(save idle-change mode-enabled)
+   flycheck-idle-change-delay 1
+   flycheck-emacs-lisp-load-path 'inherit)
+  (add-hook 'after-init-hook 'global-flycheck-mode))
 
 
 
@@ -153,7 +163,7 @@ This is inconvinient when opening file at the beginning of Emacs session."
  '(custom-safe-themes
    '("246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
  '(package-selected-packages
-   '(yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
+   '(flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -168,3 +178,11 @@ This is inconvinient when opening file at the beginning of Emacs session."
   (load-theme 'dakrone)
   (set-face-foreground 'font-lock-comment-face "#8AE234")
   (set-face-foreground 'font-lock-string-face "IndianRed"))
+
+
+(provide 'init)
+;;; init.el ends here
+
+;;; Local Variables:
+;;; lexical-binding: t
+;;; End:

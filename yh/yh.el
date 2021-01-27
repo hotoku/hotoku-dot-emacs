@@ -1,17 +1,25 @@
+;;; yh.el --- personal utility functions
+
+;;; Commentary:
+
+;;; Code:
+
+
 (require 'package)
 
 ;;; font size
-(defun yh/use-large-font (&optional no-recreate)
+(defun yh/use-large-font ()
+  "Change font size."
   (interactive)
   (setf (alist-get 'font default-frame-alist) "Monospace-16")
-  (unless no-recreate
-    (yh/recreate-frame)))
-(defun yh/use-small-font (&optional no-recreate)
+  (yh/recreate-frame))
+(defun yh/use-small-font ()
+  "Change font size."
   (interactive)
   (setf (alist-get 'font default-frame-alist) "Monospace-12")
-  (unless no-recreate
-    (yh/recreate-frame)))
-(defun yh/recreate-frame ()
+  (yh/recreate-frame))
+(defun yh/recreate-frame (&optional w h)
+  "Recreate frame.  W, H are frame size (width and height)."
   (let ((f (selected-frame)))
     (make-frame)
     (delete-frame f)))
@@ -22,7 +30,7 @@
 
 ;;; package-refresh-contents
 (defun yh/package-refresh-contents ()
-  "package-refresh-contents if last update is older than or equal to yesterday."
+  "Package-refresh-contents if last update is older than or equal to yesterday."
   (let* ((path (expand-file-name ".date-of-last-package-refresh-contents" user-emacs-directory))
          (today (format-time-string "%Y-%m-%d"))
          (last-date (when (file-exists-p path)
@@ -39,10 +47,11 @@
 
 ;;; other-window
 (defun yh/other-window-or-split ()
-  "Move to another window. If the frame has only 1 window, split first"
+  "Move to another window.  If the frame has only 1 window, split first."
   (interactive)
   (when (one-window-p)
     (split-window-vertically))
   (other-window 1))
 
 (provide 'yh)
+;;; yh.el ends here
