@@ -26,6 +26,7 @@
 
 ;;; indent buffer
 (defun yh/indent-buffer ()
+  "Indent whole buffer."
   (indent-region (point-min) (point-max)))
 
 ;;; package-refresh-contents
