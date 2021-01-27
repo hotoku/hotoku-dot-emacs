@@ -16,8 +16,8 @@
 (require 'yh)
 
 
-;; TODO: 最後にrefreshした日を記録して古い場合だけrefreshする
-(package-refresh-contents)
+;; refresh if necessary
+(yh/package-refresh-contents)
 
 
 ;;; use-package initialize
