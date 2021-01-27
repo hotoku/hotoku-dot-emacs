@@ -27,6 +27,7 @@
 (setq use-package-always-ensure t)
 
 
+;;; 
 (use-package magit
   :bind (("C-c g" . magit)))
 
@@ -55,18 +56,19 @@
    helm-delete-minibuffer-contents-from-point t
    helm-ff-auto-update-initial-value nil))
 
-(use-package smartparens-config
-  :ensure nil
+(use-package smartparens
   :init
   (add-hook 'emacs-lisp-mode-hook 'turn-on-smartparens-strict-mode)
-  (add-hook 'python-mode-hook 'turn-on-smartparens-strict-mode))
+  (add-hook 'python-mode-hook 'turn-on-smartparens-strict-mode)
+  :bind (("C-M-f" . sp-forward-slurp-sexp)
+         ("C-M-g" . sp-forward-barf-sexp))
+  :config
+  (message "usepackage smartparens")
+  (show-smartparens-global-mode t))
 
-
+(use-package smartparens-config :ensure nil)
 
 ;;; misc
-;; mark correspondig parens
-(show-paren-mode)
-
 ;; make backup files in a specific directory
 (setq make-backup-files t)
 (add-to-list 'backup-directory-alist
