@@ -32,6 +32,33 @@
 
 (use-package session)
 
+(use-package company
+  :commands company-mode
+  :init
+  (add-hook 'emacs-lisp-mode-hook 'company-mode)
+  :config
+  (setq company-idel-delay 0.01))
+
+(use-package helm
+  :bind (("M-x" . helm-M-x)
+	 ("M-y" . helm-show-kill-ring)
+	 ("C-x C-f" . helm-find-files)
+	 ("C-c h o" . helm-occur)
+	 ("C-c m" . helm-mini))
+  :config
+  (helm-mode 1)
+  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
+  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+  (setq
+   helm-idle-delay 0.1
+   helm-input-idle-delay 0.1
+   helm-delete-minibuffer-contents-from-point t
+   helm-ff-auto-update-initial-value nil))
+
+
+
+
+
 
 ;;; misc
 ;; mark correspondig parens
@@ -46,8 +73,12 @@
 (setq ns-command-modifier (quote meta))
 (setq ns-alternate-modifier (quote super))
 
-
-
+;; global key
+(global-set-key (kbd "C-x C-j") 'dired-jump)
+(global-set-key (kbd "M-u") 'revert-buffer)
+(global-set-key (kbd "C-M-/") 'comment-region)
+(global-set-key (kbd "C-M--") 'uncomment-region)
+(global-set-key [?¥] [?\\])
 
 
 ;;; custom
@@ -56,7 +87,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(session use-package))
+ '(package-selected-packages '(helm company session use-package))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
