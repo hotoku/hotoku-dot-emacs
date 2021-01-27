@@ -31,6 +31,9 @@
 
 
 ;;; configuration of packages
+(use-package gnu-elpa-keyring-update) ; This should be first.
+
+
 (use-package exec-path-from-shell
   :config
   (exec-path-from-shell-initialize))
@@ -126,7 +129,6 @@
     (add-hook 'dired-mode-hook 'git-ps1-mode)))
 
 
-;; (use-package gnu-elpa-keyring-update)
 
 ;; (use-package undo-tree
 ;;   :config
