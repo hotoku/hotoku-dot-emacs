@@ -31,6 +31,10 @@
 
 
 ;;; configuration of packages
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize))
+
 (use-package magit
   :bind (("C-c g" . magit)))
 
