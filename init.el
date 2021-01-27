@@ -17,7 +17,7 @@
 
 
 ;; TODO: 最後にrefreshした日を記録して古い場合だけrefreshする
-;; (package-refresh-contents)
+(package-refresh-contents)
 
 
 ;;; use-package initialize
