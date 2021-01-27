@@ -100,19 +100,7 @@
   :mode
   (("\\.md\\'" . markdown-mode))
   :config
-  (custom-set-faces
-   '(markdown-code-face ((t (:inherit fixed-pitch :background "SkyBlue1" :foreground "gray13"))))
-   '(markdown-header-face ((t (:inherit font-lock-function-name-face :family "MeiryoKe_UIGothic"))))
-   '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 2.0 :underline t))))
-   '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.6))))
-   '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.4))))
-   '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.2))))
-   '(markdown-language-keyword-face ((t (:foreground "dark green"))))
-   '(markdown-markup-face ((t (:foreground "indian red"))))
-   '(markdown-header-delimiter-face ((t (:foreground "indian red")))))
   ;; (add-hook 'markdown-mode-hook (lambda () (setq-local yh/indent-before-save nil)))
-
-
   (setq
    ;; commonmarker command can be installed by "gem install -V commonmarker -n <destination directory>"
    markdown-command "commonmarker --extension=autolink --extension=strikethrough --extension=table --extension=tagfilter --extension=tasklist"
@@ -126,6 +114,18 @@
                                             "\n")
    markdown-xhtml-body-preamble "<div class=\"markdown-body\">"
    markdown-xhtml-body-epilogue "</div>"))
+
+(use-package git-ps1-mode
+  :config
+  ;; Only when __git_ps1 is found by git-ps1-mode-find-ps1-file or site-local/git_ps1_location.el.
+  ;; Site-local/git_ps1_location.el should iclude (setq git-ps1-mode-ps1-file "path/to/git/ps1/function").
+  (when (or (git-ps1-mode-find-ps1-file)
+            (let ((path (expand-file-name "site-local/git-ps1-location.el")))
+              (and (file-exists-p path)
+                   (load-file path))))
+    (add-hook 'dired-mode-hook 'git-ps1-mode)))
+
+
 
 ;;; configurations for programming languages
 ;; elisp
@@ -197,14 +197,22 @@ This is inconvinient when opening file at the beginning of Emacs session."
  '(custom-safe-themes
    '("246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
  '(package-selected-packages
-   '(ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
+   '(git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(markdown-code-face ((t (:inherit fixed-pitch :background "SkyBlue1" :foreground "gray13"))))
+ '(markdown-header-delimiter-face ((t (:foreground "indian red"))))
+ '(markdown-header-face ((t (:inherit font-lock-function-name-face :family "MeiryoKe_UIGothic"))))
+ '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 2.0 :underline t))))
+ '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.6))))
+ '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.4))))
+ '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.2))))
+ '(markdown-language-keyword-face ((t (:foreground "dark green"))))
+ '(markdown-markup-face ((t (:foreground "indian red")))))
 
 ;; Theme loading should be after registration of it as safe by custom-set-variables
 (use-package dakrone-theme
