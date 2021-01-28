@@ -2,7 +2,7 @@
 # name: package
 # key: package
 # --
-;;; $1.el --- $2
+;;; ${1:`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`}.el --- $2 -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
