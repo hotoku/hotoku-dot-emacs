@@ -66,5 +66,41 @@
       (should (equal (yh-fef-line-type (seq-elt b1 0)) 'code))
       (should (equal (yh-fef-line-value (seq-elt b1 0)) "ghi")))))
 
+(ert-deftest yh-fef-test-parse-lines2 ()
+  (let* ((lines (list (yh-fef-line 'code "abc")
+                      (yh-fef-line 'code "def")
+                      (yh-fef-line 'blank "")
+                      (yh-fef-line 'code "ghi")
+                      (yh-fef-line 'code "jkl")))
+         (blocks (yh-fef-parse-lines lines)))
+    (should (equal (seq-length blocks) 2))
+    (let ((b0 (seq-elt blocks 0))
+          (b1 (seq-elt blocks 1)))
+      (should (equal (seq-length b0) 2))
+      (should (equal (seq-length b1) 2))
+      (should (equal (yh-fef-line-type (seq-elt b0 0)) 'code))
+      (should (equal (yh-fef-line-value (seq-elt b0 0)) "abc"))
+      (should (equal (yh-fef-line-type (seq-elt b1 0)) 'code))
+      (should (equal (yh-fef-line-value (seq-elt b1 0)) "ghi")))))
+
+(ert-deftest yh-fef-test-parse ()
+  (let* ((program "abc
+def
+
+ghi
+jkl")
+         (blocks (yh-fef-parse program)))
+    (should (equal (seq-length blocks) 2))
+    (let ((b0 (seq-elt blocks 0))
+          (b1 (seq-elt blocks 1)))
+      (should (equal (seq-length b0) 2))
+      (should (equal (seq-length b1) 2))
+      (should (equal (yh-fef-line-type (seq-elt b0 0)) 'code))
+      (should (equal (yh-fef-line-value (seq-elt b0 0)) "abc"))
+      (should (equal (yh-fef-line-type (seq-elt b1 0)) 'code))
+      (should (equal (yh-fef-line-value (seq-elt b1 0)) "ghi")))))
+
+
+
 (provide 'yh-fef-test)
 ;;; yh-fef-test.el ends here

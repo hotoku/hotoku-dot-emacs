@@ -60,7 +60,11 @@
             lines (cdr block-lines)))
     (seq-reverse ret)))
 
-
+(defun yh-fef-parse (program)
+  "Parse PROGRAM."
+  (let* ((lines (split-string program "\n"))
+         (parsed (mapcar 'yh-fef-parse-line lines)))
+    (yh-fef-parse-lines parsed)))
 
 
 (provide 'yh-fef)
