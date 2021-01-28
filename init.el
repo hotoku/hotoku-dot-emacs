@@ -152,7 +152,8 @@
 (add-hook
  'emacs-lisp-mode-hook
  '(lambda ()
-    (add-hook 'before-save-hook 'yh/indent-buffer nil t)))
+    (add-hook 'before-save-hook 'yh/indent-buffer nil t)
+    (add-hook 'before-save-hook 'delete-trailing-whitespace)))
 
 ;;; misc
 ;; make backup files in a specific directory
