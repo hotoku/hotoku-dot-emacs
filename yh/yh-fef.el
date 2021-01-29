@@ -86,7 +86,7 @@
            (s1 (mapcar 'yh-fef-block-string b1))
            (seps (mapcar #'(lambda (b)
                              (if (eq (yh-fef-block-type b 0) 'section-header)
-                                 "\n\n" "")) b1))
+                                 "\n\n" "\n")) b1))
            (s2 (yh-mapcar 'concat seps s1)))
       (mapconcat 'identity (cons s0 s2) "\n"))))
 
@@ -94,7 +94,12 @@
   "Format PROGRAM."
   (yh-fef-format-blocks (yh-fef-parse program)))
 
-
+(defun yh-fef-format-buffer ()
+  "Format BUFFER."
+  (interactive)
+  (let ((formatted (yh-fef-format (buffer-string))))
+    (erase-buffer)
+    (insert formatted)))
 
 (provide 'yh-fef)
 ;;; yh-fef.el ends here

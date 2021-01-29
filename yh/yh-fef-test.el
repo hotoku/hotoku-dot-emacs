@@ -114,8 +114,8 @@ jkl")
     (should (equal (yh-fef-format-blocks blocks) ";;; abc\ndef\n\n\n;;; ghi\njkl"))))
 
 (ert-deftest yh-fef-test-format ()
-  (should (equal (yh-fef-format "\n\n;;; abc\ndef\n\n\n;;; ghi\njkl\n\n\n\n")
-                 ";;; abc\ndef\n\n\n;;; ghi\njkl")))
+  (should (equal (yh-fef-format "\n\n;;; abc\ndef\n\n\n;;; ghi\njkl\n\n\n\nmno")
+                 ";;; abc\ndef\n\n\n;;; ghi\njkl\n\nmno")))
 
 
 (provide 'yh-fef-test)
