@@ -1,12 +1,13 @@
 ;;; yh-fef-test.el --- test for yh-fef -*- lexical-binding: t -*-
 
+
 ;;; Commentary:
+
 
 ;;; Code:
 
 (require 'yh-fef)
 (require 'ert)
-
 
 (ert-deftest yh-fef-test-line ()
   (let ((blank (yh-fef-line 'blank "   "))
@@ -116,7 +117,6 @@ jkl")
 (ert-deftest yh-fef-test-format ()
   (should (equal (yh-fef-format "\n\n;;; abc\ndef\n\n\n;;; ghi\njkl\n\n\n\nmno")
                  ";;; abc\ndef\n\n\n;;; ghi\njkl\n\nmno")))
-
 
 (provide 'yh-fef-test)
 ;;; yh-fef-test.el ends here
