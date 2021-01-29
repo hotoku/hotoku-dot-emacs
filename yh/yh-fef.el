@@ -1,10 +1,10 @@
 ;;; yh-fef.el --- format elisp file -*- lexical-binding: t -*-
 
+
 ;;; Commentary:
 
+
 ;;; Code:
-
-
 (defun yh-fef-line (type s)
   "Construct line of type TYPE and value S."
   (if (eq type 'blank) '(blank . "") `(,type . ,s)))
@@ -26,8 +26,6 @@
           ((string-match section-header line) `(section-header . ,line))
           ((string-match subsection-header line) `(subsection-header . ,line))
           (t `(code . ,line)))))
-
-
 
 (defun yh-fef-blank-lines (lines)
   "Parse LINES.  Consume leading blank lines."
