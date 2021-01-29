@@ -66,6 +66,35 @@
          (parsed (mapcar 'yh-fef-parse-line lines)))
     (yh-fef-parse-lines parsed)))
 
+(defun yh-fef-block-string (block)
+  "Stringify BLOCK."
+  (mapconcat 'identity (mapcar 'yh-fef-line-value block) "\n"))
+
+(defun yh-fef-block-type (block n)
+  "Return type of N th element of BLOCK."
+  (yh-fef-line-type (yh-fef-nth-line block n)))
+
+(defun yh-fef-nth-line (block n)
+  "Return N th line of BLOCK."
+  (seq-elt block n))
+
+(defun yh-fef-format-blocks (blocks)
+  "Format BLOCKS."
+  (when blocks
+    (let* ((s0 (yh-fef-block-string (car blocks)))
+           (b1 (cdr blocks))
+           (s1 (mapcar 'yh-fef-block-string b1))
+           (seps (mapcar #'(lambda (b)
+                             (if (eq (yh-fef-block-type b 0) 'section-header)
+                                 "\n\n" "")) b1))
+           (s2 (yh-mapcar 'concat seps s1)))
+      (mapconcat 'identity (cons s0 s2) "\n"))))
+
+(defun yh-fef-format (program)
+  "Format PROGRAM."
+  (yh-fef-format-blocks (yh-fef-parse program)))
+
+
 
 (provide 'yh-fef)
 ;;; yh-fef.el ends here

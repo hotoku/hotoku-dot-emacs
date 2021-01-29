@@ -54,6 +54,13 @@
     (split-window-vertically))
   (other-window 1))
 
+;;; mapcar with multiple argument
+(defun yh-mapcar (f &rest xs)
+  "Apply F on each value of XS."
+  (when (not (memq nil xs))
+    (cons (apply f (mapcar 'car xs))
+          (apply 'yh-mapcar f (mapcar 'cdr xs)))))
+
 
 (provide 'yh)
 ;;; yh.el ends here

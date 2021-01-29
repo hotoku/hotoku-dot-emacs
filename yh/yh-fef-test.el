@@ -100,6 +100,22 @@ jkl")
       (should (equal (yh-fef-line-type (seq-elt b1 0)) 'code))
       (should (equal (yh-fef-line-value (seq-elt b1 0)) "ghi")))))
 
+(ert-deftest yh-fef-test-block-string ()
+  (let* ((block (list (yh-fef-line 'code "abc")
+                      (yh-fef-line 'code "def")))
+         (s (yh-fef-block-string block)))
+    (should (equal s "abc\ndef"))))
+
+(ert-deftest yh-fef-test-format-blocks ()
+  (let* ((blocks (list (list (yh-fef-line 'section-header ";;; abc")
+                             (yh-fef-line 'code "def"))
+                       (list (yh-fef-line 'section-header ";;; ghi")
+                             (yh-fef-line 'code "jkl")))))
+    (should (equal (yh-fef-format-blocks blocks) ";;; abc\ndef\n\n\n;;; ghi\njkl"))))
+
+(ert-deftest yh-fef-test-format ()
+  (should (equal (yh-fef-format "\n\n;;; abc\ndef\n\n\n;;; ghi\njkl\n\n\n\n")
+                 ";;; abc\ndef\n\n\n;;; ghi\njkl")))
 
 
 (provide 'yh-fef-test)
