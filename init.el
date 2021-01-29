@@ -1,8 +1,11 @@
 ;;; init.el -- initial setting up process -*- lexical-binding: t -*-
 
+
 ;;; Commentary:
 
+
 ;;; Code:
+
 
 ;;; package
 (require 'package)
@@ -12,12 +15,10 @@
 (package-initialize)
 
 
-
 ;;; my utilities
 (defconst yh/additional-loadpath (expand-file-name "yh" user-emacs-directory))
 (add-to-list 'load-path yh/additional-loadpath)
 (require 'yh)
-
 
 ;; refresh if necessary
 (yh/package-refresh-contents)
@@ -30,14 +31,12 @@
 (setq use-package-always-ensure t) ; automatically install missing packages
 
 
-
 ;;; configuration of packages
 (use-package gnu-elpa-keyring-update) ; This should be first.
 
 (use-package undo-tree
   :config
   (global-undo-tree-mode t))
-
 
 (use-package exec-path-from-shell
   :config
@@ -133,18 +132,14 @@
                    (load-file path))))
     (add-hook 'dired-mode-hook 'git-ps1-mode)))
 
-
 (use-package json-mode
   :mode
   (("\\.json\\'" . json-mode)
    ("\\.geojson\\'" . json-mode)))
 
-
 (use-package yaml-mode
   :mode
   (("\\.ya?ml\\'" . yaml-mode)))
-
-
 
 
 ;;; configurations for programming languages
@@ -154,6 +149,7 @@
  '(lambda ()
     (add-hook 'before-save-hook 'yh/indent-buffer nil t)
     (add-hook 'before-save-hook 'delete-trailing-whitespace)))
+
 
 ;;; misc
 ;; make backup files in a specific directory
@@ -196,7 +192,6 @@
 (setenv "LANG" "ja_JP.UTF-8")
 (set-language-environment "Japanese")
 
-
 ;; change default directory for C-x C-f
 (when (version< "27.0" emacs-version)
   (defun ad:helm-find-files (f prompt)
@@ -206,7 +201,6 @@ This is inconvinient when opening file at the beginning of Emacs session."
       (setq default-directory "~/"))
     (funcall f prompt))
   (advice-add 'helm-find-files :around 'ad:helm-find-files))
-
 
 
 ;;; custom
@@ -241,9 +235,6 @@ This is inconvinient when opening file at the beginning of Emacs session."
   (load-theme 'dakrone)
   (set-face-foreground 'font-lock-comment-face "#8AE234")
   (set-face-foreground 'font-lock-string-face "IndianRed"))
-
-
-
 
 (provide 'init)
 ;;; init.el ends here
