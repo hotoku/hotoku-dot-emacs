@@ -68,5 +68,12 @@
            (cons (car ls) (yh/take-while (cdr ls) pred))
          (yh/take-while (cdr ls) pred))))
 
+(defun yh/drop-while (ls pred)
+  "Drop leading elements from LS that satisfies PRED."
+  (and ls
+       (if (funcall pred (car ls))
+           (yh/drop-while (cdr ls) pred)
+         ls)))
+
 (provide 'yh)
 ;;; yh.el ends here
