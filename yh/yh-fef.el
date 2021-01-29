@@ -5,36 +5,80 @@
 
 
 ;;; Code:
+(require 'yh)
+
+
+;;; constructors
 (defun yh-fef-line (type s)
   "Construct line of type TYPE and value S."
-  (if (eq type 'blank) '(blank . "") `(,type . ,s)))
+  (let ((value (if (eq type 'blank) "" s))
+        (length (seq-length s)))
+    `(line
+      (:type . ,type)
+      (:value . ,value)
+      (:size . ,length)
+      (:length . ,length))))
 
-(defun yh-fef-line-type (l)
-  "Return type of L."
-  (car l))
+(defun yh-fef-block (lines)
+  "Construct block from LINES."
+  (let ((size (apply 'sum (mapcar 'yh-fef-length lines))))
+    `(block
+      (:size . ,size)
+      (:length . ,(seq-length lines))
+      (:lines . ,lines))))
 
-(defun yh-fef-line-value (l)
-  "Return value of L."
-  (cdr l))
+;;; predicates
+(defun yh-fef-line-p (obj)
+  "Is OBJ line ?"
+  (and (listp obj)
+       (eq (car obj) 'line)))
 
-(defun yh-fef-parse-line (line)
-  "Parse 1 LINE."
+(defun yh-fef-block-p (obj)
+  "Is OBJ block ?"
+  (and (listp obj)
+       (eq (car obj) 'block)))
+
+;;; accessors
+(defun yh-fef-label (obj)
+  "Get label of OBJ."
+  (car obj))
+
+(defun yh-fef-data (obj)
+  "Get data of OBJ."
+  (cdr obj))
+
+(defun yh-fef-size (obj)
+  "Get size of OBJ."
+  (alist-get ':size (yh-fef-data obj)))
+
+(defun yh-fef-length (obj)
+  "Get length of OBJ."
+  (alist-get ':length (yh-fef-data obj)))
+
+(defun yh-fef-line-type (line)
+  "Get type of LINE."
+  (alist-get ':type (yh-fef-dat line)))
+
+
+
+;;; parsers
+(defun yh-fef-parse-line (string)
+  "Parse 1 line from STRING."
   (let ((blank-line (rx string-start (zero-or-more blank) string-end))
         (section-header (rx string-start ";;;" (zero-or-more any) string-end))
         (subsection-header (rx string-start ";;" (zero-or-more any) string-end)))
-    (cond ((string-match blank-line line) `(blank . ,""))
-          ((string-match section-header line) `(section-header . ,line))
-          ((string-match subsection-header line) `(subsection-header . ,line))
-          (t `(code . ,line)))))
+    (cond ((string-match blank-line string) (yh-fef-line 'blank string))
+          ((string-match section-header string) (yh-fef-line 'section-header string))
+          ((string-match subsection-header string) (yh-fef-line 'subsection-header string))
+          (t (yh-fef-line 'code string)))))
 
-(defun yh-fef-blank-lines (lines)
+(defun yh-fef-parse-blank-lines (lines)
   "Parse LINES.  Consume leading blank lines."
-  (let ((num 0))
+  (let ((ret ()))
     (while (and lines
                 (eq (yh-fef-line-type (car lines)) 'blank))
-      (setq num (1+ num)
-            lines (cdr lines)))
-    (cons (if (< 0 num) (yh-fef-line 'blank "") nil) lines)))
+      (setq ret (cons (car lines) ret)
+            lines (cdr lines)))))
 
 (defun yh-fef-code-block (lines)
   "Parse LINES.  Consume leading code lines."
@@ -97,7 +141,8 @@
   (interactive)
   (let ((formatted (yh-fef-format (buffer-string))))
     (erase-buffer)
-    (insert formatted)))
+    (insert formatted)
+    (insert "\n")))
 
 (provide 'yh-fef)
 ;;; yh-fef.el ends here

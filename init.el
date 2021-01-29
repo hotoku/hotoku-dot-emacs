@@ -19,6 +19,7 @@
 (defconst yh/additional-loadpath (expand-file-name "yh" user-emacs-directory))
 (add-to-list 'load-path yh/additional-loadpath)
 (require 'yh)
+(require 'yh-fef)
 
 ;; refresh if necessary
 (yh/package-refresh-contents)
@@ -148,93 +149,95 @@
  'emacs-lisp-mode-hook
  '(lambda ()
     (add-hook 'before-save-hook 'yh/indent-buffer nil t)
-    (add-hook 'before-save-hook 'delete-trailing-whitespace)))
+    (add-hook 'before-save-hook 'delete-trailing-whitespace)
+    ;;(add-hook 'before-save-hook 'yh-fef-format-buffer)
+    ))
 
 
 ;;; misc
-;; make backup files in a specific directory
-(setq make-backup-files t)
-(add-to-list 'backup-directory-alist
-	           `("\\.*\\'" . ,(expand-file-name "~/backup")))
+ ;; make backup files in a specific directory
+ (setq make-backup-files t)
+ (add-to-list 'backup-directory-alist
+	            `("\\.*\\'" . ,(expand-file-name "~/backup")))
 
-;; meta key
-(setq ns-command-modifier (quote meta)
-      ns-alternate-modifier (quote super))
+ ;; meta key
+ (setq ns-command-modifier (quote meta)
+       ns-alternate-modifier (quote super))
 
-;; global key
-(global-set-key (kbd "C-x C-j") 'dired-jump)
-(global-set-key (kbd "M-u") 'revert-buffer)
-(global-set-key (kbd "C-M-/") 'comment-region)
-(global-set-key (kbd "C-M--") 'uncomment-region)
-(global-set-key [?¥] [?\\])
-(global-set-key (kbd "C-.") 'yh/other-window-or-split)
+ ;; global key
+ (global-set-key (kbd "C-x C-j") 'dired-jump)
+ (global-set-key (kbd "M-u") 'revert-buffer)
+ (global-set-key (kbd "C-M-/") 'comment-region)
+ (global-set-key (kbd "C-M--") 'uncomment-region)
+ (global-set-key [?¥] [?\\])
+ (global-set-key (kbd "C-.") 'yh/other-window-or-split)
 
-;; tab
-(setq-default tab-width 2
-              indent-tabs-mode nil)
+ ;; tab
+ (setq-default tab-width 2
+               indent-tabs-mode nil)
 
-;; truncate lines
-(setq-default truncate-lines t)
+ ;; truncate lines
+ (setq-default truncate-lines t)
 
-;; always answer in y or n
-(fset 'yes-or-no-p 'y-or-n-p)
+ ;; always answer in y or n
+ (fset 'yes-or-no-p 'y-or-n-p)
 
-;; emacsclient
-(server-start)
+ ;; emacsclient
+ (server-start)
 
-;; aes
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(column-number-mode)
-(blink-cursor-mode -1)
+ ;; aes
+ (tool-bar-mode -1)
+ (scroll-bar-mode -1)
+ (column-number-mode)
+ (blink-cursor-mode -1)
 
-;; language
-(setenv "LANG" "ja_JP.UTF-8")
-(set-language-environment "Japanese")
+ ;; language
+ (setenv "LANG" "ja_JP.UTF-8")
+ (set-language-environment "Japanese")
 
-;; change default directory for C-x C-f
-(when (version< "27.0" emacs-version)
-  (defun ad:helm-find-files (f prompt)
-    "In Emacs 27.1 on Mac OS X, default directory for buffers like *Emacs* changes from ~ to /.
+ ;; change default directory for C-x C-f
+ (when (version< "27.0" emacs-version)
+   (defun ad:helm-find-files (f prompt)
+     "In Emacs 27.1 on Mac OS X, default directory for buffers like *Emacs* changes from ~ to /.
 This is inconvinient when opening file at the beginning of Emacs session."
-    (when (equal default-directory "/")
-      (setq default-directory "~/"))
-    (funcall f prompt))
-  (advice-add 'helm-find-files :around 'ad:helm-find-files))
+     (when (equal default-directory "/")
+       (setq default-directory "~/"))
+     (funcall f prompt))
+   (advice-add 'helm-find-files :around 'ad:helm-find-files))
 
 
 ;;; custom
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
- '(package-selected-packages
-   '(yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
- '(session-use-package t nil (session)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(markdown-code-face ((t (:inherit fixed-pitch :background "SkyBlue1" :foreground "gray13"))))
- '(markdown-header-delimiter-face ((t (:foreground "indian red"))))
- '(markdown-header-face ((t (:inherit font-lock-function-name-face :family "MeiryoKe_UIGothic"))))
- '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 2.0 :underline t))))
- '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.6))))
- '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.4))))
- '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.2))))
- '(markdown-language-keyword-face ((t (:foreground "dark green"))))
- '(markdown-markup-face ((t (:foreground "indian red")))))
+ (custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+  '(custom-safe-themes
+    '("246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
+  '(package-selected-packages
+    '(yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
+  '(session-use-package t nil (session)))
+ (custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+  '(markdown-code-face ((t (:inherit fixed-pitch :background "SkyBlue1" :foreground "gray13"))))
+  '(markdown-header-delimiter-face ((t (:foreground "indian red"))))
+  '(markdown-header-face ((t (:inherit font-lock-function-name-face :family "MeiryoKe_UIGothic"))))
+  '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 2.0 :underline t))))
+  '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.6))))
+  '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.4))))
+  '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.2))))
+  '(markdown-language-keyword-face ((t (:foreground "dark green"))))
+  '(markdown-markup-face ((t (:foreground "indian red")))))
 
-;; Theme loading should be after registration of it as safe by custom-set-variables
-(use-package dakrone-theme
-  :config
-  (load-theme 'dakrone)
-  (set-face-foreground 'font-lock-comment-face "#8AE234")
-  (set-face-foreground 'font-lock-string-face "IndianRed"))
+ ;; Theme loading should be after registration of it as safe by custom-set-variables
+ (use-package dakrone-theme
+   :config
+   (load-theme 'dakrone)
+   (set-face-foreground 'font-lock-comment-face "#8AE234")
+   (set-face-foreground 'font-lock-string-face "IndianRed"))
 
-(provide 'init)
+ (provide 'init)
 ;;; init.el ends here
