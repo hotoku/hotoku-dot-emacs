@@ -51,7 +51,7 @@
   "Move to another window.  If the frame has only 1 window, split first."
   (interactive)
   (when (one-window-p)
-    (split-window-vertically))
+    (split-window-horizontally))
   (other-window 1))
 
 ;;; mapcar with multiple argument
