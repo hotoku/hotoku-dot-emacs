@@ -209,19 +209,38 @@ alternate between blank and code blocks."
 (defun yh-fef-format-blocks (blocks pos)
   "Format BLOCKS.  And calculate a new cursor position.
 The new position is calculated from POS."
+  ;; remove first block if it's a blank lines block.
   (when (yh-fef-line-blank-p (yh-fef-line-at (car blocks) 0))
     (setq
      blocks (cdr blocks)
      pos (max (- pos (yh-fef-size (car blocks)) 1)
               1)))
-  (let ((transformed (yh-fef-transform-blanks blocks)))
-    (yh-fef-blocks-to-string transformed)))
+  (let* ((transformed (yh-fef-transform-blanks blocks))
+         (index-pos (yh-fef-find-cursor-position blocks pos))
+         (index (car index-pos))
+         (pos2 (cdr index-pos))
+         (sizes (mapcar 'yh-fef-size (yh-fef-lines transformed)))
+         (sizes1 (mapcar '1+ sizes))
+         (sizes2 (yh-fef-cumsum sizes1))
+         (sizes3 (cons 0 sizes2))
+         (new-pos (+ pos2 (seq-elt sizes3 index)))
+         (string (yh-fef-blocks-to-string transformed)))
+    (cons string new-pos)))
 
 (defun yh-fef-format-from-string (string pos)
   "Format program STRING, with cursor position POS."
   (let* ((lines (yh-fef-parse-program string))
          (blocks (yh-fef-split-to-blocks lines)))
     (yh-fef-format-blocks blocks pos)))
+
+(defun yh-fef-format-buffer ()
+  "Format buffer."
+  (let* ((string-pos (yh-fef-format-from-string
+                      (buffer-substring-no-properties (point-min) (point-max))
+                      (point)))
+         (string (car string-pos))
+         (pos (cdr string-pos)))
+    ()))
 
 (provide 'yh-fef)
 ;;; yh-fef.el ends here
