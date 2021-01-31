@@ -38,15 +38,15 @@
     `(line
       (:type . ,type)
       (:value . ,s)
-      (:size . ,length)
-      (:length . ,length))))
+      (:size . ,length))))
 
 (defun yh-fef-block (lines)
   "Construct block from LINES."
-  (let ((size (apply 'sum (mapcar 'yh-fef-length lines))))
+  (let ((size (apply '+ (mapcar 'yh-fef-size lines)))
+        (length (seq-length lines)))
     `(block
-      (:size . ,size)
-      (:length . ,(seq-length lines))
+      (:size . ,(+ size (- length 1)))
+      (:length . ,length)
       (:lines . ,lines))))
 
 ;;; predicates
@@ -70,12 +70,16 @@
   (cdr obj))
 
 (defun yh-fef-size (obj)
-  "Get size of OBJ."
+  "Get number of characters for representing this OBJ."
   (alist-get ':size (yh-fef-data obj)))
 
-(defun yh-fef-length (obj)
-  "Get length of OBJ."
-  (alist-get ':length (yh-fef-data obj)))
+(defun yh-fef-length (block)
+  "Get number of lines of this BLOCK."
+  (alist-get ':length (yh-fef-data block)))
+
+(defun yh-fef-lines (block)
+  "Get lines of BLOCK."
+  (alist-get ':lines (yh-fef-data block)))
 
 (defun yh-fef-line-type (line)
   "Get type of LINE."

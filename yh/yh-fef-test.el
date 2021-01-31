@@ -35,18 +35,60 @@
 (ert-deftest yh-fef-test-line ()
   (let ((blank (yh-fef-line 'blank "   "))
         (code (yh-fef-line 'code "abc")))
+    (should (yh-fef-line-p blank))
     (should (equal (yh-fef-line-type blank) 'blank))
     (should (equal (yh-fef-line-value blank) "   "))
+    (should (equal (yh-fef-size blank) 3))
+    (should (yh-fef-line-p code))
     (should (equal (yh-fef-line-type code) 'code))
-    (should (equal (yh-fef-line-value code) "abc"))))
+    (should (equal (yh-fef-line-value code) "abc"))
+    (should (equal (yh-fef-size code) 3))))
 
-;; ;;; parsers
-;; (ert-deftest yh-fef-test-parse-line ()
-;;   "Test of parsing one line."
-;;   (should (equal (yh-fef-parse-line "     ") (yh-fef-line 'blank "")))
-;;   (should (equal (yh-fef-parse-line ";;; header") (yh-fef-line 'section-header ";;; header")))
-;;   (should (equal (yh-fef-parse-line ";; comment") (yh-fef-line 'subsection-header ";; comment")))
-;;   (should (equal (yh-fef-parse-line "(+ 1 1)") (yh-fef-line 'code "(+ 1 1)"))))
+(ert-deftest yh-fef-test-block ()
+  (let* ((blank (yh-fef-line 'blank "   "))
+         (code (yh-fef-line 'code "abc"))
+         (block (yh-fef-block (list blank code))))
+    (should (yh-fef-block-p block))
+    (should (equal (yh-fef-size block) 7))
+    (should (equal (yh-fef-length block) 2))
+    (should (equal (yh-fef-lines block) (list blank code)))))
+
+
+
+
+;;; parsers
+(ert-deftest yh-fef-test-parse-line-blank ()
+  "Test of parsing blank line."
+  (let ((blank (yh-fef-parse-line "   ")))
+    (should (equal (yh-fef-line-type blank) 'blank))
+    (should (equal (yh-fef-size blank) 3))
+    (should (equal (yh-fef-line-value blank) "   "))))
+
+(ert-deftest yh-fef-test-parse-line-section-header ()
+  "Test of parsing section header."
+  (let ((line (yh-fef-parse-line ";;; comment")))
+    (should (equal (yh-fef-line-type line) 'section-header))
+    (should (equal (yh-fef-size line) 11))
+    (should (equal (yh-fef-line-value line) ";;; comment"))))
+
+(ert-deftest yh-fef-test-parse-line-subsection-header ()
+  "Test of parsing section header."
+  (let ((line (yh-fef-parse-line ";; comment")))
+    (should (equal (yh-fef-line-type line) 'subsection-header))
+    (should (equal (yh-fef-size line) 10))
+    (should (equal (yh-fef-line-value line) ";; comment"))))
+
+(ert-deftest yh-fef-test-parse-line-code ()
+  "Test of parsing section header."
+  (let ((line (yh-fef-parse-line "abc")))
+    (should (equal (yh-fef-line-type line) 'code))
+    (should (equal (yh-fef-size line) 3))
+    (should (equal (yh-fef-line-value line) "abc"))))
+
+
+
+
+
 
 ;; (ert-deftest yh-fef-test-blank-lines ()
 ;;   (let* ((parsed (list (yh-fef-line 'blank "")
