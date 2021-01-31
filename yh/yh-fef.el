@@ -123,6 +123,19 @@
            (rest (yh-fef-drop-while lines pred)))
       (cons block rest))))
 
+(defun yh-fef-split-to-blocks (lines)
+  "Split LINES into blocks."
+  (when lines
+    (let* ((block-rest (yh-fef-read-block lines))
+           (block (car block-rest))
+           (lines2 (cdr block-rest)))
+      (cons block (yh-fef-split-to-blocks lines2)))))
+
+
+
+
+
+
 
 (defun yh-fef-parse-blank-lines (lines)
   "Parse LINES.  Consume leading blank lines."
