@@ -30,6 +30,17 @@
            (yh-fef-drop-while (cdr ls) pred)
          ls)))
 
+(defun yh-fef-cumsum (ls)
+  "Cumulative sum of LS."
+  (when ls
+    (let ((ret ())
+          (s 0))
+      (while ls
+        (setq s (+ s (car ls))
+              ret (cons s ret)
+              ls (cdr ls)))
+      (seq-reverse ret))))
+
 
 ;;; constructors
 (defun yh-fef-line (type s)
@@ -49,6 +60,15 @@
       (:length . ,length)
       (:lines . ,lines))))
 
+(defun yh-fef-blank-lines (n)
+  "Construct a block of N blank lines."
+  (let ((ret ()))
+    (while (< 0 n)
+      (setq n (1- n)
+            ret (cons (yh-fef-parse-line "") ret)))
+    (yh-fef-block ret)))
+
+
 ;;; predicates
 (defun yh-fef-line-p (obj)
   "Is OBJ line ?"
@@ -63,6 +83,15 @@
 (defun yh-fef-line-blank-p (line)
   "Is LINE blank ?"
   (eq (yh-fef-line-type line) 'blank))
+
+(defun yh-fef-blank-block-p (block)
+  "Is BLOCK of blank lines ?"
+  (eq (yh-fef-line-type (yh-fef-line-at block 0)) 'blank))
+
+(defun yh-fef-code-block-p (block)
+  "Is BLOCK of code lines ?"
+  (not (yh-fef-blank-block-p block)))
+
 
 ;;; accessors
 (defun yh-fef-label (obj)
@@ -93,7 +122,19 @@
   "Get value of LINE."
   (alist-get ':value (yh-fef-data line)))
 
+(defun yh-fef-line-at (block n)
+  "Return N th line of BLOCK."
+  (seq-elt (yh-fef-lines block) n))
 
+;;; transformers
+(defun yh-fef-block-to-string (block)
+  "Concat lines in BLOCK with \\n."
+  (let ((lines (yh-fef-lines block)))
+    (mapconcat 'yh-fef-line-value lines "\n")))
+
+(defun yh-fef-blocks-to-string (blocks)
+  "Convert BLOCKS to string."
+  (mapconcat 'yh-fef-block-to-string blocks "\n"))
 
 ;;; parsers
 (defun yh-fef-parse-line (string)
@@ -131,85 +172,56 @@
            (lines2 (cdr block-rest)))
       (cons block (yh-fef-split-to-blocks lines2)))))
 
+(defun yh-fef-find-cursor-position (blocks pos)
+  "Find cursor POS in BLOCKS.  Return cons of index and pos.
+Cursor is pos-th character of index-th block."
+  (let* ((sizes (mapcar 'yh-fef-size blocks))
+         (sizes2 (mapcar '1+ sizes))
+         (i 0))
+    (while (and sizes2 (< (car sizes2) pos))
+      (setq pos (- pos (car sizes2))
+            i (1+ i)
+            sizes2 (cdr sizes2)))
+    (cons i pos)))
 
-
-
-
-
-
-(defun yh-fef-parse-blank-lines (lines)
-  "Parse LINES.  Consume leading blank lines."
-  (let ((ret ()))
-    (while (and lines
-                (eq (yh-fef-line-type (car lines)) 'blank))
-      (setq ret (cons (car lines) ret)
-            lines (cdr lines)))
-    (cons (seq-reverse ret) lines)))
-
-(defun yh-fef-parse-code-block (lines)
-  "Parse LINES.  Consume leading code lines."
-  (let ((ret ()))
-    (while (and lines
-                (not (eq (yh-fef-line-type (car lines)) 'blank)))
-      (setq ret (cons (car lines) ret)
-            lines (cdr lines)))
-    (cons (seq-reverse ret) lines)))
-
-(defun yh-fef-parse-lines (lines)
-  "Parse multiple LINES."
-  (let* ((ret ())
-         (block-lines ()))
-    (setq block-lines (yh-fef-parse-blank-lines lines)
-          ret (cons (car block-lines) ret))
-    (while lines
-      (setq block-lines (yh-fef-code-block lines)
-            ret (cons (car block-lines) ret)
-            lines (cdr block-lines)
-            block-lines (yh-fef-blank-lines lines)
-            lines (cdr block-lines)))
+(defun yh-fef-transform-blanks (blocks)
+  "Transform block of blank lies in BLOCKS.
+If a block is of blank lines and precedes the section header block,
+it will be converted to 2 blank lines, otherwise, to 1 blank lines.
+The first block should be code block and the subsequent block must
+alternate between blank and code blocks."
+  (let ((i 0)
+        (ret ()))
+    (while blocks
+      (if (= (% i 2) 0)
+          (setq ret (cons (car blocks) ret))
+        (if (cdr blocks)
+            (let* ((next-block (cadr blocks))
+                   (type (yh-fef-line-type (yh-fef-line-at next-block 0))))
+              (if (eq type 'section-header)
+                  (setq ret (cons (yh-fef-blank-lines 2) ret))
+                (setq ret (cons (yh-fef-blank-lines 1) ret))))
+          (setq ret (cons (yh-fef-blank-lines 1) ret))))
+      (setq i (1+ i)
+            blocks (cdr blocks)))
     (seq-reverse ret)))
 
-(defun yh-fef-parse (program)
-  "Parse PROGRAM."
-  (let* ((lines (split-string program "\n"))
-         (parsed (mapcar 'yh-fef-parse-line lines)))
-    (yh-fef-parse-lines parsed)))
+(defun yh-fef-format-blocks (blocks pos)
+  "Format BLOCKS.  And calculate a new cursor position.
+The new position is calculated from POS."
+  (when (yh-fef-line-blank-p (yh-fef-line-at (car blocks) 0))
+    (setq
+     blocks (cdr blocks)
+     pos (max (- pos (yh-fef-size (car blocks)) 1)
+              1)))
+  (let ((transformed (yh-fef-transform-blanks blocks)))
+    (yh-fef-blocks-to-string transformed)))
 
-(defun yh-fef-block-string (block)
-  "Stringify BLOCK."
-  (mapconcat 'identity (mapcar 'yh-fef-line-value block) "\n"))
-
-(defun yh-fef-block-type (block n)
-  "Return type of N th element of BLOCK."
-  (yh-fef-line-type (yh-fef-nth-line block n)))
-
-(defun yh-fef-nth-line (block n)
-  "Return N th line of BLOCK."
-  (seq-elt block n))
-
-(defun yh-fef-format-blocks (blocks)
-  "Format BLOCKS."
-  (when blocks
-    (let* ((s0 (yh-fef-block-string (car blocks)))
-           (b1 (cdr blocks))
-           (s1 (mapcar 'yh-fef-block-string b1))
-           (seps (mapcar #'(lambda (b)
-                             (if (eq (yh-fef-block-type b 0) 'section-header)
-                                 "\n\n" "\n")) b1))
-           (s2 (yh-mapcar 'concat seps s1)))
-      (mapconcat 'identity (cons s0 s2) "\n"))))
-
-(defun yh-fef-format (program)
-  "Format PROGRAM."
-  (yh-fef-format-blocks (yh-fef-parse program)))
-
-(defun yh-fef-format-buffer ()
-  "Format BUFFER."
-  (interactive)
-  (let ((formatted (yh-fef-format (buffer-string))))
-    (erase-buffer)
-    (insert formatted)
-    (insert "\n")))
+(defun yh-fef-format-from-string (string pos)
+  "Format program STRING, with cursor position POS."
+  (let* ((lines (yh-fef-parse-program string))
+         (blocks (yh-fef-split-to-blocks lines)))
+    (yh-fef-format-blocks blocks pos)))
 
 (provide 'yh-fef)
 ;;; yh-fef.el ends here

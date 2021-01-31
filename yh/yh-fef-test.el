@@ -53,8 +53,9 @@
     (should (equal (yh-fef-length block) 2))
     (should (equal (yh-fef-lines block) (list blank code)))))
 
-
-
+(ert-deftest yh-fef-test-blank-lines ()
+  "Should make n blank lines"
+  (should (equal (yh-fef-length (yh-fef-blank-lines 2)) 2)))
 
 ;;; parsers
 (ert-deftest yh-fef-test-parse-line-blank ()
@@ -132,7 +133,36 @@
     (should (equal (seq-length blocks) 5))
     (should (equal (mapcar 'yh-fef-length blocks) '(2 1 2 1 1)))))
 
+(ert-deftest yh-fef-test-find-cursor-position ()
+  "Test find cursor position"
+  (let* ((lines (list (yh-fef-parse-line "abc")
+                      (yh-fef-parse-line "def")
+                      (yh-fef-parse-line "")
+                      (yh-fef-parse-line "ghi")
+                      (yh-fef-parse-line "jkl")
+                      (yh-fef-parse-line "")
+                      (yh-fef-parse-line "mno")))
+         (blocks (yh-fef-split-to-blocks lines)))
+    (should (equal (yh-fef-find-cursor-position blocks 1) '(0 . 1)))
+    (should (equal (yh-fef-find-cursor-position blocks 5) '(0 . 5)))
+    (should (equal (yh-fef-find-cursor-position blocks 9) '(1 . 1)))
+    (should (equal (yh-fef-find-cursor-position blocks 10) '(2 . 1)))
+    (should (equal (yh-fef-find-cursor-position blocks 18) '(3 . 1)))
+    (should (equal (yh-fef-find-cursor-position blocks 19) '(4 . 1)))))
 
+(ert-deftest yh-fef-test-transform-blanks ()
+  "Should transform blanks."
+  (let* ((lines (list (yh-fef-parse-line "abc")
+                      (yh-fef-parse-line "def")
+                      (yh-fef-parse-line "")
+                      (yh-fef-parse-line ";;; ghi")
+                      (yh-fef-parse-line "jkl")
+                      (yh-fef-parse-line "")
+                      (yh-fef-parse-line "mno")))
+         (blocks (yh-fef-split-to-blocks lines))
+         (converted (yh-fef-transform-blanks blocks)))
+    (should (equal (seq-length converted) 5))
+    (should (equal (mapcar 'yh-fef-length converted) '(2 2 2 1 1)))))
 
 
 ;; (ert-deftest yh-fef-test-blank-lines ()
