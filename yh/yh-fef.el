@@ -102,6 +102,11 @@
           ((string-match subsection-header string) (yh-fef-line 'subsection-header string))
           (t (yh-fef-line 'code string)))))
 
+(defun yh-fef-parse-program (string)
+  "Parse program code represented by STRING."
+  (let ((splitted (split-string string "\n")))
+    (mapcar 'yh-fef-parse-line splitted)))
+
 (defun yh-fef-parse-blank-lines (lines)
   "Parse LINES.  Consume leading blank lines."
   (let ((ret ()))

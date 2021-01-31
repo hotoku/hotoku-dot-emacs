@@ -85,7 +85,17 @@
     (should (equal (yh-fef-size line) 3))
     (should (equal (yh-fef-line-value line) "abc"))))
 
-
+(ert-deftest yh-fef-test-parse-program ()
+  "Test of parsing program."
+  (let* ((program (mapconcat 'identity '(";;; comment"
+                                         ";; comment2"
+                                         ""
+                                         ""
+                                         "abc") "\n"))
+         (lines (yh-fef-parse-program program)))
+    (should (equal (seq-length lines) 5))
+    (should (equal (mapcar 'yh-fef-line-type lines)
+                   '(section-header subsection-header blank blank code)))))
 
 
 
