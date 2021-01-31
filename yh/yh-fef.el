@@ -8,6 +8,29 @@
 (require 'yh)
 
 
+
+;;; list utils
+(defun yh-fef-mapcar* (f &rest xs)
+  "Apply F on each value of XS."
+  (when (not (memq nil xs))
+    (cons (apply f (mapcar 'car xs))
+          (apply 'yh-fef-mapcar* f (mapcar 'cdr xs)))))
+
+(defun yh-fef-take-while (ls pred)
+  "Take leading elements from LS that satisfies PRED."
+  (and ls
+       (if (funcall pred (car ls))
+           (cons (car ls) (yh-fef-take-while (cdr ls) pred))
+         nil)))
+
+(defun yh-fef-drop-while (ls pred)
+  "Drop leading elements from LS that satisfies PRED."
+  (and ls
+       (if (funcall pred (car ls))
+           (yh-fef-drop-while (cdr ls) pred)
+         ls)))
+
+
 ;;; constructors
 (defun yh-fef-line (type s)
   "Construct line of type TYPE and value S."
@@ -78,9 +101,10 @@
     (while (and lines
                 (eq (yh-fef-line-type (car lines)) 'blank))
       (setq ret (cons (car lines) ret)
-            lines (cdr lines)))))
+            lines (cdr lines)))
+    (cons (seq-reverse ret) lines)))
 
-(defun yh-fef-code-block (lines)
+(defun yh-fef-parse-code-block (lines)
   "Parse LINES.  Consume leading code lines."
   (let ((ret ()))
     (while (and lines
@@ -92,8 +116,9 @@
 (defun yh-fef-parse-lines (lines)
   "Parse multiple LINES."
   (let* ((ret ())
-         (block-lines (yh-fef-blank-lines lines))
-         (lines (cdr block-lines)))
+         (block-lines ()))
+    (setq block-lines (yh-fef-parse-blank-lines lines)
+          ret (cons (car block-lines) ret))
     (while lines
       (setq block-lines (yh-fef-code-block lines)
             ret (cons (car block-lines) ret)

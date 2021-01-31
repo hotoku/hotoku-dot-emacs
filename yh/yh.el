@@ -54,26 +54,6 @@
     (split-window-horizontally))
   (other-window 1))
 
-;;; list utils
-(defun yh/mapcar (f &rest xs)
-  "Apply F on each value of XS."
-  (when (not (memq nil xs))
-    (cons (apply f (mapcar 'car xs))
-          (apply 'yh-mapcar f (mapcar 'cdr xs)))))
-
-(defun yh/take-while (ls pred)
-  "Take leading elements from LS that satisfies PRED."
-  (and ls
-       (if (funcall pred (car ls))
-           (cons (car ls) (yh/take-while (cdr ls) pred))
-         (yh/take-while (cdr ls) pred))))
-
-(defun yh/drop-while (ls pred)
-  "Drop leading elements from LS that satisfies PRED."
-  (and ls
-       (if (funcall pred (car ls))
-           (yh/drop-while (cdr ls) pred)
-         ls)))
 
 (provide 'yh)
 ;;; yh.el ends here
