@@ -97,6 +97,29 @@
     (should (equal (mapcar 'yh-fef-line-type lines)
                    '(section-header subsection-header blank blank code)))))
 
+(ert-deftest yh-fef-read-block-blank ()
+  "Test of leading blank lines"
+  (let* ((lines (list (yh-fef-parse-line "")
+                      (yh-fef-parse-line "")
+                      (yh-fef-parse-line "abc")))
+         (block-rest (yh-fef-read-block lines))
+         (block (car block-rest))
+         (rest (cdr block-rest)))
+    (should (equal (yh-fef-length block) 2))
+    (should (equal (mapcar 'yh-fef-line-type (yh-fef-lines block)) '(blank blank)))))
+
+(ert-deftest yh-fef-read-block-code ()
+  "Test of leading blank lines"
+  (let* ((lines (list (yh-fef-parse-line ";;; abc")
+                      (yh-fef-parse-line ";; def")
+                      (yh-fef-parse-line "ghi")
+                      (yh-fef-parse-line "")))
+         (block-rest (yh-fef-read-block lines))
+         (block (car block-rest))
+         (rest (cdr block-rest)))
+    (should (equal (yh-fef-length block) 3))
+    (should (equal (mapcar 'yh-fef-line-type (yh-fef-lines block))
+                   '(section-header subsection-header code)))))
 
 
 

@@ -60,6 +60,10 @@
   (and (listp obj)
        (eq (car obj) 'block)))
 
+(defun yh-fef-line-blank-p (line)
+  "Is LINE blank ?"
+  (eq (yh-fef-line-type line) 'blank))
+
 ;;; accessors
 (defun yh-fef-label (obj)
   "Get label of OBJ."
@@ -106,6 +110,19 @@
   "Parse program code represented by STRING."
   (let ((splitted (split-string string "\n")))
     (mapcar 'yh-fef-parse-line splitted)))
+
+
+(defun yh-fef-read-block (lines)
+  "Read leading blanks or codes from LINES."
+  (when lines
+    (let* ((l1 (car lines))
+           (t1 (yh-fef-line-type l1))
+           (pred (if (eq t1 'blank) 'yh-fef-line-blank-p
+                   #'(lambda (x) (not (yh-fef-line-blank-p x)))))
+           (block (yh-fef-block (yh-fef-take-while lines pred)))
+           (rest (yh-fef-drop-while lines pred)))
+      (cons block rest))))
+
 
 (defun yh-fef-parse-blank-lines (lines)
   "Parse LINES.  Consume leading blank lines."
