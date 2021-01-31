@@ -34,11 +34,10 @@
 ;;; constructors
 (defun yh-fef-line (type s)
   "Construct line of type TYPE and value S."
-  (let ((value (if (eq type 'blank) "" s))
-        (length (seq-length s)))
+  (let ((length (seq-length s)))
     `(line
       (:type . ,type)
-      (:value . ,value)
+      (:value . ,s)
       (:size . ,length)
       (:length . ,length))))
 
@@ -80,7 +79,11 @@
 
 (defun yh-fef-line-type (line)
   "Get type of LINE."
-  (alist-get ':type (yh-fef-dat line)))
+  (alist-get ':type (yh-fef-data line)))
+
+(defun yh-fef-line-value (line)
+  "Get value of LINE."
+  (alist-get ':value (yh-fef-data line)))
 
 
 
