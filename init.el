@@ -142,6 +142,12 @@
   :mode
   (("\\.ya?ml\\'" . yaml-mode)))
 
+(use-package dired-x
+  :ensure nil
+  :commands dired-jump
+  :bind
+  (("C-x C-j" . dired-jump)))
+
 
 ;;; configurations for programming languages
 ;; elisp
@@ -165,7 +171,6 @@
       ns-alternate-modifier (quote super))
 
 ;; global key
-(global-set-key (kbd "C-x C-j") 'dired-jump)
 (global-set-key (kbd "M-u") 'revert-buffer)
 (global-set-key (kbd "C-M-/") 'comment-region)
 (global-set-key (kbd "C-M--") 'uncomment-region)
