@@ -235,12 +235,15 @@ The new position is calculated from POS."
 
 (defun yh-fef-format-buffer ()
   "Format buffer."
+  (interactive)
   (let* ((string-pos (yh-fef-format-from-string
                       (buffer-substring-no-properties (point-min) (point-max))
                       (point)))
          (string (car string-pos))
          (pos (cdr string-pos)))
-    ()))
+    (erase-buffer)
+    (insert string)
+    (goto-char pos)))
 
 (provide 'yh-fef)
 ;;; yh-fef.el ends here
