@@ -20,6 +20,7 @@
 (add-to-list 'load-path yh/additional-loadpath)
 (require 'yh)
 (require 'yh-fef)
+(require 'yh-sh)
 
 ;; refresh if necessary
 (yh/package-refresh-contents)
@@ -147,6 +148,13 @@
   :commands dired-jump
   :bind
   (("C-x C-j" . dired-jump)))
+
+(use-package yh-sh
+  :ensure nil
+  :commands yh-sh-insert-var
+  :init
+  (add-hook 'sh-mode-hook
+            #'(lambda () (local-set-key (kbd "C-c C-j") 'yh-sh-insert-var))))
 
 
 ;;; configurations for programming languages
