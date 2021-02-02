@@ -10,7 +10,6 @@
 (require 'ert)
 
 
-
 ;;; list utils
 (ert-deftest yh-fef-test-mapcar* ()
   (should (equal (yh-fef-mapcar* 'cons '(1 2) '(3 4))
@@ -56,6 +55,7 @@
 (ert-deftest yh-fef-test-blank-lines ()
   "Should make n blank lines"
   (should (equal (yh-fef-length (yh-fef-blank-lines 2)) 2)))
+
 
 ;;; parsers
 (ert-deftest yh-fef-test-parse-line-blank ()
@@ -164,100 +164,43 @@
     (should (equal (seq-length converted) 5))
     (should (equal (mapcar 'yh-fef-length converted) '(2 2 2 1 1)))))
 
-
-;; (ert-deftest yh-fef-test-blank-lines ()
-;;   (let* ((parsed (list (yh-fef-line 'blank "")
-;;                        (yh-fef-line 'blank "")
-;;                        (yh-fef-line 'code "abc")))
-;;          (ret (yh-fef-blank-lines parsed))
-;;          (blank (car ret))
-;;          (rest (cdr ret)))
-;;     (should (equal blank (yh-fef-line 'blank "")))
-;;     (should (equal (car rest) (yh-fef-line 'code "abc")))))
-
-;; (ert-deftest yh-fef-test-code-block ()
-;;   (let* ((parsed (list (yh-fef-line 'code "abc")
-;;                        (yh-fef-line 'code "def")
-;;                        (yh-fef-line 'blank "")
-;;                        (yh-fef-line 'code "ghi")))
-;;          (ret (yh-fef-code-block parsed))
-;;          (block (car ret))
-;;          (rest (cdr ret)))
-;;     (should (equal (seq-length block) 2))
-;;     (should (equal (seq-elt block 0) (yh-fef-line 'code "abc")))
-;;     (should (equal (seq-elt block 1) (yh-fef-line 'code "def")))
-;;     (should (equal (seq-length rest) 2))))
-
-;; (ert-deftest yh-fef-test-parse-lines ()
-;;   (let* ((lines (list (yh-fef-line 'blank "")
-;;                       (yh-fef-line 'code "abc")
-;;                       (yh-fef-line 'code "def")
-;;                       (yh-fef-line 'blank "")
-;;                       (yh-fef-line 'code "ghi")
-;;                       (yh-fef-line 'code "jkl")
-;;                       (yh-fef-line 'blank "")
-;;                       (yh-fef-line 'blank "")))
-;;          (blocks (yh-fef-parse-lines lines)))
-;;     (should (equal (seq-length blocks) 2))
-;;     (let ((b0 (seq-elt blocks 0))
-;;           (b1 (seq-elt blocks 1)))
-;;       (should (equal (seq-length b0) 2))
-;;       (should (equal (seq-length b1) 2))
-;;       (should (equal (yh-fef-line-type (seq-elt b0 0)) 'code))
-;;       (should (equal (yh-fef-line-value (seq-elt b0 0)) "abc"))
-;;       (should (equal (yh-fef-line-type (seq-elt b1 0)) 'code))
-;;       (should (equal (yh-fef-line-value (seq-elt b1 0)) "ghi")))))
-
-;; (ert-deftest yh-fef-test-parse-lines2 ()
-;;   (let* ((lines (list (yh-fef-line 'code "abc")
-;;                       (yh-fef-line 'code "def")
-;;                       (yh-fef-line 'blank "")
-;;                       (yh-fef-line 'code "ghi")
-;;                       (yh-fef-line 'code "jkl")))
-;;          (blocks (yh-fef-parse-lines lines)))
-;;     (should (equal (seq-length blocks) 2))
-;;     (let ((b0 (seq-elt blocks 0))
-;;           (b1 (seq-elt blocks 1)))
-;;       (should (equal (seq-length b0) 2))
-;;       (should (equal (seq-length b1) 2))
-;;       (should (equal (yh-fef-line-type (seq-elt b0 0)) 'code))
-;;       (should (equal (yh-fef-line-value (seq-elt b0 0)) "abc"))
-;;       (should (equal (yh-fef-line-type (seq-elt b1 0)) 'code))
-;;       (should (equal (yh-fef-line-value (seq-elt b1 0)) "ghi")))))
-
-;; (ert-deftest yh-fef-test-parse ()
-;;   (let* ((program "abc
-;; def
-
-;; ghi
-;; jkl")
-;;          (blocks (yh-fef-parse program)))
-;;     (should (equal (seq-length blocks) 2))
-;;     (let ((b0 (seq-elt blocks 0))
-;;           (b1 (seq-elt blocks 1)))
-;;       (should (equal (seq-length b0) 2))
-;;       (should (equal (seq-length b1) 2))
-;;       (should (equal (yh-fef-line-type (seq-elt b0 0)) 'code))
-;;       (should (equal (yh-fef-line-value (seq-elt b0 0)) "abc"))
-;;       (should (equal (yh-fef-line-type (seq-elt b1 0)) 'code))
-;;       (should (equal (yh-fef-line-value (seq-elt b1 0)) "ghi")))))
-
-;; (ert-deftest yh-fef-test-block-string ()
-;;   (let* ((block (list (yh-fef-line 'code "abc")
-;;                       (yh-fef-line 'code "def")))
-;;          (s (yh-fef-block-string block)))
-;;     (should (equal s "abc\ndef"))))
-
-;; (ert-deftest yh-fef-test-format-blocks ()
-;;   (let* ((blocks (list (list (yh-fef-line 'section-header ";;; abc")
-;;                              (yh-fef-line 'code "def"))
-;;                        (list (yh-fef-line 'section-header ";;; ghi")
-;;                              (yh-fef-line 'code "jkl")))))
-;;     (should (equal (yh-fef-format-blocks blocks) ";;; abc\ndef\n\n\n;;; ghi\njkl"))))
-
-;; (ert-deftest yh-fef-test-format ()
-;;   (should (equal (yh-fef-format "\n\n;;; abc\ndef\n\n\n;;; ghi\njkl\n\n\n\nmno")
-;;                  ";;; abc\ndef\n\n\n;;; ghi\njkl\n\nmno")))
+(ert-deftest yh-fef-test-format-blocks ()
+  (let* ((lines (list (yh-fef-parse-line "abc")
+                      (yh-fef-parse-line "def")
+                      (yh-fef-parse-line "")
+                      (yh-fef-parse-line "")
+                      (yh-fef-parse-line "")
+                      (yh-fef-parse-line ";;; ghi")
+                      (yh-fef-parse-line "jkl")
+                      (yh-fef-parse-line "")
+                      (yh-fef-parse-line "")
+                      (yh-fef-parse-line "")
+                      (yh-fef-parse-line "")
+                      (yh-fef-parse-line "mno")))
+         (blocks (yh-fef-split-to-blocks lines))
+         (ret1 (yh-fef-format-blocks blocks 1))
+         (ret9 (yh-fef-format-blocks blocks 9))
+         (ret11 (yh-fef-format-blocks blocks 11))
+         (ret12 (yh-fef-format-blocks blocks 12))
+         (ret28 (yh-fef-format-blocks blocks 28))
+         (exp (mapconcat 'identity '("abc"
+                                     "def"
+                                     ""
+                                     ""
+                                     ";;; ghi"
+                                     "jkl"
+                                     ""
+                                     "mno") "\n")))
+    (should (equal (car ret1) exp))
+    (should (equal (cdr ret1) 1))
+    (should (equal (car ret9) exp))
+    (should (equal (cdr ret9) 9))
+    (should (equal (car ret11) exp))
+    (should (equal (cdr ret11) 10))
+    (should (equal (car ret12) exp))
+    (should (equal (cdr ret12) 11))
+    (should (equal (car ret28) exp))
+    (should (equal (cdr ret28) 24))))
 
 ;; (provide 'yh-fef-test)
 ;;; yh-fef-test.el ends here
