@@ -156,8 +156,7 @@
  '(lambda ()
     (add-hook 'before-save-hook 'yh/indent-buffer nil t)
     (add-hook 'before-save-hook 'delete-trailing-whitespace)
-    ;;(add-hook 'before-save-hook 'yh-fef-format-buffer)
-    ))
+    (add-hook 'before-save-hook 'yh-fef-format-buffer)))
 
 
 ;;; misc
