@@ -8,7 +8,6 @@
 (require 'yh)
 
 
-
 ;;; list utils
 (defun yh-fef-mapcar* (f &rest xs)
   "Apply F on each value of XS."
@@ -126,6 +125,7 @@
   "Return N th line of BLOCK."
   (seq-elt (yh-fef-lines block) n))
 
+
 ;;; transformers
 (defun yh-fef-block-to-string (block)
   "Concat lines in BLOCK with \\n."
@@ -135,6 +135,7 @@
 (defun yh-fef-blocks-to-string (blocks)
   "Convert BLOCKS to string."
   (mapconcat 'yh-fef-block-to-string blocks "\n"))
+
 
 ;;; parsers
 (defun yh-fef-parse-line (string)
@@ -151,7 +152,6 @@
   "Parse program code represented by STRING."
   (let ((splitted (split-string string "\n")))
     (mapcar 'yh-fef-parse-line splitted)))
-
 
 (defun yh-fef-read-block (lines)
   "Read leading blanks or codes from LINES."
@@ -226,11 +226,6 @@ The new position is calculated from POS."
          (pos3 (min pos2 (seq-elt sizes1 index)))
          (new-pos (+ pos3 (seq-elt sizes3 index)))
          (string (yh-fef-blocks-to-string transformed)))
-    (message "pos: %s" pos)
-    (message "index-pos: %s" index-pos)
-    (message "blocks: %s" blocks)
-    (message "transformed: %s" transformed)
-    (message "new-pos: %s" new-pos)
     (cons string new-pos)))
 
 (defun yh-fef-format-from-string (string pos)
