@@ -1,11 +1,13 @@
 ;;; yh.el --- personal utility functions
 
+
 ;;; Commentary:
+
 
 ;;; Code:
 
-
 (require 'package)
+
 
 ;;; font size
 (defun yh/use-large-font ()
@@ -24,10 +26,12 @@
     (make-frame)
     (delete-frame f)))
 
+
 ;;; indent buffer
 (defun yh/indent-buffer ()
   "Indent whole buffer."
   (indent-region (point-min) (point-max)))
+
 
 ;;; package-refresh-contents
 (defun yh/package-refresh-contents ()
@@ -46,6 +50,7 @@
         (insert today)
         (write-region (point-min) (point-max) path)))))
 
+
 ;;; other-window
 (defun yh/other-window-or-split ()
   "Move to another window.  If the frame has only 1 window, split first."
@@ -54,6 +59,15 @@
     (split-window-horizontally))
   (other-window 1))
 
+
+;;; dired
+(defun yh/dired-do-open (&optional arg)
+  "In dired, invoke /usr/bin/open on the marked files.
+If no files are marked or a specific numeric prefix arg is given,
+the next ARG files are used.  Just \\[universal-argument] means the current file."
+  (interactive "P")
+  (let ((files (dired-get-marked-files nil arg)))
+    (apply 'start-process "open_ps" nil "open" files)))
 
 (provide 'yh)
 ;;; yh.el ends here

@@ -147,6 +147,11 @@
   :bind
   (("C-x C-j" . dired-jump)))
 
+(use-package dired
+  :ensure nil
+  :config
+  (bind-key "z" 'yh/dired-do-open dired-mode-map))
+
 (use-package yh-sh
   :ensure nil
   :commands yh-sh-insert-var
