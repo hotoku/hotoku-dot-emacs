@@ -152,6 +152,10 @@
   :config
   (bind-key "z" 'yh/dired-do-open dired-mode-map))
 
+(use-package haskell-mode
+  :mode
+  (("\\.hs\\'" . haskell-mode)))
+
 (use-package yh-sh
   :ensure nil
   :commands yh-sh-insert-var
@@ -237,7 +241,7 @@ This is inconvinient when opening file at the beginning of Emacs session."
  '(custom-safe-themes
    '("246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
  '(package-selected-packages
-   '(yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
+   '(haskell-mode yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
