@@ -5,7 +5,12 @@
 
 
 ;;; Code:
-(defun yh/blog-publish ()
+(defcustom yh-blog-posts-dir (expand-file-name "~/projects/blog/_posts")
+  "Absolute path of the `_posts' directory for blos."
+  :group 'yh-blog
+  :type '(directory :tag "Single directory"))
+
+(defun yh-blog-publish ()
   "Commit change and push to remote."
   (interactive)
   (message "pushing")
@@ -20,7 +25,7 @@
         (message "pushed")
       (message "push failed"))))
 
-(defun yh/blog-new (title url)
+(defun yh-blog-new (title url)
   "Open new blog post of TITLE and URL."
   (interactive "sblog title: \nsurl: ")
   (let* ((y (format-time-string "%Y"))
@@ -28,7 +33,7 @@
          (d (format-time-string "%d"))
          (url2 (replace-regexp-in-string " " "-" url))
          (fn (format "%s-%s-%s-%s.md" y m d url2)))
-    (find-file (expand-file-name fn yh/blog-posts-dir))
+    (find-file (expand-file-name fn yh-blog-posts-dir))
     (insert (format "---
 layout: post
 title: %s
@@ -39,7 +44,9 @@ tags:
     (goto-char (point-min))
     (search-forward "tags:")
     (insert " ")))
-(defun yh/blog-to-other (dir-nm)
+
+(defun yh-blog-to-other (dir-nm)
+  "Move current post to directory DIR-NM."
   (let*  ((path (buffer-file-name))
           (ls (split-string path "/"))
           (fn (car (last ls)))
@@ -49,13 +56,19 @@ tags:
     (write-file new-fn)
     (when (file-exists-p path)
       (delete-file path))))
-(defun yh/blog-to-draft ()
+
+(defun yh-blog-to-draft ()
+  "Move posts as draft."
   (interactive)
-  (yh/blog-to-other "_drafts"))
-(defun yh/blog-to-post ()
+  (yh-blog-to-other "_drafts"))
+
+(defun yh-blog-to-post ()
+  "Move post as post."
   (interactive)
-  (yh/blog-to-other "_posts"))
-(defun yh/blog-preview ()
+  (yh-blog-to-other "_posts"))
+
+(defun yh-blog-preview ()
+  "Preview a post."
   (interactive)
   (let* ((fpath (buffer-file-name))
          (fn (file-name-nondirectory fpath))

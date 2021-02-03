@@ -19,8 +19,6 @@
 (defconst yh/additional-loadpath (expand-file-name "yh" user-emacs-directory))
 (add-to-list 'load-path yh/additional-loadpath)
 (require 'yh)
-(require 'yh-fef)
-(require 'yh-sh)
 
 ;; refresh if necessary
 (yh/package-refresh-contents)
@@ -155,6 +153,13 @@
   :init
   (add-hook 'sh-mode-hook
             #'(lambda () (local-set-key (kbd "C-c C-j") 'yh-sh-insert-var))))
+
+(use-package yh-fef
+  :ensure nil)
+
+(use-package yh-blog
+  :ensure nil
+  :commands yh-blog-new yh-blog-preview)
 
 
 ;;; configurations for programming languages
