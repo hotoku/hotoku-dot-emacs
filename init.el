@@ -107,7 +107,6 @@
   :mode
   (("\\.md\\'" . markdown-mode))
   :config
-  ;; (add-hook 'markdown-mode-hook (lambda () (setq-local yh/indent-before-save nil)))
   (setq
    ;; commonmarker command can be installed by "gem install -V commonmarker -n <destination directory>"
    markdown-command "commonmarker --extension=autolink --extension=strikethrough --extension=table --extension=tagfilter --extension=tasklist"
@@ -120,7 +119,10 @@
                                               "<script>hljs.initHighlightingOnLoad();</script>")
                                             "\n")
    markdown-xhtml-body-preamble "<div class=\"markdown-body\">"
-   markdown-xhtml-body-epilogue "</div>"))
+   markdown-xhtml-body-epilogue "</div>")
+  (bind-keys :map markdown-mode-map
+             ("C-c d" . yh/insert-date)
+             ("C-c t" . yh/insert-time)))
 
 (use-package git-ps1-mode
   :config

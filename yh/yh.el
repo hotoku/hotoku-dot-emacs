@@ -69,5 +69,17 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (let ((files (dired-get-marked-files nil arg)))
     (apply 'start-process "open_ps" nil "open" files)))
 
+
+;;; insert date, time
+(defun yh/insert-date ()
+  "Inisert date."
+  (interactive)
+  (insert (format-time-string "[%Y-%m-%d]" (current-time))))
+
+(defun yh/insert-time ()
+  "Inisert time."
+  (interactive)
+  (insert (format-time-string "[%Y-%m-%d %H:%M:%S]" (current-time))))
+
 (provide 'yh)
 ;;; yh.el ends here
