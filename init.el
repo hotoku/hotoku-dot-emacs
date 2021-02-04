@@ -170,15 +170,15 @@
   :ensure nil
   :commands yh-blog-new yh-blog-preview)
 
-
-;;; configurations for programming languages
-;; elisp
-(add-hook
- 'emacs-lisp-mode-hook
- '(lambda ()
-    (add-hook 'before-save-hook 'yh/indent-buffer nil t)
-    (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
-    (add-hook 'before-save-hook 'yh-fef-format-buffer nil t)))
+(use-package elisp-mode
+  :ensure nil
+  :config
+  (add-hook
+   'emacs-lisp-mode-hook
+   '(lambda ()
+      (add-hook 'before-save-hook 'yh/indent-buffer nil t)
+      (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
+      (add-hook 'before-save-hook 'yh-fef-format-buffer nil t))))
 
 
 ;;; misc
