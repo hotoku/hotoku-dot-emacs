@@ -81,5 +81,12 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (interactive)
   (insert (format-time-string "[%Y-%m-%d %H:%M:%S]" (current-time))))
 
+
+;;; hideshow
+(defun yh/ret-hs (&optional arg inter)
+  (interactive)
+  (if (ignore-errors (hs-already-hidden-p)) (hs-show-block)
+    (newline arg inter)))
+
 (provide 'yh)
 ;;; yh.el ends here

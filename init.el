@@ -182,6 +182,12 @@
       (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
       (add-hook 'before-save-hook 'yh-fef-format-buffer nil t))))
 
+(use-package hideshow
+  :init
+  (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+  (add-hook 'emacs-lisp-mode-hook 'hs-hide-all 100)
+  (add-hook 'python-mode-hook 'hs-minor-mode))
+
 
 ;;; misc
 ;; make backup files in a specific directory
