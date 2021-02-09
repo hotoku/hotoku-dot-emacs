@@ -70,13 +70,13 @@
 
 (use-package smartparens
   :init
+  (smartparens-global-mode)
+  (show-smartparens-global-mode t)
   (add-hook 'emacs-lisp-mode-hook 'turn-on-smartparens-strict-mode)
   (add-hook 'python-mode-hook 'turn-on-smartparens-strict-mode)
+  (add-hook 'haskell-mode-hook 'turn-on-smartparens-strict-mode)
   :bind (("C-M-f" . sp-forward-slurp-sexp)
-         ("C-M-g" . sp-forward-barf-sexp))
-  :config
-  (message "usepackage smartparens")
-  (show-smartparens-global-mode t))
+         ("C-M-g" . sp-forward-barf-sexp)))
 
 (use-package smartparens-config :ensure nil)
 
