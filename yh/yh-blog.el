@@ -82,5 +82,15 @@ tags:
          (buf (get-buffer-create "*yh/publish-blog*")))
     (call-process "open" nil buf t url)))
 
+(defun yh-blog-insert-code (lang)
+  "Insert code block whose syntax is LANG."
+  (interactive "sblog title: ")
+  (insert "```")
+  (insert lang)
+  (insert "\n")
+  (insert "```")
+  (beginning-of-line)
+  (open-line 1))
+
 (provide 'yh-blog)
 ;;; yh-blog.el ends here
