@@ -7,6 +7,7 @@
 ;;; Code:
 
 (require 'package)
+(require 'dired)
 
 
 ;;; font size
@@ -83,10 +84,18 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
 
 ;;; hideshow
-(defun yh/ret-hs (&optional arg inter)
+(defun yh/ret-hs ()
+  "Open current block."
   (interactive)
   (if (ignore-errors (hs-already-hidden-p)) (hs-show-block)
-    (newline arg inter)))
+    (newline)))
+
+
+;;; automatically add x permission to file
+(defun yh/make-executable ()
+  "Make file executable if it begins with a shebang."
+  (when (string-equal (buffer-substring 1 3) "#!")
+    (set-file-modes (buffer-file-name) #o755)))
 
 (provide 'yh)
 ;;; yh.el ends here
