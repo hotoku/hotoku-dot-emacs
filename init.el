@@ -276,11 +276,11 @@
 (server-start)
 
 ;; aes
-(prog
- (tool-bar-mode -1)
- (scroll-bar-mode -1)
- (column-number-mode)
- (blink-cursor-mode -1))
+(progn
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (column-number-mode)
+  (blink-cursor-mode -1))
 
 ;; language
 (setenv "LANG" "ja_JP.UTF-8")
