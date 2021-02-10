@@ -160,6 +160,13 @@
   :mode
   (("\\.hs\\'" . haskell-mode)))
 
+(use-package sh-script
+  :mode
+  (("\\.sh\\'" . shell-script-mode))
+  :config
+  (add-hook 'sh-mode-hook
+            #'(lambda () (add-hook 'after-save-hook 'yh/make-executable nil t))))
+
 (use-package yh-sh
   :ensure nil
   :commands yh-sh-insert-var
@@ -195,7 +202,7 @@
   (add-hook
    'python-mode-hook
    #'(lambda ()
-       (add-hook 'after-save-hook 'yh/make-executable))))
+       (add-hook 'after-save-hook 'yh/make-executable nil t))))
 
 (use-package hideshow
   :init
