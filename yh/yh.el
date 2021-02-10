@@ -8,6 +8,7 @@
 
 (require 'package)
 (require 'dired)
+(require 'hideshow)
 
 
 ;;; font size
@@ -96,6 +97,24 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   "Make file executable if it begins with a shebang."
   (when (string-equal (buffer-substring 1 3) "#!")
     (set-file-modes (buffer-file-name) #o755)))
+
+
+;;; insert script
+(defun yatex-insert-script (prefix script)
+  "Insert SCRIPT with PREFIX."
+  (let ((len (length script)))
+    (cond ((= 1 len) (insert (concat prefix script)))
+          ((< 1 len) (insert (concat prefix "{" script "}"))))))
+
+(defun yatex-insert-subscript (script)
+  "Insert SCRIPT."
+  (interactive "sscript: ")
+  (yatex-insert-script "_" script))
+
+(defun yatex-insert-superscript (script)
+  "Insert SCRIPT."
+  (interactive "sscript: ")
+  (yatex-insert-script "^" script))
 
 (provide 'yh)
 ;;; yh.el ends here

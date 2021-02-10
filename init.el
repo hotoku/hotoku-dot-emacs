@@ -189,7 +189,9 @@
    #'(lambda ()
        (add-hook 'before-save-hook 'yh/indent-buffer nil t)
        (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
-       (add-hook 'before-save-hook 'yh-fef-format-buffer nil t))))
+       (add-hook 'before-save-hook 'yh-fef-format-buffer nil t)
+       (local-set-key (kbd "RET") 'yh/ret-hs)
+       (add-hook 'after-save-hook 'hs-hide-all nil t))))
 
 (use-package elpy
   :defer t
@@ -211,6 +213,7 @@
   (add-hook 'python-mode-hook 'hs-minor-mode))
 
 (use-package yatex
+
   ;; cf. https://zenn.dev/maswag/books/latex-on-emacs/viewer/yatex
   :commands (yatex-mode)
   :mode (("\\.tex$" . yatex-mode)
@@ -227,11 +230,18 @@
   (setq YaTeX-latex-message-code 'utf-8)
   (setq YaTeX-use-LaTeX2e t)
   (setq YaTeX-use-AMS-LaTeX t)
-  (setq tex-command "/Library/TeX/texbin/latexmk -pdf -pvc -view=none")
+  (setq tex-command "mytex")
   (setq tex-pdfview-command "/usr/bin/open -a Skim")
   (auto-fill-mode 0)
   ;; company-tabnineによる補完。companyについては後述
-  (set (make-local-variable 'company-backends) '(company-tabnine)))
+  (set (make-local-variable 'company-backends) '(company-tabnine))
+  ;; keys
+  (add-hook 'yatex-mode-hook
+            '(lambda ()
+               (local-set-key (kbd "C-c C-f") 'yh/insert-subscript)
+               (local-set-key (kbd "C-c C-g") 'yh/insert-superscript))))
+
+(use-package biblio)
 
 
 ;;; misc
@@ -245,11 +255,12 @@
       ns-alternate-modifier (quote super))
 
 ;; global key
-(global-set-key (kbd "M-u") 'revert-buffer)
-(global-set-key (kbd "C-M-/") 'comment-region)
-(global-set-key (kbd "C-M--") 'uncomment-region)
-(global-set-key [?¥] [?\\])
-(global-set-key (kbd "C-.") 'yh/other-window-or-split)
+(progn
+  (global-set-key (kbd "M-u") 'revert-buffer)
+  (global-set-key (kbd "C-M-/") 'comment-region)
+  (global-set-key (kbd "C-M--") 'uncomment-region)
+  (global-set-key [?¥] [?\\])
+  (global-set-key (kbd "C-.") 'yh/other-window-or-split))
 
 ;; tab
 (setq-default tab-width 2
@@ -265,10 +276,11 @@
 (server-start)
 
 ;; aes
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(column-number-mode)
-(blink-cursor-mode -1)
+(prog
+ (tool-bar-mode -1)
+ (scroll-bar-mode -1)
+ (column-number-mode)
+ (blink-cursor-mode -1))
 
 ;; language
 (setenv "LANG" "ja_JP.UTF-8")
@@ -294,7 +306,7 @@ This is inconvinient when opening file at the beginning of Emacs session."
  '(custom-safe-themes
    '("246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
  '(package-selected-packages
-   '(elpy haskell-mode yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
+   '(biblio elpy haskell-mode yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
