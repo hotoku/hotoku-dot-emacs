@@ -203,6 +203,29 @@
   (add-hook 'emacs-lisp-mode-hook 'hs-hide-all 100)
   (add-hook 'python-mode-hook 'hs-minor-mode))
 
+(use-package yatex
+  ;; cf. https://zenn.dev/maswag/books/latex-on-emacs/viewer/yatex
+  :commands (yatex-mode)
+  :mode (("\\.tex$" . yatex-mode)
+         ("\\.ltx$" . yatex-mode)
+         ("\\.cls$" . yatex-mode)
+         ("\\.sty$" . yatex-mode)
+         ("\\.clo$" . yatex-mode)
+         ("\\.bbl$" . yatex-mode))
+  :init
+  (setq YaTeX-inhibit-prefix-letter t)
+  ;; :config キーワードはライブラリをロードした後の設定などを記述します。
+  :config
+  (setq YaTeX-kanji-code nil)
+  (setq YaTeX-latex-message-code 'utf-8)
+  (setq YaTeX-use-LaTeX2e t)
+  (setq YaTeX-use-AMS-LaTeX t)
+  (setq tex-command "/Library/TeX/texbin/latexmk -pdf -pvc -view=none")
+  (setq tex-pdfview-command "/usr/bin/open -a Skim")
+  (auto-fill-mode 0)
+  ;; company-tabnineによる補完。companyについては後述
+  (set (make-local-variable 'company-backends) '(company-tabnine)))
+
 
 ;;; misc
 ;; make backup files in a specific directory
