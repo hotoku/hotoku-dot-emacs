@@ -84,7 +84,7 @@ tags:
 
 (defun yh-blog-insert-code (lang)
   "Insert code block whose syntax is LANG."
-  (interactive "sblog title: ")
+  (interactive "slanguage: ")
   (insert "```")
   (insert lang)
   (insert "\n")
