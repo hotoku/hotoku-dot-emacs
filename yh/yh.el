@@ -100,21 +100,21 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
 
 
 ;;; insert script
-(defun yatex-insert-script (prefix script)
+(defun yh/insert-script (prefix script)
   "Insert SCRIPT with PREFIX."
   (let ((len (length script)))
     (cond ((= 1 len) (insert (concat prefix script)))
           ((< 1 len) (insert (concat prefix "{" script "}"))))))
 
-(defun yatex-insert-subscript (script)
+(defun yh/insert-subscript (script)
   "Insert SCRIPT."
   (interactive "sscript: ")
-  (yatex-insert-script "_" script))
+  (yh/insert-script "_" script))
 
-(defun yatex-insert-superscript (script)
+(defun yh/insert-superscript (script)
   "Insert SCRIPT."
   (interactive "sscript: ")
-  (yatex-insert-script "^" script))
+  (yh/insert-script "^" script))
 
 (provide 'yh)
 ;;; yh.el ends here

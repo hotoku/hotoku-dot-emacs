@@ -174,6 +174,13 @@
   (add-hook 'sh-mode-hook
             #'(lambda () (local-set-key (kbd "C-c C-j") 'yh-sh-insert-var))))
 
+(use-package yh-make
+  :ensure nil
+  :commands yh-make-insert-var
+  :init
+  (add-hook 'makefile-bsdmake-mode-hook
+            #'(lambda () (local-set-key (kbd "C-c C-j") 'yh-make-insert-var))))
+
 (use-package yh-fef
   :ensure nil)
 
@@ -191,7 +198,8 @@
        (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
        (add-hook 'before-save-hook 'yh-fef-format-buffer nil t)
        (local-set-key (kbd "RET") 'yh/ret-hs)
-       (add-hook 'after-save-hook 'hs-hide-all nil t))))
+       (add-hook 'after-save-hook 'hs-hide-all 99 t)
+       (add-hook 'after-save-hook 'hs-show-block 100 t))))
 
 (use-package elpy
   :defer t
@@ -242,6 +250,30 @@
                (local-set-key (kbd "C-c C-g") 'yh/insert-superscript))))
 
 (use-package biblio)
+
+(use-package stan-mode
+  :mode ("\\.stan\\'" . stan-mode)
+  :hook (stan-mode . stan-mode-setup)
+  :config
+  (setq stan-indentation-offset 2))
+
+(use-package company-stan
+  :hook (stan-mode . company-stan-setup)
+  :config
+  (setq company-stan-fuzzy nil))
+
+(use-package eldoc-stan
+  :hook (stan-mode . eldoc-stan-setup))
+
+(use-package flycheck-stan
+  :hook ((stan-mode . flycheck-stan-stanc2-setup)
+         (stan-mode . flycheck-stan-stanc3-setup))
+  :config
+  (setq flycheck-stanc-executable nil)
+  (setq flycheck-stanc3-executable nil))
+
+(use-package stan-snippets
+  :hook (stan-mode . stan-snippets-initialize))
 
 
 ;;; misc
