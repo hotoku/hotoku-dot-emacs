@@ -196,7 +196,7 @@
 
 (use-package yh-blog
   :ensure nil
-  :commands yh-blog-new yh-blog-preview)
+  :commands yh-blog-new yh-blog-preview yh-blog-insert-code)
 
 (use-package elisp-mode
   :ensure nil
