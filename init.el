@@ -222,6 +222,11 @@
                        (hs-hide-all)
                        (hs-show-block)))))))
 
+(use-package cc-mode
+  :config
+  (add-hook 'c-mode-common-hook
+            #'(lambda () (add-hook 'before-save-hook 'delete-trailing-whitespace))))
+
 (use-package elpy
   :defer t
   :init
