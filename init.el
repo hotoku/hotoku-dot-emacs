@@ -290,6 +290,12 @@
 (use-package py-autopep8
   :hook (python-mode . py-autopep8-enable-on-save))
 
+(use-package emojify
+  :if (display-graphic-p)
+  :hook (after-init . global-emojify-mode)
+  :bind
+  ("C-x e" . 'emojify-insert-emoji))
+
 
 ;;; misc
 ;; make backup files in a specific directory
