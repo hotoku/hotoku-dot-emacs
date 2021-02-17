@@ -208,8 +208,11 @@
        (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
        (add-hook 'before-save-hook 'yh-fef-format-buffer nil t)
        (local-set-key (kbd "RET") 'yh/ret-hs)
-       (add-hook 'after-save-hook 'hs-hide-all 99 t)
-       (add-hook 'after-save-hook 'hs-show-block 100 t))))
+       (add-hook 'after-save-hook
+                 #'(lambda ()
+                     (save-excursion
+                       (hs-hide-all)
+                       (hs-show-block)))))))
 
 (use-package elpy
   :defer t
