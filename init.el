@@ -198,6 +198,12 @@
   :ensure nil
   :commands yh-blog-new yh-blog-preview yh-blog-insert-code)
 
+(use-package yh-docker
+  :ensure nil
+  :init
+  (add-hook 'dockerfile-mode-hook
+            #'(lambda () (add-hook 'before-save-hook 'yh-docker-upcase-command nil t))))
+
 (use-package elisp-mode
   :ensure nil
   :config
