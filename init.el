@@ -305,6 +305,10 @@
   :bind
   ("C-x e" . 'emojify-insert-emoji))
 
+(use-package dired-mode
+  :config
+  (define-key dired-mode-map (kbd "j") 'helm-find-files))
+
 
 ;;; misc
 ;; make backup files in a specific directory
