@@ -225,7 +225,9 @@
 (use-package cc-mode
   :config
   (add-hook 'c-mode-common-hook
-            #'(lambda () (add-hook 'before-save-hook 'delete-trailing-whitespace))))
+            #'(lambda ()
+                (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
+                (add-hook 'before-save-hook #'(lambda () (indent-region (point-min) (point-max))) nil t))))
 
 (use-package elpy
   :defer t
