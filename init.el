@@ -58,6 +58,8 @@
 	       ("C-x C-f" . helm-find-files)
 	       ("C-c h o" . helm-occur)
 	       ("C-c m" . helm-mini))
+  :hook
+  ((dired-mode . (lambda () (define-key dired-mode-map (kbd "j") 'helm-find-files))))
   :config
   (helm-mode 1)
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
@@ -304,10 +306,6 @@
   :hook (after-init . global-emojify-mode)
   :bind
   ("C-x e" . 'emojify-insert-emoji))
-
-(use-package dired-mode
-  :config
-  (define-key dired-mode-map (kbd "j") 'helm-find-files))
 
 
 ;;; misc
