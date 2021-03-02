@@ -43,7 +43,9 @@
   (exec-path-from-shell-initialize))
 
 (use-package magit
-  :bind (("C-c g" . magit)))
+  :bind (("C-c g" . magit))
+  :custom
+  (magit-log-margin '(t "%Y-%m-%d %H:%M:%S" magit-log-margin-width t 18) "show time of the commits"))
 
 (use-package session)
 
