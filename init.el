@@ -222,7 +222,7 @@
                  #'(lambda ()
                      (save-excursion
                        (hs-hide-all)
-                       (hs-show-block)))))))
+                       (hs-show-block))) nil t))))
 
 (use-package cc-mode
   :config
