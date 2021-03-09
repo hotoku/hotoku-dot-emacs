@@ -47,7 +47,11 @@
   :custom
   (magit-log-margin '(t "%Y-%m-%d %H:%M:%S" magit-log-margin-width t 18) "show time of the commits"))
 
-(use-package session)
+(use-package session
+  :config
+  (setq session-name-disable-regexp
+        (rx (or (regexp session-name-disable-regexp)
+                (regexp "/COMMIT_EDITMSG$")))))
 
 (use-package company
   :config
