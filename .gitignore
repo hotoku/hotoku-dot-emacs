@@ -7,3 +7,4 @@
 /.date-of-last-package-refresh-contents
 flycheck_*
 /emojis/
+/.lsp-session-v1
