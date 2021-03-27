@@ -320,6 +320,33 @@
   :bind
   ("C-x e" . 'emojify-insert-emoji))
 
+(use-package lsp-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (python-mode . lsp-defferred)
+         (javascript-mode . lsp-defferred)
+         ;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands (lsp lsp-defferred))
+
+(use-package lsp-ui :commands lsp-ui-mode)
+
+(use-package helm-lsp :commands helm-lsp-workspace-symbol)
+
+(use-package dap-mode)
+
+(use-package dap-python :ensure nil)
+
+(use-package which-key
+  :config
+  (which-key-mode))
+
+(use-package js :ensure nil
+  :init
+  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . javascript-mode)))
+
 
 ;;; misc
 ;; make backup files in a specific directory
@@ -383,7 +410,7 @@ This is inconvinient when opening file at the beginning of Emacs session."
  '(custom-safe-themes
    '("246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
  '(package-selected-packages
-   '(py-autopep8 flymake-yaml dockerfile-mode biblio elpy haskell-mode yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
+   '(dap-python py-autopep8 flymake-yaml dockerfile-mode biblio elpy haskell-mode yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
