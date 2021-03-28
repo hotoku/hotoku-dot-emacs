@@ -341,9 +341,11 @@
   :config
   (which-key-mode))
 
-(use-package js :ensure nil
+(use-package js
   :init
-  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . javascript-mode)))
+  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . javascript-mode))
+  :config
+  (setq js-indent-level 2))
 
 (use-package prettier-js
   :hook
