@@ -174,11 +174,12 @@
 
 (defun yh-fef-split-to-blocks (lines)
   "Split LINES into blocks."
-  (when lines
-    (let* ((block-rest (yh-fef-read-block lines))
-           (block (car block-rest))
-           (lines2 (cdr block-rest)))
-      (cons block (yh-fef-split-to-blocks lines2)))))
+  (let ((ret))
+    (while lines
+      (let ((block-rest (yh-fef-read-block lines)))
+        (setq lines (cdr block-rest)
+              ret (cons (car block-rest) ret))))
+    ret))
 
 (defun yh-fef-find-cursor-position (blocks pos)
   "Find cursor POS in BLOCKS.  Return cons of index and pos.
