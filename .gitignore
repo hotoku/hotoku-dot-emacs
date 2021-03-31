@@ -8,3 +8,6 @@
 flycheck_*
 /emojis/
 /.lsp-session-v1
+/.cache/
+/.dap-breakpoints
+/.log/
