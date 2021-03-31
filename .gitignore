@@ -11,3 +11,5 @@ flycheck_*
 /.cache/
 /.dap-breakpoints
 /.log/
+/.lsp-eslint-choices
+/url/
