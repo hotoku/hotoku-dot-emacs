@@ -235,11 +235,6 @@
                 (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
                 (add-hook 'before-save-hook #'(lambda () (indent-region (point-min) (point-max))) nil t))))
 
-(use-package elpy
-  :defer t
-  :init
-  (advice-add 'python-mode :before 'elpy-enable))
-
 (use-package python
   :ensure nil
   :config
@@ -325,7 +320,6 @@
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
   :hook ((js-mode . lsp)
-         (python-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-defferred))
 
@@ -352,6 +346,12 @@
   ((js-mode . prettier-js-mode)))
 
 (use-package pyenv-mode-auto)
+
+(use-package lsp-python-ms
+  :init (setq lsp-python-ms-auto-install-server t)
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-python-ms)
+                         (lsp))))
 
 
 ;;; misc
