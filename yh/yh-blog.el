@@ -5,6 +5,8 @@
 
 
 ;;; Code:
+(require 'dash)
+
 (defcustom yh-blog-posts-dir (expand-file-name "~/projects/blog/_posts")
   "Absolute path of the `_posts' directory for blos."
   :group 'yh-blog
@@ -51,8 +53,8 @@ tags:
           (ls (split-string path "/"))
           (fn (car (last ls)))
           (jekyll-root (seq-take ls (- (length ls) 2)))
-          (new-fn (reduce (lambda (x y) (concat x "/" y))
-                          (append jekyll-root (list dir-nm fn)))))
+          (new-fn (-reduce (lambda (x y) (concat x "/" y))
+                           (append jekyll-root (list dir-nm fn)))))
     (write-file new-fn)
     (when (file-exists-p path)
       (delete-file path))))
@@ -91,6 +93,11 @@ tags:
   (insert "```")
   (beginning-of-line)
   (open-line 1))
+
+(defun yh-blog-compile ()
+  "Execute build.sh in the blog project."
+  (interactive)
+  (compile (format "%s/../_plist/build.sh" yh-blog-posts-dir)))
 
 (provide 'yh-blog)
 ;;; yh-blog.el ends here
