@@ -204,7 +204,7 @@
 
 (use-package yh-blog
   :ensure nil
-  :commands yh-blog-new yh-blog-preview yh-blog-insert-code)
+  :commands yh-blog-new yh-blog-preview yh-blog-insert-code yh-blog-compile)
 
 (use-package yh-docker
   :ensure nil
