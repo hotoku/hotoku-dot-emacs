@@ -180,7 +180,8 @@
 
 (use-package sh-script
   :mode
-  (("\\.sh\\'" . shell-script-mode))
+  (("\\.sh\\'" . shell-script-mode)
+   ("\\.envrc\\'" . shell-script-mode))
   :config
   (add-hook 'sh-mode-hook
             #'(lambda () (add-hook 'after-save-hook 'yh/make-executable nil t))))
