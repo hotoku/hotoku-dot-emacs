@@ -15,6 +15,11 @@
 (defun yh/use-large-font ()
   "Change font size."
   (interactive)
+  (setf (alist-get 'font default-frame-alist) "Monospace-16")
+  (yh/recreate-frame))
+(defun yh/use-medium-font ()
+  "Change font size."
+  (interactive)
   (setf (alist-get 'font default-frame-alist) "Monospace-14")
   (yh/recreate-frame))
 (defun yh/use-small-font ()
