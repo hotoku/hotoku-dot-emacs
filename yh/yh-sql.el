@@ -11,7 +11,7 @@
 https://github.com/Matts966/zetasql-formatter."
   (interactive)
   (let* ((fpath (buffer-file-name)))
-    (call-process-shell-command (format "zetasql-formatter-- %s" fpath))
+    (call-process-shell-command (format "zetasql-formatter %s" fpath))
     (revert-buffer t t)))
 
 (provide 'yh-sql)
