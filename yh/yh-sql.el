@@ -6,7 +6,8 @@
 
 ;;; Code:
 
-(defvar yh-sql-supress-formatting nil "When this value is not nil, yh-sql-format function does nothing.
+(defvar yh-sql-supress-formatting nil
+  "When this value is not nil, yh-sql-format function does nothing.
 This variable is not supposed to be set by users.")
 (make-variable-buffer-local 'yh-sql-supress-formatting)
 
