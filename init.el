@@ -213,6 +213,10 @@
   (add-hook 'dockerfile-mode-hook
             #'(lambda () (add-hook 'before-save-hook 'yh-docker-upcase-command nil t))))
 
+(use-package yh-sql :ensure nil
+  :commands yh-sql-format
+  :hook (sql-mode . (lambda () (add-hook 'before-save-hook 'yh-sql-format nil t))))
+
 (use-package elisp-mode
   :ensure nil
   :config
