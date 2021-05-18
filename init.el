@@ -215,7 +215,7 @@
 
 (use-package yh-sql :ensure nil
   :commands yh-sql-format
-  :hook (sql-mode . (lambda () (add-hook 'before-save-hook 'yh-sql-format nil t))))
+  :hook (sql-mode . (lambda () (add-hook 'after-save-hook 'yh-sql-format nil t))))
 
 (use-package elisp-mode
   :ensure nil
