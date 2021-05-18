@@ -417,9 +417,9 @@ This is inconvinient when opening file at the beginning of Emacs session."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("33ea268218b70aa106ba51a85fe976bfae9cf6931b18ceaf57159c558bbcd1e6" "e6df46d5085fde0ad56a46ef69ebb388193080cc9819e2d6024c9c6e27388ba9" "246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
+   '("57e3f215bef8784157991c4957965aa31bac935aca011b29d7d8e113a652b693" "246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
  '(package-selected-packages
-   '(anti-zenburn-theme zenburn-theme bazel-mode pyenv-mode-auto prettier-js dap-python py-autopep8 flymake-yaml dockerfile-mode biblio elpy haskell-mode yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
+   '(afuternoon-theme afternoon-theme bazel-mode pyenv-mode-auto prettier-js dap-python py-autopep8 flymake-yaml dockerfile-mode biblio elpy haskell-mode yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -437,9 +437,9 @@ This is inconvinient when opening file at the beginning of Emacs session."
  '(markdown-markup-face ((t (:foreground "indian red")))))
 
 ;; Theme loading should be after registration of it as safe by custom-set-variables
-(use-package anti-zenburn-theme
+(use-package afternoon-theme
   :config
-  (load-theme 'anti-zenburn))
+  (load-theme 'afternoon))
 
 (provide 'init)
 ;;; init.el ends here
