@@ -438,7 +438,8 @@ This is inconvinient when opening file at the beginning of Emacs session."
  '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.4))))
  '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.2))))
  '(markdown-language-keyword-face ((t (:foreground "dark green"))))
- '(markdown-markup-face ((t (:foreground "indian red")))))
+ '(markdown-markup-face ((t (:foreground "indian red"))))
+ '(sp-pair-overlay-face ((t (:inherit fixed-pitch :background "SkyBlue1" :foreground "gray13")))))
 
 ;; Theme loading should be after registration of it as safe by custom-set-variables
 (use-package afternoon-theme
