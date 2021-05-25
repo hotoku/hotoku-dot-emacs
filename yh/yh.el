@@ -29,8 +29,11 @@
   (yh/recreate-frame))
 (defun yh/recreate-frame (&optional w h)
   "Recreate frame.  W, H are frame size (width and height)."
-  (let ((f (selected-frame)))
-    (make-frame)
+  (let* ((f (selected-frame))
+         (width (or w (frame-width f)))
+         (height (or h (frame-height f))))
+    (make-frame `((width . ,width)
+                  (height . ,height)))
     (delete-frame f)))
 
 
