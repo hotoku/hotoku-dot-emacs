@@ -358,7 +358,7 @@
                          (require 'lsp-python-ms)
                          (lsp))))
 
-(use-package bazel-mode)
+(use-package bazel)
 
 
 ;;; misc
