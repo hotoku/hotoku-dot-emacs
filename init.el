@@ -365,7 +365,14 @@
   :init
   (setq helm-ag-base-command "rg"))
 
-(use-package gitignore-mode)
+(use-package gitignore-mode
+  :defer t
+  :config
+  :hook (gitignore-mode
+         .
+         (lambda ()
+           (setq-local require-final-newline t)
+           (add-hook 'before-save-hook 'delete-trailing-whitespace nil t))))
 
 
 ;;; misc
