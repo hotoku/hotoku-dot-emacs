@@ -83,6 +83,7 @@
   (add-hook 'emacs-lisp-mode-hook 'turn-on-smartparens-strict-mode)
   (add-hook 'python-mode-hook 'turn-on-smartparens-strict-mode)
   (add-hook 'haskell-mode-hook 'turn-on-smartparens-strict-mode)
+  (add-hook 'c-mode-common-hook 'turn-on-smartparens-strict-mode)
   :bind (("C-M-f" . sp-forward-slurp-sexp)
          ("C-M-g" . sp-forward-barf-sexp)))
 
