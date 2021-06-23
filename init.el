@@ -80,10 +80,11 @@
   :init
   (smartparens-global-mode)
   (show-smartparens-global-mode t)
-  (add-hook 'emacs-lisp-mode-hook 'turn-on-smartparens-strict-mode)
-  (add-hook 'python-mode-hook 'turn-on-smartparens-strict-mode)
-  (add-hook 'haskell-mode-hook 'turn-on-smartparens-strict-mode)
-  (add-hook 'c-mode-common-hook 'turn-on-smartparens-strict-mode)
+  :hook
+  ((c-mode-common . turn-on-smartparens-strict-mode)
+   (emacs-lisp-mode . turn-on-smartparens-strict-mode)
+   (python-mode . turn-on-smartparens-strict-mode)
+   (haskell-mode . turn-on-smartparens-strict-mode))
   :bind (("C-M-f" . sp-forward-slurp-sexp)
          ("C-M-g" . sp-forward-barf-sexp)))
 
