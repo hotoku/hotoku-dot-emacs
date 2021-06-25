@@ -6,27 +6,46 @@
 
 ;;; Code:
 
-(defun yh/use-huge-font ()
-  "Change font size."
-  (interactive)
-  (setf (alist-get 'font default-frame-alist) "Monospace-20")
-  (yh/recreate-frame))
-(defun yh/use-large-font ()
-  "Change font size."
-  (interactive)
-  (setf (alist-get 'font default-frame-alist) "Monospace-16")
-  (yh/recreate-frame))
-(defun yh/use-medium-font ()
-  "Change font size."
-  (interactive)
-  (setf (alist-get 'font default-frame-alist) "Monospace-14")
-  (yh/recreate-frame))
-(defun yh/use-small-font ()
-  "Change font size."
-  (interactive)
-  (setf (alist-get 'font default-frame-alist) "Monospace-12")
-  (yh/recreate-frame))
-(defun yh/recreate-frame (&optional w h)
+(defun yh-font-use-huge-font (arg)
+  "Change font size.  When ARG, the setting is saved for future session."
+  (interactive "P")
+  (yh-font-set-font "Monospace-20" arg))
+
+(defun yh-font-use-large-font (arg)
+  "Change font size.  When ARG, the setting is saved for future session."
+  (interactive "P")
+  (yh-font-set-font "Monospace-16" arg))
+
+(defun yh-font-use-medium-font (arg)
+  "Change font size.  When ARG, the setting is saved for future session."
+  (interactive "P")
+  (yh-font-set-font "Monospace-14" arg))
+
+(defun yh-font-use-small-font (arg)
+  "Change font size.  When ARG, the setting is saved for future session."
+  (interactive "P")
+  (yh-font-set-font "Monospace-12" arg))
+
+(defun yh-font-set-font (font arg)
+  "Actually set FONT.  If ARG is non nil, the setting is perpetuated."
+  (when arg (yh-font-perpetuate font))
+  (setf (alist-get 'font default-frame-alist) font)
+  (yh-font-recreate-frame))
+
+(defconst yh-font-config-file (concat (expand-file-name user-emacs-directory) ".yh-font"))
+
+(defun yh-font-perpetuate (font)
+  "Write value of FONT in config file."
+  (save-excursion
+    (let* ((obj `((font . ,font)))
+           (content (format "%s" obj))
+           (buf (find-file yh-font-config-file)))
+      (kill-region (point-min) (point-max))
+      (insert content)
+      (save-buffer buf)
+      (kill-buffer buf))))
+
+(defun yh-font-recreate-frame (&optional w h)
   "Recreate frame.  W, H are frame size (width and height) in pixel."
   (let* ((f (selected-frame))
          (width (or w (frame-pixel-width f)))

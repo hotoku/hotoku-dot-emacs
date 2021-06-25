@@ -13,3 +13,4 @@ flycheck_*
 /.log/
 /.lsp-eslint-choices
 /url/
+/.yh-font
