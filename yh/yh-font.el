@@ -45,6 +45,16 @@
       (save-buffer buf)
       (kill-buffer buf))))
 
+(defun yh-font-initialize ()
+  "Read conofig file and appliy it."
+  (when (file-exists-p yh-font-config-file)
+    (save-excursion
+      (let* ((buf (find-file yh-font-config-file))
+             (obj (read (buffer-substring (point-min) (point-max))))
+             (font (symbol-name (cdr (assoc 'font obj)))))
+        (kill-buffer buf)
+        (yh-font-set-font font nil)))))
+
 (defun yh-font-recreate-frame (&optional w h)
   "Recreate frame.  W, H are frame size (width and height) in pixel."
   (let* ((f (selected-frame))
