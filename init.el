@@ -219,7 +219,9 @@
   :commands yh-sql-format
   :hook (sql-mode . (lambda () (add-hook 'after-save-hook 'yh-sql-format nil t))))
 
-(use-package yh-font :ensure nil)
+(use-package yh-font :ensure nil
+  :config
+  (yh-font-initialize))
 
 (use-package elisp-mode
   :ensure nil
