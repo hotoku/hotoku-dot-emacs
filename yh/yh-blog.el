@@ -7,10 +7,9 @@
 ;;; Code:
 (require 'dash)
 
-(defcustom yh-blog-posts-dir (expand-file-name "~/projects/blog/_posts")
-  "Absolute path of the `_posts' directory for blos."
-  :group 'yh-blog
-  :type '(directory :tag "Single directory"))
+(defconst yh-blog-posts-dir
+  (let ((dic `(("hotoku-macmini-2020.local" . ,(expand-file-name "~/projects/hotoku/blog/_posts")))))
+    (assoc (system-name) dic)))
 
 (defun yh-blog-publish ()
   "Commit change and push to remote."
@@ -30,6 +29,8 @@
 (defun yh-blog-new (title url)
   "Open new blog post of TITLE and URL."
   (interactive "sblog title: \nsurl: ")
+  (when (not yh-blog-posts-dir) (error "The value of yh-blog-posts-dir is nil.
+It can be registered in the file yh-blog.el"))
   (let* ((y (format-time-string "%Y"))
          (m (format-time-string "%m"))
          (d (format-time-string "%d"))
