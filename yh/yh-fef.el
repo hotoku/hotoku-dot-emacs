@@ -1,5 +1,19 @@
-(provide 'yh-fef)
-;;; yh-fef.el ends here
+;;; yh-fef.el --- format elisp file -*- lexical-binding: t -*-
+
+
+;;; Commentary:
+;; elispバッファを整形するパッケージ。
+;; `yh-fef-format-buffer'が唯一のエントリポイント。
+;; todo:
+;; 現状は、パースする際に空行の連続とコードの連続という区別しかしておらず、
+;; 出力を組み立てる際に、出力空白行数を調整している。
+;; 本来は、パースする際に、文法の中で大きいスキップなのか小さいスキップを
+;; 要素として区別しておけば、出力処理がシンプルになる。
+;; パースする処理は、典型的なLL(1)パーサーになる。
+
+
+;;; Code:
+(require 'yh)
 
 (defun yh-fef-format-buffer ()
   "Format buffer."
@@ -241,20 +255,5 @@ Cursor is pos-th character of index-th block."
     (cons (apply f (mapcar 'car xs))
           (apply 'yh-fef-mapcar* f (mapcar 'cdr xs)))))
 
-
-;;; Code:
-(require 'yh)
-
-
-;;; Commentary:
-;; elispバッファを整形するパッケージ。
-;; `yh-fef-format-buffer'が唯一のエントリポイント。
-;; todo:
-;; 現状は、パースする際に空行の連続とコードの連続という区別しかしておらず、
-;; 出力を組み立てる際に、出力空白行数を調整している。
-;; 本来は、パースする際に、文法の中で大きいスキップなのか小さいスキップを
-;; 要素として区別しておけば、出力処理がシンプルになる。
-;; パースする処理は、典型的なLL(1)パーサーになる。
-
-
-;;; yh-fef.el --- format elisp file -*- lexical-binding: t -*-
+(provide 'yh-fef)
+;;; yh-fef.el ends here
