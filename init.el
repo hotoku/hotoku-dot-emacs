@@ -323,18 +323,6 @@
   :bind
   ("C-x e" . 'emojify-insert-emoji))
 
-(use-package lsp-mode
-  :init
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c l")
-  :hook ((js-mode . lsp)
-         (lsp-mode . lsp-enable-which-key-integration))
-  :commands (lsp lsp-defferred))
-
-(use-package lsp-ui :commands lsp-ui-mode)
-
-(use-package helm-lsp :commands helm-lsp-workspace-symbol)
-
 (use-package dap-mode)
 
 (use-package dap-python :ensure nil)
@@ -378,6 +366,41 @@
            (add-hook 'before-save-hook 'delete-trailing-whitespace nil t))))
 
 (use-package poetry)
+
+(use-package lsp-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook ((js-mode . lsp)
+         (c++-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands (lsp lsp-defferred))
+
+(use-package lsp-ui :commands lsp-ui-mode)
+
+(use-package helm-lsp :commands helm-lsp-workspace-symbol)
+
+;; (use-package lsp-docker
+;;   :defer
+;;   :config
+;;   (defvar lsp-docker-client-packages
+;;     '(lsp-css lsp-clients lsp-bash lsp-go lsp-pyls lsp-html lsp-typescript
+;;               lsp-terraform lsp-clangd))
+
+;;   (setq lsp-docker-client-configs
+;;         '((:server-id 'bash-ls :docker-server-id 'bashls-docker :server-command "bash-language-server start")
+;;           (:server-id 'clangd :docker-server-id 'clangd-docker :server-command "clangd")
+;;           (:server-id 'css-ls :docker-server-id 'cssls-docker :server-command "css-languageserver --stdio")
+;;           (:server-id 'dockerfile-ls :docker-server-id 'dockerfilels-docker :server-command "docker-langserver --stdio")
+;;           (:server-id 'gopls :docker-server-id 'gopls-docker :server-command "gopls")
+;;           (:server-id 'html-ls :docker-server-id 'htmls-docker :server-command "html-languageserver --stdio")
+;;           (:server-id 'pyls :docker-server-id 'pyls-docker :server-command "pyls")
+;;           (:server-id 'ts-ls :docker-server-id 'tsls-docker :server-command "typescript-language-server --stdio")))
+
+;;   (lsp-docker-init-clients
+;;    :path-mappings '(("path-to-projects-you-want-to-use" . "/projects"))
+;;    :client-packages lsp-docker-client-packages
+;;    :client-configs lsp-docker-client-configs))
 
 
 ;;; misc
@@ -442,7 +465,7 @@ This is inconvinient when opening file at the beginning of Emacs session."
  '(custom-safe-themes
    '("57e3f215bef8784157991c4957965aa31bac935aca011b29d7d8e113a652b693" "246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
  '(package-selected-packages
-   '(poetry gitignore-mode helm-ag pyenv afuternoon-theme afternoon-theme bazel-mode pyenv-mode-auto prettier-js dap-python py-autopep8 flymake-yaml dockerfile-mode biblio elpy haskell-mode yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
+   '(lsp-docker poetry gitignore-mode helm-ag pyenv afuternoon-theme afternoon-theme bazel-mode pyenv-mode-auto prettier-js dap-python py-autopep8 flymake-yaml dockerfile-mode biblio elpy haskell-mode yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
