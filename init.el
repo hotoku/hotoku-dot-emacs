@@ -385,6 +385,7 @@
 (use-package helm-lsp :commands helm-lsp-workspace-symbol)
 
 (use-package lsp-docker
+  :config
   (defvar lsp-docker-client-packages
     '(lsp-clangd))
 
