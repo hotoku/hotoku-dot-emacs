@@ -38,7 +38,7 @@
   "Write value of FONT in config file."
   (save-excursion
     (let* ((obj `((font . ,font)))
-           (content (format "%s" obj))
+           (content (format "%S" obj))
            (buf (find-file yh-font-config-file)))
       (kill-region (point-min) (point-max))
       (insert content)
@@ -51,7 +51,7 @@
     (save-excursion
       (let* ((buf (find-file yh-font-config-file))
              (obj (read (buffer-substring (point-min) (point-max))))
-             (font (symbol-name (cdr (assoc 'font obj)))))
+             (font (cdr (assoc 'font obj))))
         (kill-buffer buf)
         (yh-font-set-font font nil)))))
 

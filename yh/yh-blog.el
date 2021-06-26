@@ -9,7 +9,7 @@
 
 (defconst yh-blog-posts-dir
   (let ((dic `(("hotoku-macmini-2020.local" . ,(expand-file-name "~/projects/hotoku/blog/_posts")))))
-    (assoc (system-name) dic)))
+    (cdr (assoc (system-name) dic))))
 
 (defun yh-blog-publish ()
   "Commit change and push to remote."

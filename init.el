@@ -18,10 +18,6 @@
 ;;; my utilities
 (defconst yh/additional-loadpath (expand-file-name "yh" user-emacs-directory))
 (add-to-list 'load-path yh/additional-loadpath)
-(require 'yh)
-
-;; refresh if necessary
-(yh/package-refresh-contents)
 
 
 ;;; use-package initialize
@@ -32,6 +28,10 @@
 
 
 ;;; configuration of packages
+(use-package yh :ensure nil
+  :config
+  (yh/package-refresh-contents))
+
 (use-package gnu-elpa-keyring-update) ; This should be first.
 
 (use-package undo-tree
@@ -225,19 +225,20 @@
 
 (use-package elisp-mode
   :ensure nil
-  :config
-  (add-hook
-   'emacs-lisp-mode-hook
-   #'(lambda ()
-       (add-hook 'before-save-hook 'yh/indent-buffer nil t)
-       (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
-       (add-hook 'before-save-hook 'yh-fef-format-buffer nil t)
-       (local-set-key (kbd "RET") 'yh/ret-hs)
-       (add-hook 'after-save-hook
-                 #'(lambda ()
-                     (save-excursion
-                       (hs-hide-all)
-                       (hs-show-block))) nil t))))
+  :hook
+  (emacs-lisp-mode
+   .
+   (lambda ()
+     (add-hook 'before-save-hook 'yh/indent-buffer nil t)
+     (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
+     (add-hook 'before-save-hook 'yh-fef-format-buffer nil t)
+     (local-set-key (kbd "RET") 'yh/ret-hs)
+     (add-hook 'after-save-hook
+               #'(lambda ()
+                   (save-excursion
+                     (hs-hide-all)
+                     (hs-show-block))) nil t)
+     (emojify-mode -1))))
 
 (use-package cc-mode
   :config
@@ -376,7 +377,6 @@
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
   :hook ((js-mode . lsp)
-         (c++-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-defferred))
 
@@ -384,27 +384,17 @@
 
 (use-package helm-lsp :commands helm-lsp-workspace-symbol)
 
-;; (use-package lsp-docker
-;;   :defer
-;;   :config
-;;   (defvar lsp-docker-client-packages
-;;     '(lsp-css lsp-clients lsp-bash lsp-go lsp-pyls lsp-html lsp-typescript
-;;               lsp-terraform lsp-clangd))
+(use-package lsp-docker
+  (defvar lsp-docker-client-packages
+    '(lsp-clangd))
 
-;;   (setq lsp-docker-client-configs
-;;         '((:server-id 'bash-ls :docker-server-id 'bashls-docker :server-command "bash-language-server start")
-;;           (:server-id 'clangd :docker-server-id 'clangd-docker :server-command "clangd")
-;;           (:server-id 'css-ls :docker-server-id 'cssls-docker :server-command "css-languageserver --stdio")
-;;           (:server-id 'dockerfile-ls :docker-server-id 'dockerfilels-docker :server-command "docker-langserver --stdio")
-;;           (:server-id 'gopls :docker-server-id 'gopls-docker :server-command "gopls")
-;;           (:server-id 'html-ls :docker-server-id 'htmls-docker :server-command "html-languageserver --stdio")
-;;           (:server-id 'pyls :docker-server-id 'pyls-docker :server-command "pyls")
-;;           (:server-id 'ts-ls :docker-server-id 'tsls-docker :server-command "typescript-language-server --stdio")))
+  (defvar lsp-docker-client-configs
+    '((:server-id clangd :docker-server-id clangd-docker :server-command "/ccls/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04/bin/clangd")))
 
-;;   (lsp-docker-init-clients
-;;    :path-mappings '(("path-to-projects-you-want-to-use" . "/projects"))
-;;    :client-packages lsp-docker-client-packages
-;;    :client-configs lsp-docker-client-configs))
+  (lsp-docker-init-clients
+	 :path-mappings '(("/Users/hotoku/projects/hotoku/lineage" . "/projects"))
+	 :client-packages lsp-docker-client-packages
+	 :client-configs lsp-docker-client-configs))
 
 
 ;;; misc
