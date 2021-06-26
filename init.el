@@ -391,10 +391,11 @@
   (defvar lsp-docker-client-configs
     '((:server-id clangd :docker-server-id clangd-docker :server-command "/ccls/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04/bin/clangd")))
 
-  (lsp-docker-init-clients
-	 :path-mappings '(("/Users/hotoku/projects/hotoku/lineage" . "/projects"))
-	 :client-packages lsp-docker-client-packages
-	 :client-configs lsp-docker-client-configs))
+  ;; (lsp-docker-init-clients
+	;;  :path-mappings '(("/Users/hotoku/projects/hotoku/lineage" . "/projects"))
+	;;  :client-packages lsp-docker-client-packages
+	;;  :client-configs lsp-docker-client-configs)
+  )
 
 
 ;;; misc
