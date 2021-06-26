@@ -32,7 +32,7 @@
   (setf (alist-get 'font default-frame-alist) font)
   (yh-font-recreate-frame))
 
-(defconst yh-font-config-file (concat (expand-file-name user-emacs-directory) ".yh-font"))
+(defconst yh-font-config-file  (expand-file-name ".yh-font" user-emacs-directory))
 
 (defun yh-font-perpetuate (font)
   "Write value of FONT in config file."
