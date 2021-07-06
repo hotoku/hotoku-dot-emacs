@@ -347,9 +347,7 @@
 
 (use-package lsp-python-ms
   :init (setq lsp-python-ms-auto-install-server t)
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-python-ms)
-                         (lsp))))
+  :hook (python-mode . lsp-deferred))
 
 (use-package bazel)
 
@@ -382,6 +380,7 @@
 (use-package helm-lsp :commands helm-lsp-workspace-symbol)
 
 (use-package lsp-docker
+  :defer t
   :config
   (defvar lsp-docker-client-packages
     '(lsp-clangd))
@@ -393,6 +392,7 @@
 	;;  :path-mappings '(("/Users/hotoku/projects/hotoku/lineage" . "/projects"))
 	;;  :client-packages lsp-docker-client-packages
 	;;  :client-configs lsp-docker-client-configs)
+  :commands lsp-docker-init-clients
   )
 
 
