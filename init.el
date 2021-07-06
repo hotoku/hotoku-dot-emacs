@@ -251,10 +251,7 @@
   :ensure nil
   :hook
   (python-mode . (lambda ()
-                   (add-hook 'after-save-hook 'yh/make-executable nil t)))
-  (python-mode . (lambda ()
-                   (set (make-local-variable 'compile-command)
-                        (concat "pysen run_files lint --error-format gnu  " buffer-file-name)))))
+                   (add-hook 'after-save-hook 'yh/make-executable nil t))))
 
 (use-package hideshow
   :init
