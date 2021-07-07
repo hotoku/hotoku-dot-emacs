@@ -345,10 +345,6 @@
 
 (use-package pyenv-mode-auto)
 
-(use-package lsp-python-ms
-  :init (setq lsp-python-ms-auto-install-server t)
-  :hook (python-mode . lsp-deferred))
-
 (use-package bazel)
 
 (use-package helm-ag
@@ -371,9 +367,11 @@
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
-  :hook ((js-mode . lsp)
-         (lsp-mode . lsp-enable-which-key-integration))
-  :commands (lsp lsp-defferred))
+  :hook
+  ((js-mode . lsp)
+   (lsp-mode . lsp-enable-which-key-integration))
+  :commands
+  (lsp lsp-deferred))
 
 (use-package lsp-ui :commands lsp-ui-mode)
 
@@ -394,6 +392,11 @@
 	;;  :client-configs lsp-docker-client-configs)
   :commands lsp-docker-init-clients
   )
+
+(use-package lsp-pyright
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+                         (lsp-deferred))))  ; or lsp-deferred
 
 
 ;;; misc
