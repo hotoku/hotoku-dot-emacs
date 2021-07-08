@@ -48,7 +48,7 @@
 ;;; configuration of packages
 (use-package yh :ensure nil)
 
-;;; lsp
+;;; -- lsp --
 (use-package lsp-mode
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
@@ -83,9 +83,15 @@
                          (require 'lsp-pyright)
                          (lsp-deferred))))  ; or lsp-deferred
 
+;;; -- lsp end --
 
-;;; magit
 (use-package magit)
+
+(use-package company
+  :config
+  (global-company-mode)
+  (setq-default company-idel-delay 0.01))
+
 
 ;;; misc
 ;; make backup files in a specific directory
