@@ -44,9 +44,7 @@
 
 
 ;;; configuration of packages
-(use-package yh :ensure nil
-  :config
-  (yh/package-refresh-contents))
+(use-package yh :ensure nil)
 
 (use-package lsp-mode
   :init
