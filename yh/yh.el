@@ -17,24 +17,6 @@
   (indent-region (point-min) (point-max)))
 
 
-;;; package-refresh-contents
-(defun yh/package-refresh-contents ()
-  "Package-refresh-contents if last update is older than or equal to yesterday."
-  (let* ((path (expand-file-name ".date-of-last-package-refresh-contents" user-emacs-directory))
-         (today (format-time-string "%Y-%m-%d"))
-         (last-date (when (file-exists-p path)
-                      (with-temp-buffer
-                        (insert-file-contents path)
-                        (buffer-substring 1 11))))
-         (should-update (or (not last-date)
-                            (string< last-date today))))
-    (when should-update
-      (package-refresh-contents)
-      (with-temp-buffer
-        (insert today)
-        (write-region (point-min) (point-max) path)))))
-
-
 ;;; other-window
 (defun yh/other-window-or-split ()
   "Move to another window.  If the frame has only 1 window, split first."
