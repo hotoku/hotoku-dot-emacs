@@ -84,6 +84,9 @@
                          (lsp-deferred))))  ; or lsp-deferred
 
 
+;;; magit
+(use-package magit)
+
 ;;; misc
 ;; make backup files in a specific directory
 (setq make-backup-files t)
