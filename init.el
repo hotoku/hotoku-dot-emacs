@@ -13,6 +13,7 @@
                          ("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
 
+
 ;;; package-refresh-contents
 ;; Package-refresh-contents if last update is older than or equal to yesterday.
   (let* ((path (expand-file-name ".date-of-last-package-refresh-contents" user-emacs-directory))
@@ -43,12 +44,13 @@
 (setq use-package-always-ensure t) ; automatically install missing packages
 
 
-
-
 ;;; configuration of packages
 (use-package yh :ensure nil)
 
-;;; -- lsp --
+(use-package yh-fef :ensure nil
+  :hook
+  (emacs-lisp-mode . (lambda () (add-hook 'before-save-hook 'yh-fef-format-buffer nil t))))
+
 (use-package lsp-mode
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
@@ -78,15 +80,10 @@
   :commands lsp-docker-init-clients)
 
 (use-package lsp-pyright
-  :config
-  (setq lsp-pyright-venv-path "/Users/hotoku/Library/Caches/pypoetry/virtualenvs/dor-ds-model-dA3eHuND-py3.7")
   :hook
   (python-mode . (lambda ()
                    (require 'lsp-pyright)
                    (lsp-deferred))))  ; or lsp-deferred
-
-;;; -- lsp end --
-
 
 (use-package flycheck
   :config
