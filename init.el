@@ -43,16 +43,18 @@
 (setq use-package-always-ensure t) ; automatically install missing packages
 
 
+
+
 ;;; configuration of packages
 (use-package yh :ensure nil)
 
+;;; lsp
 (use-package lsp-mode
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
   :hook
-  ((js-mode . lsp)
-   (lsp-mode . lsp-enable-which-key-integration))
+  ((js-mode . lsp))
   :commands
   (lsp lsp-deferred))
 
