@@ -75,8 +75,7 @@
 	;;  :path-mappings '(("/Users/hotoku/projects/hotoku/lineage" . "/projects"))
 	;;  :client-packages lsp-docker-client-packages
 	;;  :client-configs lsp-docker-client-configs)
-  :commands lsp-docker-init-clients
-  )
+  :commands lsp-docker-init-clients)
 
 (use-package lsp-pyright
   :hook (python-mode . (lambda ()
@@ -85,7 +84,11 @@
 
 ;;; -- lsp end --
 
-(use-package magit)
+
+(use-package magit
+  :bind (("C-c g" . magit))
+  :custom
+  (magit-log-margin '(t "%Y-%m-%d %H:%M:%S" magit-log-margin-width t 18) "show time of the commits"))
 
 (use-package company
   :config
