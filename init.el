@@ -78,12 +78,23 @@
   :commands lsp-docker-init-clients)
 
 (use-package lsp-pyright
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp-deferred))))  ; or lsp-deferred
+  :config
+  (setq lsp-pyright-venv-path "/Users/hotoku/Library/Caches/pypoetry/virtualenvs/dor-ds-model-dA3eHuND-py3.7")
+  :hook
+  (python-mode . (lambda ()
+                   (require 'lsp-pyright)
+                   (lsp-deferred))))  ; or lsp-deferred
 
 ;;; -- lsp end --
 
+
+(use-package flycheck
+  :config
+  (setq
+   flycheck-check-syntax-automatically '(save idle-change mode-enabled)
+   flycheck-idle-change-delay 1
+   flycheck-emacs-lisp-load-path 'inherit)
+  (add-hook 'after-init-hook 'global-flycheck-mode))
 
 (use-package magit
   :bind (("C-c g" . magit))
