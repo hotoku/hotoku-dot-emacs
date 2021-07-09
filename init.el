@@ -115,6 +115,19 @@
   (global-company-mode)
   (setq-default company-idel-delay 0.01))
 
+(use-package desktop
+  :init
+  (desktop-save-mode)
+  :custom
+  (desktop-path (let ((path (expand-file-name ".desktop" user-emacs-directory)))
+                  (unless (file-exists-p path)
+                    (make-directory path))
+                  `(,path))))
+
+(use-package paren
+  :init
+  (show-paren-mode))
+
 
 ;;; misc
 ;; make backup files in a specific directory
