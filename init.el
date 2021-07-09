@@ -47,6 +47,8 @@
 ;;; configuration of packages
 (use-package yh :ensure nil)
 
+(use-package yh-blog :ensure nil)
+
 (use-package yh-fef :ensure nil
   :hook
   (emacs-lisp-mode . (lambda () (add-hook 'before-save-hook 'yh-fef-format-buffer nil t))))
