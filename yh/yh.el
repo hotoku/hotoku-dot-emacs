@@ -35,6 +35,11 @@ the next ARG files are used.  Just \\[universal-argument] means the current file
   (let ((files (dired-get-marked-files nil arg)))
     (apply 'start-process "open_ps" nil "open" files)))
 
+(defun yh/dired ()
+  "Open current directory in dired."
+  (interactive)
+  (dired default-directory))
+
 
 ;;; insert date, time
 (defun yh/insert-date ()

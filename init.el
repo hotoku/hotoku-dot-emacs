@@ -128,6 +128,11 @@
   :init
   (show-paren-mode))
 
+(use-package dired
+  :ensure nil
+  :bind
+  ("C-x C-j" . yh/dired))
+
 
 ;;; misc
 ;; make backup files in a specific directory
