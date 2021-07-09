@@ -12,6 +12,23 @@
 (setq package-archives '(("org" . "http://orgmode.org/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
+
+
+;;; package-refresh-contents
+;; Package-refresh-contents if last update is older than or equal to yesterday.
+  (let* ((path (expand-file-name ".date-of-last-package-refresh-contents" user-emacs-directory))
+         (today (format-time-string "%Y-%m-%d"))
+         (last-date (when (file-exists-p path)
+                      (with-temp-buffer
+                        (insert-file-contents path)
+                        (buffer-substring 1 11))))
+         (should-update (or (not last-date)
+                            (string< last-date today))))
+    (when should-update
+      (package-refresh-contents)
+      (with-temp-buffer
+        (insert today)
+        (write-region (point-min) (point-max) path))))
 (package-initialize)
 
 
@@ -28,348 +45,28 @@
 
 
 ;;; configuration of packages
-(use-package yh :ensure nil
-  :config
-  (yh/package-refresh-contents))
+(use-package yh :ensure nil)
 
-(use-package gnu-elpa-keyring-update) ; This should be first.
-
-(use-package undo-tree
-  :config
-  (global-undo-tree-mode t))
-
-(use-package exec-path-from-shell
-  :config
-  (exec-path-from-shell-initialize))
-
-(use-package magit
-  :bind (("C-c g" . magit))
-  :custom
-  (magit-log-margin '(t "%Y-%m-%d %H:%M:%S" magit-log-margin-width t 18) "show time of the commits"))
-
-(use-package session
-  :config
-  (setq session-name-disable-regexp
-        (rx (or (regexp session-name-disable-regexp)
-                (regexp "/COMMIT_EDITMSG$")))))
-
-(use-package company
-  :config
-  (global-company-mode)
-  (setq-default company-idel-delay 0.01))
-
-(use-package helm
-  :bind (("M-x" . helm-M-x)
-	       ("M-y" . helm-show-kill-ring)
-	       ("C-x C-f" . helm-find-files)
-	       ("C-c h o" . helm-occur)
-	       ("C-c m" . helm-mini))
+(use-package yh-fef :ensure nil
   :hook
-  ((dired-mode . (lambda () (define-key dired-mode-map (kbd "j") 'helm-find-files))))
-  :config
-  (helm-mode 1)
-  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
-  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-  (setq-default
-   helm-idle-delay 0.1
-   helm-input-idle-delay 0.1
-   helm-delete-minibuffer-contents-from-point t
-   helm-ff-auto-update-initial-value nil))
+  (emacs-lisp-mode . (lambda () (add-hook 'before-save-hook 'yh-fef-format-buffer nil t))))
 
-(use-package smartparens
-  :init
-  (smartparens-global-mode)
-  (show-smartparens-global-mode t)
-  :hook
-  ((c-mode-common . turn-on-smartparens-strict-mode)
-   (emacs-lisp-mode . turn-on-smartparens-strict-mode)
-   (python-mode . turn-on-smartparens-strict-mode)
-   (haskell-mode . turn-on-smartparens-strict-mode))
-  :bind (("C-M-f" . sp-forward-slurp-sexp)
-         ("C-M-g" . sp-forward-barf-sexp)))
+(use-package yh-docker :ensure nil)
 
-(use-package smartparens-config :ensure nil)
+(use-package yh-font :ensure nil)
 
-(use-package projectile
-  :config
-  (projectile-mode 1)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+(use-package yh-make :ensure nil)
 
-(use-package open-junk-file
-  :commands open-junk-file)
+(use-package yh-sh :ensure nil)
 
-(use-package yasnippet
-  :config
-  (setq yas-snippet-dirs
-        '("~/.emacs.d/snippets"))
-  (yas-global-mode 1))
-
-(use-package flycheck
-  :config
-  (setq
-   flycheck-check-syntax-automatically '(save idle-change mode-enabled)
-   flycheck-idle-change-delay 1
-   flycheck-emacs-lisp-load-path 'inherit)
-  (add-hook 'after-init-hook 'global-flycheck-mode))
-
-(use-package ace-window
-  :bind (("C-x o" . ace-window)))
-
-(use-package markdown-mode
-  :mode
-  (("\\.md\\'" . markdown-mode))
-  :config
-  (setq
-   ;; commonmarker command can be installed by "gem install -V commonmarker -n <destination directory>"
-   markdown-command "commonmarker --extension=autolink --extension=strikethrough --extension=table --extension=tagfilter --extension=tasklist"
-   markdown-command-needs-filename t
-   markdown-css-paths '("https://cdn.jsdelivr.net/npm/github-markdown-css"
-                        "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/github.min.css")
-   markdown-xhtml-header-content (mapconcat 'identity
-                                            '("<style><!-- CSS HERE --></style>"
-                                              "<script src=\"https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js\"></script>"
-                                              "<script>hljs.initHighlightingOnLoad();</script>")
-                                            "\n")
-   markdown-xhtml-body-preamble "<div class=\"markdown-body\">"
-   markdown-xhtml-body-epilogue "</div>")
-  (bind-keys :map markdown-mode-map
-             ("C-c d" . yh/insert-date)
-             ("C-c t" . yh/insert-time)))
-
-(use-package git-ps1-mode
-  :config
-  ;; Only when __git_ps1 is found by git-ps1-mode-find-ps1-file or site-local/git_ps1_location.el.
-  ;; Site-local/git_ps1_location.el should iclude (setq git-ps1-mode-ps1-file "path/to/git/ps1/function").
-  (when (or (git-ps1-mode-find-ps1-file)
-            (let ((path (expand-file-name "site-local/git-ps1-location.el")))
-              (and (file-exists-p path)
-                   (load-file path))))
-    (add-hook 'dired-mode-hook 'git-ps1-mode)))
-
-(use-package json-mode
-  :mode
-  (("\\.json\\'" . json-mode)
-   ("\\.geojson\\'" . json-mode)))
-
-(use-package yaml-mode
-  :mode
-  (("\\.ya?ml\\'" . yaml-mode)))
-
-(use-package highlight-indentation
-  :hook ((yaml-mode . highlight-indentation-mode)
-         (yaml-mode . highlight-indentation-current-column-mode))
-  :config
-  (set-face-background 'highlight-indentation-face "gray36")
-  (set-face-background 'highlight-indentation-current-column-face "SteelBlue3"))
-
-(use-package flymake-yaml
-  :hook (yaml-mode . flymake-yaml-load))
-
-(use-package dired-x
-  :ensure nil
-  :commands dired-jump
-  :bind
-  (("C-x C-j" . dired-jump)))
-
-(use-package dired
-  :ensure nil
-  :config
-  (bind-key "z" 'yh/dired-do-open dired-mode-map))
-
-(use-package haskell-mode
-  :mode
-  (("\\.hs\\'" . haskell-mode)))
-
-(use-package sh-script
-  :mode
-  (("\\.sh\\'" . shell-script-mode)
-   ("\\.envrc\\'" . shell-script-mode))
-  :config
-  (add-hook 'sh-mode-hook
-            #'(lambda () (add-hook 'after-save-hook 'yh/make-executable nil t))))
-
-(use-package yh-sh
-  :ensure nil
-  :commands yh-sh-insert-var
-  :init
-  (add-hook 'sh-mode-hook
-            #'(lambda () (local-set-key (kbd "C-c C-j") 'yh-sh-insert-var))))
-
-(use-package yh-make
-  :ensure nil
-  :commands yh-make-insert-var
-  :init
-  (add-hook 'makefile-bsdmake-mode-hook
-            #'(lambda () (local-set-key (kbd "C-c C-j") 'yh-make-insert-var))))
-
-(use-package yh-fef
-  :ensure nil)
-
-(use-package yh-blog
-  :ensure nil
-  :commands yh-blog-new yh-blog-preview yh-blog-insert-code yh-blog-compile)
-
-(use-package yh-docker
-  :ensure nil
-  :init
-  (add-hook 'dockerfile-mode-hook
-            #'(lambda () (add-hook 'before-save-hook 'yh-docker-upcase-command nil t))))
-
-(use-package yh-sql :ensure nil
-  :commands yh-sql-format
-  :hook (sql-mode . (lambda () (add-hook 'after-save-hook 'yh-sql-format nil t))))
-
-(use-package yh-font :ensure nil
-  :config
-  (yh-font-initialize))
-
-(use-package elisp-mode
-  :ensure nil
-  :hook
-  (emacs-lisp-mode
-   .
-   (lambda ()
-     (add-hook 'before-save-hook 'yh/indent-buffer nil t)
-     (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
-     (add-hook 'before-save-hook 'yh-fef-format-buffer nil t)
-     (local-set-key (kbd "RET") 'yh/ret-hs)
-     (add-hook 'after-save-hook
-               #'(lambda ()
-                   (save-excursion
-                     (hs-hide-all)
-                     (hs-show-block))) nil t)
-     (emojify-mode -1))))
-
-(use-package cc-mode
-  :config
-  (add-hook 'c-mode-common-hook
-            #'(lambda ()
-                (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)
-                (add-hook 'before-save-hook #'(lambda () (indent-region (point-min) (point-max))) nil t))))
-
-(use-package python
-  :ensure nil
-  :hook
-  (python-mode . (lambda ()
-                   (add-hook 'after-save-hook 'yh/make-executable nil t))))
-
-(use-package hideshow
-  :init
-  (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
-  (add-hook 'emacs-lisp-mode-hook 'hs-hide-all 100)
-  (add-hook 'python-mode-hook 'hs-minor-mode))
-
-(use-package yatex
-
-  ;; cf. https://zenn.dev/maswag/books/latex-on-emacs/viewer/yatex
-  :commands (yatex-mode)
-  :mode (("\\.tex$" . yatex-mode)
-         ("\\.ltx$" . yatex-mode)
-         ("\\.cls$" . yatex-mode)
-         ("\\.sty$" . yatex-mode)
-         ("\\.clo$" . yatex-mode)
-         ("\\.bbl$" . yatex-mode))
-  :init
-  (setq YaTeX-inhibit-prefix-letter t)
-  ;; :config キーワードはライブラリをロードした後の設定などを記述します。
-  :config
-  (setq YaTeX-kanji-code nil)
-  (setq YaTeX-latex-message-code 'utf-8)
-  (setq YaTeX-use-LaTeX2e t)
-  (setq YaTeX-use-AMS-LaTeX t)
-  (setq tex-command "mytex")
-  (setq tex-pdfview-command "/usr/bin/open -a Skim")
-  (auto-fill-mode 0)
-  ;; company-tabnineによる補完。companyについては後述
-  (set (make-local-variable 'company-backends) '(company-tabnine))
-  ;; keys
-  (add-hook 'yatex-mode-hook
-            '(lambda ()
-               (local-set-key (kbd "C-c C-f") 'yh/insert-subscript)
-               (local-set-key (kbd "C-c C-g") 'yh/insert-superscript))))
-
-(use-package biblio)
-
-(use-package stan-mode
-  :mode ("\\.stan\\'" . stan-mode)
-  :hook (stan-mode . stan-mode-setup)
-  :config
-  (setq stan-indentation-offset 2))
-
-(use-package company-stan
-  :hook (stan-mode . company-stan-setup)
-  :config
-  (setq company-stan-fuzzy nil))
-
-(use-package eldoc-stan
-  :hook (stan-mode . eldoc-stan-setup))
-
-(use-package flycheck-stan
-  :hook ((stan-mode . flycheck-stan-stanc2-setup)
-         (stan-mode . flycheck-stan-stanc3-setup))
-  :config
-  (setq flycheck-stanc-executable nil)
-  (setq flycheck-stanc3-executable nil))
-
-(use-package stan-snippets
-  :hook (stan-mode . stan-snippets-initialize))
-
-(use-package dockerfile-mode)
-
-(use-package py-autopep8
-  :hook (python-mode . py-autopep8-enable-on-save))
-
-(use-package emojify
-  :if (display-graphic-p)
-  :hook (after-init . global-emojify-mode)
-  :bind
-  ("C-x e" . 'emojify-insert-emoji))
-
-(use-package dap-mode)
-
-(use-package dap-python :ensure nil)
-
-(use-package which-key
-  :config
-  (which-key-mode))
-
-(use-package js
-  :init
-  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . javascript-mode))
-  :config
-  (setq js-indent-level 2))
-
-(use-package prettier-js
-  :hook
-  ((js-mode . prettier-js-mode)))
-
-(use-package pyenv-mode-auto)
-
-(use-package bazel)
-
-(use-package helm-ag
-  :defer t
-  :init
-  (setq helm-ag-base-command "rg"))
-
-(use-package gitignore-mode
-  :defer t
-  :config
-  :hook (gitignore-mode
-         .
-         (lambda ()
-           (setq-local require-final-newline t)
-           (add-hook 'before-save-hook 'delete-trailing-whitespace nil t))))
-
-(use-package poetry)
+(use-package yh-sql :ensure nil)
 
 (use-package lsp-mode
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
   :hook
-  ((js-mode . lsp)
-   (lsp-mode . lsp-enable-which-key-integration))
+  ((js-mode . lsp))
   :commands
   (lsp lsp-deferred))
 
@@ -390,13 +87,31 @@
 	;;  :path-mappings '(("/Users/hotoku/projects/hotoku/lineage" . "/projects"))
 	;;  :client-packages lsp-docker-client-packages
 	;;  :client-configs lsp-docker-client-configs)
-  :commands lsp-docker-init-clients
-  )
+  :commands lsp-docker-init-clients)
 
 (use-package lsp-pyright
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp-deferred))))  ; or lsp-deferred
+  :hook
+  (python-mode . (lambda ()
+                   (require 'lsp-pyright)
+                   (lsp-deferred))))  ; or lsp-deferred
+
+(use-package flycheck
+  :config
+  (setq
+   flycheck-check-syntax-automatically '(save idle-change mode-enabled)
+   flycheck-idle-change-delay 1
+   flycheck-emacs-lisp-load-path 'inherit)
+  (add-hook 'after-init-hook 'global-flycheck-mode))
+
+(use-package magit
+  :bind (("C-c g" . magit))
+  :custom
+  (magit-log-margin '(t "%Y-%m-%d %H:%M:%S" magit-log-margin-width t 18) "show time of the commits"))
+
+(use-package company
+  :config
+  (global-company-mode)
+  (setq-default company-idel-delay 0.01))
 
 
 ;;; misc
@@ -461,8 +176,7 @@ This is inconvinient when opening file at the beginning of Emacs session."
  '(custom-safe-themes
    '("57e3f215bef8784157991c4957965aa31bac935aca011b29d7d8e113a652b693" "246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
  '(package-selected-packages
-   '(lsp-docker poetry gitignore-mode helm-ag pyenv afuternoon-theme afternoon-theme bazel-mode pyenv-mode-auto prettier-js dap-python py-autopep8 flymake-yaml dockerfile-mode biblio elpy haskell-mode yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company session use-package))
- '(session-use-package t nil (session)))
+   '(yh-make il lsp-docker poetry gitignore-mode helm-ag pyenv afuternoon-theme afternoon-theme bazel-mode pyenv-mode-auto prettier-js dap-python py-autopep8 flymake-yaml dockerfile-mode biblio elpy haskell-mode yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
