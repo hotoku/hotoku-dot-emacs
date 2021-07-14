@@ -16,3 +16,4 @@ flycheck_*
 /.yh-font
 /.desktop/
 /history
+/.emacs.desktop

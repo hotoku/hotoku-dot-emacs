@@ -56,8 +56,8 @@
 (use-package yh-blog :ensure nil)
 
 (use-package yh-fef :ensure nil
-             :hook
-             (emacs-lisp-mode . (lambda () (add-hook 'before-save-hook 'yh-fef-format-buffer nil t))))
+  :hook
+  (emacs-lisp-mode . (lambda () (add-hook 'before-save-hook 'yh-fef-format-buffer nil t))))
 
 (use-package yh-docker :ensure nil)
 
@@ -170,7 +170,7 @@
 
 (use-package dap-python :ensure nil)
 
-(use-package dired-x)
+(use-package dired-x :ensure nil)
 
 (use-package dockerfile-mode)
 
