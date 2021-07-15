@@ -140,7 +140,9 @@
 (use-package dired
   :ensure nil
   :bind
-  ("C-x C-j" . yh/dired))
+  ("C-x C-j" . yh/dired)
+  :config
+  (bind-key "z" 'yh/dired-do-open dired-mode-map))
 
 (use-package savehist
   :init
