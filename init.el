@@ -101,10 +101,38 @@
   :commands lsp-docker-init-clients)
 
 (use-package lsp-pyright
+  :config
+  (defvar python-shell-virtualenv-root "")
+  (defvar python-shell-interpreter "")
+  (defvar python-shell-interpreter-args "")
+  (defvar pyvenv-activate "")
+  (defun yh/lsp-pyright-setup ()
+    "Setup python environment. Inspired from ncaq's init.el.
+https://github.com/ncaq/.emacs.d/blob/d1c8651f2683e110a6e4f7e3cd89c025812a6d0e/init.el#L1321"
+    (cond
+     ;; in poetry project
+     ((locate-dominating-file default-directory "pyproject.toml")
+      (poetry-track-virtualenv)
+      (setq-local lsp-pyright-venv-path
+                  (expand-file-name "site-packages"
+                                    (car (file-expand-wildcards
+                                          (expand-file-name "lib/python*" (poetry-get-virtualenv))))))
+      (lsp))
+     ;; in Pipenv project. but this branch is no tested.
+     ((locate-dominating-file default-directory "Pipfile")
+      (pyvenv-track-virtualenv)
+      (pipenv--force-wait (pipenv-venv))
+      (when python-shell-virtualenv-root
+        (setq-local pyvenv-activate (directory-file-name python-shell-virtualenv-root))
+        (setq-local python-shell-interpreter "pipenv")
+        (setq-local python-shell-interpreter-args "run jupyter console --simple-prompt")
+        (setq-local lsp-pyright-venv-path python-shell-virtualenv-root))
+      (lsp))
+     (t
+      (lsp))))
+
   :hook
-  (python-mode . (lambda ()
-                   (require 'lsp-pyright)
-                   (lsp-deferred))))
+  (python-mode . yh/lsp-pyright-setup))
 
 (use-package flycheck
   :config
