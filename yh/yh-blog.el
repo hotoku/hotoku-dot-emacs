@@ -8,7 +8,8 @@
 (require 'dash)
 
 (defconst yh-blog-posts-dir
-  (let ((dic `(("hotoku-macmini-2020.local" . ,(expand-file-name "~/projects/hotoku/blog/_posts")))))
+  (let ((dic `(("hotoku-macmini-2020.local" . ,(expand-file-name "~/projects/hotoku/blog/_posts"))
+               ("hotoku-macbookair-2019" . ,(expand-file-name "~/projects/hotoku/blog/_posts")))))
     (cdr (assoc (system-name) dic))))
 
 (defun yh-blog-publish ()
