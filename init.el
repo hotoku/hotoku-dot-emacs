@@ -410,6 +410,12 @@
                (local-set-key (kbd "C-c C-f") 'yh/insert-subscript)
                (local-set-key (kbd "C-c C-g") 'yh/insert-superscript))))
 
+(use-package direx)
+
+(use-package dired-k
+  :hook
+  (dired-after-readin . dired-k-no-revert))
+
 
 ;;; misc
 ;; make backup files in a specific directory
@@ -473,7 +479,7 @@ This is inconvinient when opening file at the beginning of Emacs session."
  '(custom-safe-themes
    '("57e3f215bef8784157991c4957965aa31bac935aca011b29d7d8e113a652b693" "246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" default))
  '(package-selected-packages
-   '(exec-path-from-shell dired yh-make il lsp-docker poetry gitignore-mode helm-ag pyenv afuternoon-theme afternoon-theme bazel-mode pyenv-mode-auto prettier-js dap-python py-autopep8 flymake-yaml dockerfile-mode biblio elpy haskell-mode yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company use-package)))
+   '(direx dired-k exec-path-from-shell dired yh-make il lsp-docker poetry gitignore-mode helm-ag pyenv afuternoon-theme afternoon-theme bazel-mode pyenv-mode-auto prettier-js dap-python py-autopep8 flymake-yaml dockerfile-mode biblio elpy haskell-mode yaml-mode json-mode gnu-elpa-keyring-update undo-tree git-ps1-mode ace-window flycheck yasnippet open-junk-file dakrone-theme smartparens helm company use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
