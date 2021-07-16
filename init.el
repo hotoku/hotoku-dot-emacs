@@ -414,7 +414,8 @@
 
 (use-package dired-k
   :hook
-  (dired-after-readin . dired-k-no-revert))
+  (dired-after-readin . dired-k-no-revert)
+  (dired-initial-position . dired-k))
 
 
 ;;; misc
